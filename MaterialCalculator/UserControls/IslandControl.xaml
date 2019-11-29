@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="MaterialCalculator.UserControls.IslandControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:designTime="clr-namespace:MaterialCalculator.DesignTime"
+             xmlns:resources="clr-namespace:MaterialCalculator.Resources"
+             xmlns:models="clr-namespace:MaterialCalculator.Models"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{Binding Source={d:DesignInstance Type=designTime:IslandDesignTimeModel, IsDesignTimeCreatable=True}}">
+
+  <UserControl.Resources>
+    <DataTemplate x:Key="BuildingsTemplate" DataType="models:ProductionBuildingModel">
+      <Grid Height="20" Margin="0,2,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"></ColumnDefinition>
+          <ColumnDefinition Width="*"></ColumnDefinition>
+          <ColumnDefinition Width="75"></ColumnDefinition>
+          <ColumnDefinition Width="75"></ColumnDefinition>
+          <ColumnDefinition Width="75"></ColumnDefinition>
+          <ColumnDefinition Width="75"></ColumnDefinition>
+          <ColumnDefinition Width="5"></ColumnDefinition>
+          <ColumnDefinition Width="22"></ColumnDefinition>
+          <ColumnDefinition Width="5"></ColumnDefinition>
+          <ColumnDefinition Width="22"></ColumnDefinition>
+          <ColumnDefinition Width="5"></ColumnDefinition>
+          <ColumnDefinition Width="22"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Path=BuildingDescription}"></TextBlock>
+        <Image Grid.Column="1" HorizontalAlignment="Left" Source="{Binding Path=MaterialImage}"></Image>
+        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="25,0,0,0" Text="{Binding Path=MaterialDescription}"></TextBlock>
+        <TextBox Grid.Column="2" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray" Text="{Binding Path=NumberOfBuildings.Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="3" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray" Text="{Binding Path=Productivity.Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="4" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray" IsReadOnly="True" 
+                 Text="{Binding Path=OutputTargetString.Value, Mode=OneWay}"></TextBox>
+        <TextBox Grid.Column="5" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray" IsReadOnly="True" 
+                 Text="{Binding Path=OutputActualString.Value, Mode=OneWay}" 
+                 ToolTip="{Binding Path=ConsumerError.Value}"
+                 Background="{Binding Path=StatusBackground.Value}"></TextBox>
+        <Button Grid.Column="7" Background="LightGray" BorderBrush="DimGray" Click="ButtonUp_OnClick">
+          <Image Source="../Resources/Images/Arrow-Up-Blue-3_16x16.scale-150.png"></Image>
+        </Button>
+        <Button Grid.Column="9" Background="LightGray" BorderBrush="DimGray" Click="ButtonDown_OnClick">
+          <Image Source="../Resources/Images/Arrow-Down-Blue-3_16x16.scale-150.png"></Image>
+        </Button>
+        <Button Grid.Column="11" Background="LightGray" BorderBrush="DimGray" Click="ButtonDelete_OnClick">
+          <Image Source="../Resources/Images/Delete-Red_16x16.scale-150.png"></Image>
+        </Button>
+      </Grid>
+    </DataTemplate>
+  </UserControl.Resources>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="22"></RowDefinition>
+      <RowDefinition Height="25"></RowDefinition>
+      <RowDefinition Height="*"></RowDefinition>
+    </Grid.RowDefinitions>
+    <Grid Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="200"></ColumnDefinition>
+        <ColumnDefinition Width="10"></ColumnDefinition>
+        <ColumnDefinition Width="22"></ColumnDefinition>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+      </Grid.ColumnDefinitions>
+      <ComboBox Grid.Column="0" DisplayMemberPath="Item2"
+                ItemsSource="{Binding Path=Buildings, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                SelectedItem="{Binding Path=SelectedBuilding, RelativeSource={RelativeSource AncestorType=UserControl}}"></ComboBox>
+      <Button Grid.Column="2" Background="Transparent" Click="ButtonAddBuilding_OnClick">
+        <Image Source="../Resources/Images/Plus-b_16x16.scale-150.png"></Image>
+      </Button>
+    </Grid>
+    <Grid Row="2">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="22"></RowDefinition>
+        <RowDefinition Height="Auto"></RowDefinition>
+        <RowDefinition Height="*"></RowDefinition>
+      </Grid.RowDefinitions>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"></ColumnDefinition>
+          <ColumnDefinition Width="*"></ColumnDefinition>
+          <ColumnDefinition Width="75"></ColumnDefinition>
+          <ColumnDefinition Width="75"></ColumnDefinition>
+          <ColumnDefinition Width="75"></ColumnDefinition>
+          <ColumnDefinition Width="75"></ColumnDefinition>
+          <ColumnDefinition Width="5"></ColumnDefinition>
+          <ColumnDefinition Width="22"></ColumnDefinition>
+          <ColumnDefinition Width="5"></ColumnDefinition>
+          <ColumnDefinition Width="22"></ColumnDefinition>
+          <ColumnDefinition Width="5"></ColumnDefinition>
+          <ColumnDefinition Width="22"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{x:Static resources:Localization.IslandControl_LabelBuilding}"></TextBlock>
+        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" Text="{x:Static resources:Localization.IslandControl_LabelProduct}"></TextBlock>
+        <TextBlock Grid.Column="2" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Center" Text="{x:Static resources:Localization.IslandControl_LabelCount}"></TextBlock>
+        <TextBlock Grid.Column="3" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Center" Text="{x:Static resources:Localization.IslandControl_LabelProductivity}"></TextBlock>
+        <TextBlock Grid.Column="4" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Center" Text="{x:Static resources:Localization.IslandControl_LabelTarget}"></TextBlock>
+        <TextBlock Grid.Column="5" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Center" Text="{x:Static resources:Localization.IslandControl_LabelActual}"></TextBlock>
+      </Grid>
+      <Border Grid.Row="1" BorderBrush="DimGray" BorderThickness=".5"></Border>
+      <ItemsControl Grid.Row="2" ItemsSource="{Binding Path=Buildings}" ItemTemplate="{StaticResource BuildingsTemplate}"></ItemsControl>
+    </Grid>
+  </Grid>
+
+</UserControl>

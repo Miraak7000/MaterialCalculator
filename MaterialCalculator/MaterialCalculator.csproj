@@ -1,0 +1,192 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Icons\AssetViewer.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\AssetViewer.ico" />
+    <None Remove="Resources\bgr_playercreation_0.png" />
+    <None Remove="Resources\Globalization\DE.xml" />
+    <None Remove="Resources\Globalization\EN.xml" />
+    <None Remove="Resources\Images\Arrow-Down-Blue-3_16x16.scale-150.png" />
+    <None Remove="Resources\Images\Arrow-Up-Blue-3_16x16.scale-150.png" />
+    <None Remove="Resources\Images\Delete-Red_16x16.scale-150.png" />
+    <None Remove="Resources\Images\Edit_16x16.scale-150.png" />
+    <None Remove="Resources\Images\Minus_16x16.scale-150.png" />
+    <None Remove="Resources\Images\Open_16x16.scale-150.png" />
+    <None Remove="Resources\Images\Plus-b_16x16.scale-150.png" />
+    <None Remove="Resources\Images\Save-Options_16x16.scale-150.png" />
+    <None Remove="Resources\Materials\icon_banana.png" />
+    <None Remove="Resources\Materials\icon_beams.png" />
+    <None Remove="Resources\Materials\icon_beer.png" />
+    <None Remove="Resources\Materials\icon_bowler_hat.png" />
+    <None Remove="Resources\Materials\icon_brass.png" />
+    <None Remove="Resources\Materials\icon_bread.png" />
+    <None Remove="Resources\Materials\icon_bricks.png" />
+    <None Remove="Resources\Materials\icon_canned_goulash.png" />
+    <None Remove="Resources\Materials\icon_caoutchouc.png" />
+    <None Remove="Resources\Materials\icon_carbon_filament.png" />
+    <None Remove="Resources\Materials\icon_champagne.png" />
+    <None Remove="Resources\Materials\icon_chassis.png" />
+    <None Remove="Resources\Materials\icon_chocolate.png" />
+    <None Remove="Resources\Materials\icon_cigars.png" />
+    <None Remove="Resources\Materials\icon_clay.png" />
+    <None Remove="Resources\Materials\icon_coal.png" />
+    <None Remove="Resources\Materials\icon_coal_burn.png" />
+    <None Remove="Resources\Materials\icon_cocoa.png" />
+    <None Remove="Resources\Materials\icon_coffee_beans.png" />
+    <None Remove="Resources\Materials\icon_coffe_cup.png" />
+    <None Remove="Resources\Materials\icon_copper.png" />
+    <None Remove="Resources\Materials\icon_corn.png" />
+    <None Remove="Resources\Materials\icon_cotton.png" />
+    <None Remove="Resources\Materials\icon_cotton_fur.png" />
+    <None Remove="Resources\Materials\icon_fish.png" />
+    <None Remove="Resources\Materials\icon_glass.png" />
+    <None Remove="Resources\Materials\icon_glasses.png" />
+    <None Remove="Resources\Materials\icon_glass_window_3.png" />
+    <None Remove="Resources\Materials\icon_gold.png" />
+    <None Remove="Resources\Materials\icon_gold_ore.png" />
+    <None Remove="Resources\Materials\icon_goulash_01.png" />
+    <None Remove="Resources\Materials\icon_grapes.png" />
+    <None Remove="Resources\Materials\icon_high_wheeler.png" />
+    <None Remove="Resources\Materials\icon_inlay.png" />
+    <None Remove="Resources\Materials\icon_iron.png" />
+    <None Remove="Resources\Materials\icon_jewelry.png" />
+    <None Remove="Resources\Materials\icon_light_bulb - Copy.png" />
+    <None Remove="Resources\Materials\icon_meat_raw - Copy.png" />
+    <None Remove="Resources\Materials\icon_meat_sausage - Copy.png" />
+    <None Remove="Resources\Materials\icon_pepper - Copy.png" />
+    <None Remove="Resources\Materials\icon_phonographs - Copy.png" />
+    <None Remove="Resources\Materials\icon_pigs - Copy.png" />
+    <None Remove="Resources\Materials\icon_poncho - Copy.png" />
+    <None Remove="Resources\Materials\icon_potatoes - Copy.png" />
+    <None Remove="Resources\Materials\icon_quartz_sand.png" />
+    <None Remove="Resources\Materials\icon_reinforced_concrete.png" />
+    <None Remove="Resources\Materials\icon_rum_barrel.png" />
+    <None Remove="Resources\Materials\icon_schnapps_3.png" />
+    <None Remove="Resources\Materials\icon_schnapps_4.png" />
+    <None Remove="Resources\Materials\icon_soap_2.png" />
+    <None Remove="Resources\Materials\icon_steam_carriage.png" />
+    <None Remove="Resources\Materials\icon_steam_machine.png" />
+    <None Remove="Resources\Materials\icon_steel.png" />
+    <None Remove="Resources\Materials\icon_tallow.png" />
+    <None Remove="Resources\Materials\icon_time.png" />
+    <None Remove="Resources\Materials\icon_tin_ore.png" />
+    <None Remove="Resources\Materials\icon_tobacco.png" />
+    <None Remove="Resources\Materials\icon_weapons.png" />
+    <None Remove="Resources\Materials\icon_wooden_planks.png" />
+    <None Remove="Resources\Materials\icon_wood_log.png" />
+    <None Remove="Resources\Materials\icon_wool.png" />
+    <None Remove="Resources\Materials\icon_working_cloth.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Globalization\DE.xml" />
+    <EmbeddedResource Include="Resources\Globalization\EN.xml" />
+    <EmbeddedResource Include="Resources\Materials\icon_banana.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_beer.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_bowler_hat.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_brass.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_bread.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_bricks.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_canned_goulash.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_caoutchouc.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_carbon_filament.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_champagne.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_chassis.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_chocolate.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_cigars.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_copper.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_glasses.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_gold.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_gold_ore.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_goulash_01.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_grapes.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_high_wheeler.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_inlay.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_jewelry.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_light_bulb - Copy.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_meat_raw - Copy.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_meat_sausage - Copy.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_pepper - Copy.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_phonographs - Copy.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_pigs - Copy.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_poncho - Copy.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_potatoes - Copy.png" />
+    <Resource Include="Resources\Icons\AssetViewer.ico" />
+    <Resource Include="Resources\Images\Arrow-Down-Blue-3_16x16.scale-150.png" />
+    <Resource Include="Resources\Images\Arrow-Up-Blue-3_16x16.scale-150.png" />
+    <Resource Include="Resources\Images\bgr_playercreation_0.png" />
+    <Resource Include="Resources\Images\Delete-Red_16x16.scale-150.png" />
+    <Resource Include="Resources\Images\Edit_16x16.scale-150.png" />
+    <Resource Include="Resources\Images\Minus_16x16.scale-150.png" />
+    <Resource Include="Resources\Images\Open_16x16.scale-150.png" />
+    <Resource Include="Resources\Images\Plus-b_16x16.scale-150.png" />
+    <Resource Include="Resources\Images\Save-Options_16x16.scale-150.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_beams.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_clay.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_coal.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_coal_burn.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_cocoa.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_coffee_beans.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_coffe_cup.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_corn.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_cotton.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_cotton_fur.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_fish.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_glass.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_glass_window_3.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_iron.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_quartz_sand.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_reinforced_concrete.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_rum_barrel.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_schnapps_3.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_schnapps_4.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_soap_2.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_steam_carriage.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_steam_machine.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_steel.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_tallow.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_time.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_tin_ore.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_tobacco.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_weapons.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_wooden_planks.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_wood_log.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_wool.png" />
+    <EmbeddedResource Include="Resources\Materials\icon_working_cloth.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Localization.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Localization.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Localization.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Localization.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Windows\EditIslandWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Windows\EditIslandWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AssemblyName>MaterialCalculator.Models</AssemblyName>
+    <RootNamespace>MaterialCalculator.Models</RootNamespace>
+  </PropertyGroup>
+
+</Project>

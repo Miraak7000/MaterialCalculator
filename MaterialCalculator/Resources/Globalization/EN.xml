@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Globalization>
+  <MessageBox>
+    <Title>Material Calculator</Title>
+    <RemoveIsland>Do you really want to delete this island?</RemoveIsland>
+    <RemoveBuilding>Do you really want to delete this building?</RemoveBuilding>
+  </MessageBox>
+  <Button>
+    <OK>OK</OK>
+    <Cancel>Cancel</Cancel>
+  </Button>
+  <ApplicationWindow>
+    <Title>Anno 1800 - Material Calculator</Title>
+    <Load>Load data</Load>
+    <Save>Save data</Save>
+    <AddIsland>Add Island</AddIsland>
+    <RemoveIsland>Remove Island</RemoveIsland>
+    <EditIsland>Edit Island</EditIsland>
+  </ApplicationWindow>
+  <AddIslandWindow>
+    <Title>Material Calculator - Add Island</Title>
+    <Label>Name of the island:</Label>
+  </AddIslandWindow>
+  <EditIslandWindow>
+    <Title>Material Calculator - Edit Island</Title>
+    <Label>Name of the island:</Label>
+  </EditIslandWindow>
+  <AddBuildingWindow>
+    <Title>Material Calculator - Add Building</Title>
+    <LabelWherePlaced>Where is the building placed:</LabelWherePlaced>
+    <ItemThisIsland>Production on this island</ItemThisIsland>
+    <ItemAnotherIsland>Import from another island</ItemAnotherIsland>
+    <NumberOfBuildings>Number of buildings:</NumberOfBuildings>
+    <Productivity>Productivity in percent:</Productivity>
+  </AddBuildingWindow>
+  <IslandControl>
+    <LabelBuilding>Building</LabelBuilding>
+    <LabelProduct>Product</LabelProduct>
+    <LabelCount>Count</LabelCount>
+    <LabelProductivity>Productivity</LabelProductivity>
+    <LabelTarget>Target</LabelTarget>
+    <LabelActual>Actual</LabelActual>
+  </IslandControl>
+  <Buildings>
+    <Lumberjack>Lumberjack</Lumberjack>
+    <Sawmill>Sawmill</Sawmill>
+    <CoalMine>Coal Mine</CoalMine>
+    <IronMine>Iron Mine</IronMine>
+    <Furnace>Furnace</Furnace>
+    <Steelworks>Steelworks</Steelworks>
+    <SandMine>Sand Mine</SandMine>
+    <Glassmakers>Glassmakers</Glassmakers>
+    <WindowMakers>Window Makers</WindowMakers>
+    <SpectacleFactory>Spectacle Factory</SpectacleFactory>
+    <FilamentFactory>Filament Factory</FilamentFactory>
+    <LightBulbFactory>Light Bulb Factory</LightBulbFactory>
+    <CharcoalKiln>Charcoal Kiln</CharcoalKiln>
+    <CaoutchoucPlantation>Caoutchouc Plantation</CaoutchoucPlantation>
+    <Coachmakers>Coachmakers</Coachmakers>
+  </Buildings>
+  <Materials>
+    <Wood>Wood</Wood>
+    <Timber>Timber</Timber>
+    <Coal>Coal</Coal>
+    <Iron>Iron</Iron>
+    <Steel>Steel</Steel>
+    <SteelBeams>Steel Beams</SteelBeams>
+    <QuartzSand>Quartz Sand</QuartzSand>
+    <Glass>Glass</Glass>
+    <Windows>Windows</Windows>
+    <Glasses>Glasses</Glasses>
+    <Filaments>Filaments</Filaments>
+    <LightBulbs>LightBulbs</LightBulbs>
+    <Caoutchouc>Caoutchouc</Caoutchouc>
+    <Chassis>Chassis</Chassis>
+  </Materials>
+</Globalization>

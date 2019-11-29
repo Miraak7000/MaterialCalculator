@@ -1,0 +1,38 @@
+﻿<Window x:Class="MaterialCalculator.Windows.EditIslandWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:resources="clr-namespace:MaterialCalculator.Resources"
+        mc:Ignorable="d" d:DataContext="{d:DesignData}" SizeToContent="WidthAndHeight"
+        Title="{x:Static resources:Localization.EditIslandWindow_Title}" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" 
+        ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
+
+  <Grid Margin="10">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="24"></RowDefinition>
+      <RowDefinition Height="25"></RowDefinition>
+      <RowDefinition Height="22"></RowDefinition>
+    </Grid.RowDefinitions>
+    <Grid Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"></ColumnDefinition>
+        <ColumnDefinition Width="10"></ColumnDefinition>
+        <ColumnDefinition Width="300"></ColumnDefinition>
+      </Grid.ColumnDefinitions>
+      <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{x:Static resources:Localization.EditIslandWindow_Label}"></TextBlock>
+      <TextBox x:Name="TextBoxName" Grid.Column="2" Margin="0,2,0,2" Text="{Binding Path=IslandName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+    </Grid>
+    <Grid Row="2">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+        <ColumnDefinition Width="100"></ColumnDefinition>
+        <ColumnDefinition Width="10"></ColumnDefinition>
+        <ColumnDefinition Width="100"></ColumnDefinition>
+      </Grid.ColumnDefinitions>
+      <Button Grid.Column="1" Content="{x:Static resources:Localization.Button_OK}" IsDefault="True" Click="ButtonOK_OnClick"></Button>
+      <Button Grid.Column="3" Content="{x:Static resources:Localization.Button_Cancel}" IsCancel="True"></Button>
+    </Grid>
+  </Grid>
+
+</Window>
