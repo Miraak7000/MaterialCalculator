@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Windows;
+﻿using System.Windows;
 
 namespace MaterialCalculator {
 
@@ -7,7 +6,6 @@ namespace MaterialCalculator {
 
     #region Constructor
     public App() {
-      CultureInfo.CurrentUICulture = new CultureInfo("DE");
     }
     #endregion
 
