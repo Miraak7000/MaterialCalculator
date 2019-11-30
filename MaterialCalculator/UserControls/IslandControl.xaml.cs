@@ -46,14 +46,16 @@ namespace MaterialCalculator.UserControls {
                 };
                 modelProduction.Init();
                 island.Buildings.Add(modelProduction);
+                island.Calculate();
                 break;
               case CreateReferenceBuildingModel model:
                 var modelReference = new ReferenceBuildingModel(this.SelectedBuilding.Item1) {
                   Island = island,
-                  Reference = model.SelectedIsland
+                  ReferenceID = model.SelectedIsland.ID
                 };
                 modelReference.Init();
                 island.Buildings.Add(modelReference);
+                island.Calculate();
                 break;
               default:
                 throw new ArgumentOutOfRangeException($"this model is not supported: {window.Model.Value.GetType()}");

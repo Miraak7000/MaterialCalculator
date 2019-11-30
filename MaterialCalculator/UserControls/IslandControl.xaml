@@ -6,11 +6,13 @@
              xmlns:designTime="clr-namespace:MaterialCalculator.DesignTime"
              xmlns:resources="clr-namespace:MaterialCalculator.Resources"
              xmlns:models="clr-namespace:MaterialCalculator.Models"
-             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:library="clr-namespace:MaterialCalculator.Library"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" Focusable="False"
              d:DataContext="{Binding Source={d:DesignInstance Type=designTime:IslandDesignTimeModel, IsDesignTimeCreatable=True}}">
 
   <UserControl.Resources>
-    <DataTemplate x:Key="BuildingsTemplate" DataType="models:ProductionBuildingModel">
+    <library:BuildingTemplateSelector x:Key="BuildingTemplateSelector"/>
+    <DataTemplate x:Key="ProductionTemplate" DataType="models:ProductionBuildingModel">
       <Grid Height="20" Margin="0,2,0,0">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*"></ColumnDefinition>
@@ -31,6 +33,42 @@
         <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="25,0,0,0" Text="{Binding Path=MaterialDescription}"></TextBlock>
         <TextBox Grid.Column="2" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray" Text="{Binding Path=NumberOfBuildings.Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBox Grid.Column="3" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray" Text="{Binding Path=Productivity.Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="4" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray" IsReadOnly="True" Focusable="False" 
+                 Text="{Binding Path=OutputTargetString.Value, Mode=OneWay}"></TextBox>
+        <TextBox Grid.Column="5" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray" IsReadOnly="True" 
+                 Text="{Binding Path=OutputActualString.Value, Mode=OneWay}" 
+                 ToolTip="{Binding Path=ConsumerError.Value}"
+                 Background="{Binding Path=StatusBackground.Value}"></TextBox>
+        <Button Grid.Column="7" Background="LightGray" BorderBrush="DimGray" Click="ButtonUp_OnClick">
+          <Image Source="../Resources/Images/Arrow-Up-Blue-3_16x16.scale-150.png"></Image>
+        </Button>
+        <Button Grid.Column="9" Background="LightGray" BorderBrush="DimGray" Click="ButtonDown_OnClick">
+          <Image Source="../Resources/Images/Arrow-Down-Blue-3_16x16.scale-150.png"></Image>
+        </Button>
+        <Button Grid.Column="11" Background="LightGray" BorderBrush="DimGray" Click="ButtonDelete_OnClick">
+          <Image Source="../Resources/Images/Delete-Red_16x16.scale-150.png"></Image>
+        </Button>
+      </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="ReferenceTemplate" DataType="models:ReferenceBuildingModel">
+      <Grid Height="20" Margin="0,2,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"></ColumnDefinition>
+          <ColumnDefinition Width="*"></ColumnDefinition>
+          <ColumnDefinition Width="75"></ColumnDefinition>
+          <ColumnDefinition Width="75"></ColumnDefinition>
+          <ColumnDefinition Width="75"></ColumnDefinition>
+          <ColumnDefinition Width="75"></ColumnDefinition>
+          <ColumnDefinition Width="5"></ColumnDefinition>
+          <ColumnDefinition Width="22"></ColumnDefinition>
+          <ColumnDefinition Width="5"></ColumnDefinition>
+          <ColumnDefinition Width="22"></ColumnDefinition>
+          <ColumnDefinition Width="5"></ColumnDefinition>
+          <ColumnDefinition Width="22"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Path=ReferenceName}"></TextBlock>
+        <Image Grid.Column="1" HorizontalAlignment="Left" Source="{Binding Path=MaterialImage}"></Image>
+        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="25,0,0,0" Text="{Binding Path=MaterialDescription}"></TextBlock>
         <TextBox Grid.Column="4" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray" IsReadOnly="True" 
                  Text="{Binding Path=OutputTargetString.Value, Mode=OneWay}"></TextBox>
         <TextBox Grid.Column="5" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray" IsReadOnly="True" 
@@ -63,10 +101,10 @@
         <ColumnDefinition Width="22"></ColumnDefinition>
         <ColumnDefinition Width="*"></ColumnDefinition>
       </Grid.ColumnDefinitions>
-      <ComboBox Grid.Column="0" DisplayMemberPath="Item2"
+      <ComboBox Grid.Column="0" DisplayMemberPath="Item2" Focusable="False"
                 ItemsSource="{Binding Path=Buildings, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                 SelectedItem="{Binding Path=SelectedBuilding, RelativeSource={RelativeSource AncestorType=UserControl}}"></ComboBox>
-      <Button Grid.Column="2" Background="Transparent" Click="ButtonAddBuilding_OnClick">
+      <Button Grid.Column="2" Background="Transparent" Focusable="False" Click="ButtonAddBuilding_OnClick">
         <Image Source="../Resources/Images/Plus-b_16x16.scale-150.png"></Image>
       </Button>
     </Grid>
@@ -99,7 +137,7 @@
         <TextBlock Grid.Column="5" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Center" Text="{x:Static resources:Localization.IslandControl_LabelActual}"></TextBlock>
       </Grid>
       <Border Grid.Row="1" BorderBrush="DimGray" BorderThickness=".5"></Border>
-      <ItemsControl Grid.Row="2" ItemsSource="{Binding Path=Buildings}" ItemTemplate="{StaticResource BuildingsTemplate}"></ItemsControl>
+      <ItemsControl Grid.Row="2" ItemsSource="{Binding Path=Buildings}" ItemTemplateSelector="{StaticResource BuildingTemplateSelector}" Focusable="False"></ItemsControl>
     </Grid>
   </Grid>
 

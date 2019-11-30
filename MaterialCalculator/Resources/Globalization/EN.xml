@@ -35,7 +35,7 @@
     <SelectIsland>Island with production:</SelectIsland>
   </AddBuildingWindow>
   <IslandControl>
-    <LabelBuilding>Building</LabelBuilding>
+    <LabelBuilding>Origin</LabelBuilding>
     <LabelProduct>Product</LabelProduct>
     <LabelCount>Count</LabelCount>
     <LabelProductivity>Productivity</LabelProductivity>

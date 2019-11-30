@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Reflection;
+using System.Windows.Media;
 using System.Xml.Serialization;
 using MaterialCalculator.Attributes;
 using MaterialCalculator.Enumerations;
+using MaterialCalculator.Library;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable MemberCanBeProtected.Global
@@ -17,6 +19,14 @@ namespace MaterialCalculator.Models {
     public Buildings Building { get; set; }
     public abstract Double OutputTarget { get; }
     public abstract Double OutputActual { get; }
+    [XmlIgnore]
+    public NotifyProperty<String> OutputTargetString { get; protected set; }
+    [XmlIgnore]
+    public NotifyProperty<String> OutputActualString { get; protected set; }
+    [XmlIgnore]
+    public NotifyProperty<SolidColorBrush> StatusBackground { get; protected set; }
+    [XmlIgnore]
+    public NotifyProperty<String> ConsumerError { get; protected set; }
     public ProductionAttribute Production {
       get { return typeof(Buildings).GetField(Enum.GetName(typeof(Buildings), this.Building)).GetCustomAttribute<ProductionAttribute>(false); }
     }

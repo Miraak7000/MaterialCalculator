@@ -23,17 +23,11 @@ namespace MaterialCalculator.Models {
     public override Double OutputActual {
       get { return 1D / this.Production.Duration * (this.Productivity.Value / 100D) * this.NumberOfBuildings.Value * 60; }
     }
-    [XmlIgnore]
-    public NotifyProperty<String> OutputTargetString { get; private set; }
-    [XmlIgnore]
-    public NotifyProperty<String> OutputActualString { get; private set; }
-    [XmlIgnore]
-    public NotifyProperty<SolidColorBrush> StatusBackground { get; private set; }
-    [XmlIgnore]
-    public NotifyProperty<String> ConsumerError { get; private set; }
     #endregion
 
     #region Constructor
+    // ReSharper disable once UnusedMember.Local
+    // needs to stay for deserializing
     private ProductionBuildingModel() {
     }
     public ProductionBuildingModel(Buildings building) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using System.Xml.Serialization;
 using MaterialCalculator.Enumerations;
@@ -12,7 +13,14 @@ namespace MaterialCalculator.Models {
   public class ReferenceBuildingModel : BuildingModel {
 
     #region Properties
-    public IslandModel Reference { get; set; }
+    public Guid ReferenceID { get; set; }
+    public String ReferenceName {
+      get {
+        var applicationModel = ((MainWindow)Application.Current.MainWindow)?.Model.Value;
+        var name = applicationModel?.Islands.Where(w => w.ID == this.ReferenceID).Select(s => s.Name.Value).SingleOrDefault();
+        return name;
+      }
+    }
     public override Double OutputTarget {
       get {
         var consumers = this.Island.Buildings.OfType<ProductionBuildingModel>().Where(w => w.Production.Inputs.Contains(this.Production.Output)).ToArray();
@@ -21,19 +29,13 @@ namespace MaterialCalculator.Models {
     }
     public override Double OutputActual {
       get {
-        var buildings = this.Reference.Buildings.OfType<ProductionBuildingModel>().Where(w => w.Production.Output == this.Production.Output).ToArray();
+        var applicationModel = ((MainWindow)Application.Current.MainWindow)?.Model.Value;
+        if (applicationModel == null) return 0;
+        var buildings = applicationModel.Islands.Where(w => w.ID == this.ReferenceID).SelectMany(s => s.Buildings).OfType<ProductionBuildingModel>().Where(w => w.Production.Output == this.Production.Output).ToArray();
         var output = buildings.Sum(s => s.OutputActual);
         return output;
       }
     }
-    [XmlIgnore]
-    public NotifyProperty<String> OutputTargetString { get; private set; }
-    [XmlIgnore]
-    public NotifyProperty<String> OutputActualString { get; private set; }
-    [XmlIgnore]
-    public NotifyProperty<SolidColorBrush> StatusBackground { get; private set; }
-    [XmlIgnore]
-    public NotifyProperty<String> ConsumerError { get; private set; }
     #endregion
 
     #region Constructor
