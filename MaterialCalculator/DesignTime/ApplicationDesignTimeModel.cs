@@ -14,9 +14,9 @@ namespace MaterialCalculator.DesignTime {
     #region Constructor
     public ApplicationDesignTimeModel() {
       this.Model = new NotifyProperty<ApplicationModel>(new ApplicationModel());
-      this.Model.Value.Islands.Add(new IslandModel() { Name = new NotifyProperty<String>("Example Island 1") });
-      this.Model.Value.Islands.Add(new IslandModel() { Name = new NotifyProperty<String>("Example Island 2") });
-      this.Model.Value.Islands.Add(new IslandModel() { Name = new NotifyProperty<String>("Example Island 3") });
+      this.Model.Value.Islands.Add(new IslandModel { Name = new NotifyProperty<String>("Example Island 1") });
+      this.Model.Value.Islands.Add(new IslandModel { Name = new NotifyProperty<String>("Example Island 2") });
+      this.Model.Value.Islands.Add(new IslandModel { Name = new NotifyProperty<String>("Example Island 3") });
     }
     #endregion
 

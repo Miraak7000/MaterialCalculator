@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using MaterialCalculator.Enumerations;
 using MaterialCalculator.Models;
 
 // ReSharper disable ClassNeverInstantiated.Global

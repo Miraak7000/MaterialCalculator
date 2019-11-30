@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,8 +16,8 @@ namespace MaterialCalculator.Windows {
     #endregion
 
     #region Fields
-    private static readonly Regex IntegerInput = new Regex("[^0-9.-]+");
     private readonly Buildings Building;
+    private static readonly Regex IntegerInput = new Regex("[^0-9.-]+");
     #endregion
 
     #region Constructor

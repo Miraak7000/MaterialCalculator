@@ -5,33 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:resources="clr-namespace:MaterialCalculator.Resources"
         mc:Ignorable="d" d:DataContext="{d:DesignData}" SizeToContent="WidthAndHeight"
-        Title="{x:Static resources:Localization.EditIslandWindow_Title}" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" 
+        Title="{x:Static resources:Localization.EditIslandWindow_Title}" WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
         ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
 
   <Grid Margin="10">
     <Grid.RowDefinitions>
-      <RowDefinition Height="24"></RowDefinition>
-      <RowDefinition Height="25"></RowDefinition>
-      <RowDefinition Height="22"></RowDefinition>
+      <RowDefinition Height="24" />
+      <RowDefinition Height="25" />
+      <RowDefinition Height="22" />
     </Grid.RowDefinitions>
     <Grid Row="0">
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"></ColumnDefinition>
-        <ColumnDefinition Width="10"></ColumnDefinition>
-        <ColumnDefinition Width="300"></ColumnDefinition>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="10" />
+        <ColumnDefinition Width="300" />
       </Grid.ColumnDefinitions>
-      <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{x:Static resources:Localization.EditIslandWindow_Label}"></TextBlock>
-      <TextBox x:Name="TextBoxName" Grid.Column="2" Margin="0,2,0,2" Text="{Binding Path=IslandName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+      <TextBlock Grid.Column="0" VerticalAlignment="Center"
+                 Text="{x:Static resources:Localization.EditIslandWindow_Label}" />
+      <TextBox x:Name="TextBoxName" Grid.Column="2" Margin="0,2,0,2"
+               Text="{Binding Path=IslandName, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
     <Grid Row="2">
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"></ColumnDefinition>
-        <ColumnDefinition Width="100"></ColumnDefinition>
-        <ColumnDefinition Width="10"></ColumnDefinition>
-        <ColumnDefinition Width="100"></ColumnDefinition>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="100" />
+        <ColumnDefinition Width="10" />
+        <ColumnDefinition Width="100" />
       </Grid.ColumnDefinitions>
-      <Button Grid.Column="1" Content="{x:Static resources:Localization.Button_OK}" IsDefault="True" Click="ButtonOK_OnClick"></Button>
-      <Button Grid.Column="3" Content="{x:Static resources:Localization.Button_Cancel}" IsCancel="True"></Button>
+      <Button Grid.Column="1" Content="{x:Static resources:Localization.Button_OK}" IsDefault="True"
+              Click="ButtonOK_OnClick" />
+      <Button Grid.Column="3" Content="{x:Static resources:Localization.Button_Cancel}" IsCancel="True" />
     </Grid>
   </Grid>
 

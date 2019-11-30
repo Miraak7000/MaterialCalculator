@@ -7,61 +7,75 @@
         xmlns:models="clr-namespace:MaterialCalculator.Models"
         xmlns:userControls="clr-namespace:MaterialCalculator.UserControls"
         xmlns:resources="clr-namespace:MaterialCalculator.Resources"
-        mc:Ignorable="d" d:DataContext="{Binding Source={d:DesignInstance Type=design:ApplicationDesignTimeModel, IsDesignTimeCreatable=True}}"
+        mc:Ignorable="d"
+        d:DataContext="{Binding Source={d:DesignInstance Type=design:ApplicationDesignTimeModel, IsDesignTimeCreatable=True}}"
         Title="{x:Static resources:Localization.ApplicationWindow_Title}" WindowStartupLocation="CenterScreen"
         Height="500" Width="800" MinHeight="500" MinWidth="800">
 
   <Window.Background>
-    <ImageBrush ImageSource="Resources/Images/bgr_playercreation_0.png"></ImageBrush>
+    <ImageBrush ImageSource="Resources/Images/bgr_playercreation_0.png" />
   </Window.Background>
 
   <Window.Resources>
     <DataTemplate x:Key="TabControlItemTemplate" DataType="models:IslandModel">
       <Grid MinWidth="100" Height="22">
-        <TextBlock Margin="0,0,10,0" VerticalAlignment="Center" Text="{Binding Path=Name.Value}"/>
+        <TextBlock Margin="0,0,10,0" VerticalAlignment="Center" Text="{Binding Path=Name.Value}" />
       </Grid>
     </DataTemplate>
     <DataTemplate x:Key="TabControlContentTemplate" DataType="models:IslandModel">
-      <userControls:IslandControl Margin="5"></userControls:IslandControl>
+      <userControls:IslandControl Margin="5" />
     </DataTemplate>
     <Style x:Key="myStyle" TargetType="TabItem">
-      <Setter Property="Background" Value="Transparent"></Setter>
-      <Setter Property="Margin" Value="1,0,0,0"></Setter>
-      <Setter Property="BorderBrush" Value="DimGray"></Setter>
-      <Setter Property="BorderThickness" Value="0"></Setter>
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Margin" Value="1,0,0,0" />
+      <Setter Property="BorderBrush" Value="DimGray" />
+      <Setter Property="BorderThickness" Value="0" />
     </Style>
   </Window.Resources>
 
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <ToolBarPanel Grid.Row="0" HorizontalAlignment="Left" Margin="2,5,0,0">
       <StackPanel Orientation="Horizontal">
-        <Button Width="24" Height="24" Background="LightGray" ToolTip="{x:Static resources:Localization.ApplicationWindow_Load}" Click="ButtonLoad_OnClick" Focusable="False">
-          <Image Source="Resources/Images/Open_16x16.scale-150.png"/>
+        <Button Width="24" Height="24" Background="LightGray"
+                ToolTip="{x:Static resources:Localization.ApplicationWindow_Load}" Click="ButtonLoad_OnClick"
+                Focusable="False">
+          <Image Source="Resources/Images/Open_16x16.scale-150.png" />
         </Button>
-        <Button Width="24" Height="24" Margin="5,0,0,0" Background="LightGray" ToolTip="{x:Static resources:Localization.ApplicationWindow_Save}" Click="ButtonSave_OnClick" Focusable="False">
-          <Image Source="Resources/Images/Save-Options_16x16.scale-150.png"/>
+        <Button Width="24" Height="24" Margin="5,0,0,0" Background="LightGray"
+                ToolTip="{x:Static resources:Localization.ApplicationWindow_Save}" Click="ButtonSave_OnClick"
+                Focusable="False">
+          <Image Source="Resources/Images/Save-Options_16x16.scale-150.png" />
         </Button>
-        <Border Margin="10,0,10,0" BorderThickness=".5" BorderBrush="DimGray"></Border>
-        <Button Width="24" Height="24" Background="LightGray" ToolTip="{x:Static resources:Localization.ApplicationWindow_AddIsland}" Click="ButtonAddIsland_OnClick" Focusable="False">
-          <Image Source="Resources/Images/Plus-b_16x16.scale-150.png"/>
+        <Border Margin="10,0,10,0" BorderThickness=".5" BorderBrush="DimGray" />
+        <Button Width="24" Height="24" Background="LightGray"
+                ToolTip="{x:Static resources:Localization.ApplicationWindow_AddIsland}" Click="ButtonAddIsland_OnClick"
+                Focusable="False">
+          <Image Source="Resources/Images/Plus-b_16x16.scale-150.png" />
         </Button>
-        <Button Width="24" Height="24" Margin="5,0,0,0" Background="LightGray" ToolTip="{x:Static resources:Localization.ApplicationWindow_RemoveIsland}" Click="ButtonRemoveIsland_OnClick" Focusable="False">
-          <Image Source="Resources/Images/Minus_16x16.scale-150.png"/>
+        <Button Width="24" Height="24" Margin="5,0,0,0" Background="LightGray"
+                ToolTip="{x:Static resources:Localization.ApplicationWindow_RemoveIsland}"
+                Click="ButtonRemoveIsland_OnClick" Focusable="False">
+          <Image Source="Resources/Images/Minus_16x16.scale-150.png" />
         </Button>
-        <Button Width="24" Height="24" Margin="5,0,0,0" Background="LightGray" ToolTip="{x:Static resources:Localization.ApplicationWindow_EditIsland}" Click="ButtonEditIsland_OnClick" Focusable="False">
-          <Image Source="Resources/Images/Edit_16x16.scale-150.png"/>
+        <Button Width="24" Height="24" Margin="5,0,0,0" Background="LightGray"
+                ToolTip="{x:Static resources:Localization.ApplicationWindow_EditIsland}"
+                Click="ButtonEditIsland_OnClick" Focusable="False">
+          <Image Source="Resources/Images/Edit_16x16.scale-150.png" />
         </Button>
       </StackPanel>
     </ToolBarPanel>
-    <TabControl Grid.Row="1" Margin="-3,5,0,0" TabStripPlacement="Left" HorizontalContentAlignment="Stretch" Background="Transparent" BorderThickness="1,1,0,0" Focusable="False"
-                BorderBrush="DimGray" ItemsSource="{Binding Path=Model.Value.Islands}" ItemContainerStyle="{StaticResource myStyle}" SelectedItem="{Binding Path=Model.Value.SelectedIsland.Value}"
-                ItemTemplate="{StaticResource TabControlItemTemplate}" ContentTemplate="{StaticResource TabControlContentTemplate}"
-                SelectionChanged="Island_OnSelectionChanged">
-    </TabControl>
+    <TabControl Grid.Row="1" Margin="-3,5,0,0" TabStripPlacement="Left" HorizontalContentAlignment="Stretch"
+                Background="Transparent" BorderThickness="1,1,0,0" Focusable="False"
+                BorderBrush="DimGray" ItemsSource="{Binding Path=Model.Value.Islands}"
+                ItemContainerStyle="{StaticResource myStyle}"
+                SelectedItem="{Binding Path=Model.Value.SelectedIsland.Value}"
+                ItemTemplate="{StaticResource TabControlItemTemplate}"
+                ContentTemplate="{StaticResource TabControlContentTemplate}"
+                SelectionChanged="Island_OnSelectionChanged" />
   </Grid>
 
 </Window>
