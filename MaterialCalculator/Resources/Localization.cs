@@ -83,6 +83,9 @@ namespace MaterialCalculator.Resources {
     public static String AddBuildingWindow_Productivity {
       get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("AddBuildingWindow")?.Element("Productivity")?.Value; }
     }
+    public static String AddBuildingWindow_SelectIsland {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("AddBuildingWindow")?.Element("SelectIsland")?.Value; }
+    }
     //
     public static String IslandControl_LabelBuilding {
       get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("IslandControl")?.Element("LabelBuilding")?.Value; }

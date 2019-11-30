@@ -1,12 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Windows.Media;
 using System.Xml.Serialization;
-using MaterialCalculator.Attributes;
 using MaterialCalculator.Enumerations;
 using MaterialCalculator.Library;
 
@@ -40,15 +35,11 @@ namespace MaterialCalculator.Models {
     public NotifyProperty<String> ConsumerError { get; private set; }
     #endregion
 
-    #region Fields
-    #endregion
-
     #region Constructor
     private ReferenceBuildingModel() {
     }
     public ReferenceBuildingModel(Buildings building) {
       this.Building = building;
-      this.Init();
     }
     #endregion
 

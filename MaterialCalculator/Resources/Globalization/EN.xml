@@ -32,6 +32,7 @@
     <ItemAnotherIsland>Import from another island</ItemAnotherIsland>
     <NumberOfBuildings>Number of buildings:</NumberOfBuildings>
     <Productivity>Productivity in percent:</Productivity>
+    <SelectIsland>Island with production:</SelectIsland>
   </AddBuildingWindow>
   <IslandControl>
     <LabelBuilding>Building</LabelBuilding>

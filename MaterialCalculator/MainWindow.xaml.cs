@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Xml.Serialization;
 using MaterialCalculator.Library;
 using MaterialCalculator.Models;
@@ -94,6 +94,10 @@ namespace MaterialCalculator {
       var xmlSerializer = new XmlSerializer(typeof(ApplicationModel));
       using var stream = new StreamWriter(file);
       xmlSerializer.Serialize(stream, this.Model.Value);
+    }
+    private void Island_OnSelectionChanged(Object sender, SelectionChangedEventArgs e) {
+      var island = e.AddedItems.OfType<IslandModel>().SingleOrDefault();
+      island?.Calculate();
     }
     #endregion
 

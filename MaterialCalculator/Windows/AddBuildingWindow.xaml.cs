@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,6 +33,18 @@ namespace MaterialCalculator.Windows {
 
     #region Events
     private void ButtonOK_OnClick(Object sender, RoutedEventArgs e) {
+      if (this.Model.Value == null) return;
+      switch (this.Model.Value) {
+        case CreateProductionBuildingModel model:
+          if (model.NumberOfBuildings < 1) return;
+          if (model.Productivity < 0) return;
+          break;
+        case CreateReferenceBuildingModel model:
+          if (model.SelectedIsland == null) return;
+          break;
+        default:
+          throw new ArgumentOutOfRangeException($"this model is not supported: {this.Model.Value.GetType()}");
+      }
       this.DialogResult = true;
       this.Close();
     }
@@ -46,7 +59,7 @@ namespace MaterialCalculator.Windows {
           this.Model.Value = new CreateProductionBuildingModel(this.Building);
           break;
         case 1:
-          this.Model.Value = new CreateReferenceBuildingModel();
+          this.Model.Value = new CreateReferenceBuildingModel(this.Building);
           break;
         default:
           throw new ArgumentOutOfRangeException($"this index is not supported: {index}");

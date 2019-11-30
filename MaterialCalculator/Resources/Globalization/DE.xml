@@ -27,11 +27,12 @@
   </EditIslandWindow>
   <AddBuildingWindow>
     <Title>Material Rechner - Gebäude hinzufügen</Title>
-    <LabelWherePlaced>Where is the building placed:</LabelWherePlaced>
-    <ItemThisIsland>Production on this island</ItemThisIsland>
-    <ItemAnotherIsland>Import from another island</ItemAnotherIsland>
-    <NumberOfBuildings>Number of buildings:</NumberOfBuildings>
+    <LabelWherePlaced>Wo befindet sich das Gebäude:</LabelWherePlaced>
+    <ItemThisIsland>Produktion auf dieser Insel</ItemThisIsland>
+    <ItemAnotherIsland>Import von einer anderen Insel</ItemAnotherIsland>
+    <NumberOfBuildings>Anzahl an Gebäuden:</NumberOfBuildings>
     <Productivity>Productivity in percent:</Productivity>
+    <SelectIsland>Insel mit Produktion:</SelectIsland>
   </AddBuildingWindow>
   <IslandControl>
     <LabelBuilding>Gebäude</LabelBuilding>

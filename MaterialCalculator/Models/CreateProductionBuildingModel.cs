@@ -11,7 +11,7 @@ namespace MaterialCalculator.Models {
     #endregion
 
     #region Constructor
-    public CreateProductionBuildingModel(Buildings building) {
+    public CreateProductionBuildingModel(Buildings building) : base(building) {
       this.NumberOfBuildings = 1;
       this.Productivity = 100;
     }

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Windows.Media;
 using System.Xml.Serialization;
-using MaterialCalculator.Attributes;
 using MaterialCalculator.Enumerations;
 using MaterialCalculator.Library;
 
@@ -37,9 +33,6 @@ namespace MaterialCalculator.Models {
     public NotifyProperty<String> ConsumerError { get; private set; }
     #endregion
 
-    #region Fields
-    #endregion
-
     #region Constructor
     private ProductionBuildingModel() {
     }
@@ -47,7 +40,6 @@ namespace MaterialCalculator.Models {
       this.Building = building;
       this.NumberOfBuildings = new NotifyProperty<Int32>(1);
       this.Productivity = new NotifyProperty<Int32>(100);
-      this.Init();
     }
     #endregion
 

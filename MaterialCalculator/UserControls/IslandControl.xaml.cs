@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using MaterialCalculator.Attributes;
 using MaterialCalculator.Enumerations;
+using MaterialCalculator.Library;
 using MaterialCalculator.Models;
 using MaterialCalculator.Windows;
 using Localization = MaterialCalculator.Resources.Localization;
@@ -35,9 +36,28 @@ namespace MaterialCalculator.UserControls {
         var window = new AddBuildingWindow(this.SelectedBuilding.Item1);
         var result = window.ShowDialog();
         if (result.HasValue && result.Value) {
-          if (this.DataContext is IslandModel model) {
-            //window.Model.Island = model;
-            //model.Buildings.Add(window.Model);
+          if (this.DataContext is IslandModel island) {
+            switch (window.Model.Value) {
+              case CreateProductionBuildingModel model:
+                var modelProduction = new ProductionBuildingModel(this.SelectedBuilding.Item1) {
+                  Island = island,
+                  NumberOfBuildings = new NotifyProperty<Int32>(model.NumberOfBuildings),
+                  Productivity = new NotifyProperty<Int32>(model.Productivity)
+                };
+                modelProduction.Init();
+                island.Buildings.Add(modelProduction);
+                break;
+              case CreateReferenceBuildingModel model:
+                var modelReference = new ReferenceBuildingModel(this.SelectedBuilding.Item1) {
+                  Island = island,
+                  Reference = model.SelectedIsland
+                };
+                modelReference.Init();
+                island.Buildings.Add(modelReference);
+                break;
+              default:
+                throw new ArgumentOutOfRangeException($"this model is not supported: {window.Model.Value.GetType()}");
+            }
           }
         }
       }
@@ -45,12 +65,12 @@ namespace MaterialCalculator.UserControls {
     private void ButtonDelete_OnClick(Object sender, RoutedEventArgs e) {
       var result = MessageBox.Show(Application.Current.MainWindow, Localization.MessageBox_RemoveBuilding, Localization.MessageBox_Title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
       if (result == MessageBoxResult.Yes) {
-        var model = (ProductionBuildingModel)((Button)e.Source).DataContext;
+        var model = (BuildingModel)((Button)e.Source).DataContext;
         model.Island.Buildings.Remove(model);
       }
     }
     private void ButtonUp_OnClick(Object sender, RoutedEventArgs e) {
-      var model = (ProductionBuildingModel)((Button)e.Source).DataContext;
+      var model = (BuildingModel)((Button)e.Source).DataContext;
       var sorting = model.Island.Buildings.ToArray();
       var index = Array.IndexOf(sorting, model);
       if (index > 0) {
@@ -59,7 +79,7 @@ namespace MaterialCalculator.UserControls {
       }
     }
     private void ButtonDown_OnClick(Object sender, RoutedEventArgs e) {
-      var model = (ProductionBuildingModel)((Button)e.Source).DataContext;
+      var model = (BuildingModel)((Button)e.Source).DataContext;
       var sorting = model.Island.Buildings.ToArray();
       var index = Array.IndexOf(sorting, model);
       if (index < model.Island.Buildings.Count - 1) {
