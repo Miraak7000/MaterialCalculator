@@ -39,8 +39,8 @@
     <LabelProduct>Product</LabelProduct>
     <LabelCount>Count</LabelCount>
     <LabelProductivity>Productivity</LabelProductivity>
-    <LabelTarget>Target</LabelTarget>
-    <LabelActual>Actual</LabelActual>
+    <LabelTarget>Target/min</LabelTarget>
+    <LabelActual>Actual/min</LabelActual>
   </IslandControl>
   <Buildings>
     <Lumberjack>Lumberjack</Lumberjack>

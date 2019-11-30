@@ -6,6 +6,7 @@ using MaterialCalculator.Enumerations;
 using MaterialCalculator.Library;
 
 // ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 namespace MaterialCalculator.Models {
 
   public class ReferenceBuildingModel : BuildingModel {
@@ -36,6 +37,8 @@ namespace MaterialCalculator.Models {
     #endregion
 
     #region Constructor
+    // ReSharper disable once UnusedMember.Local
+    // needs to stay for deserializing
     private ReferenceBuildingModel() {
     }
     public ReferenceBuildingModel(Buildings building) {

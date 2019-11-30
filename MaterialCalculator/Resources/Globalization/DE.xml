@@ -39,8 +39,8 @@
     <LabelProduct>Produkt</LabelProduct>
     <LabelCount>Anzahl</LabelCount>
     <LabelProductivity>Produktivität</LabelProductivity>
-    <LabelTarget>Soll</LabelTarget>
-    <LabelActual>Ist</LabelActual>
+    <LabelTarget>Soll/min</LabelTarget>
+    <LabelActual>Ist/min</LabelActual>
   </IslandControl>
   <Buildings>
     <Lumberjack>Holzfäller</Lumberjack>
