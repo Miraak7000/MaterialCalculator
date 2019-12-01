@@ -45,14 +45,10 @@ namespace MaterialCalculator {
 
     #region Protected Methods
     protected override void OnClosing(CancelEventArgs e) {
-      this.Settings.Value.Language = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper();
-      this.Settings.Value.WindowTop = this.Top;
-      this.Settings.Value.WindowLeft = this.Left;
-      this.Settings.Value.WindowHeight = this.Height;
-      this.Settings.Value.WindowWidth = this.Width;
-      this.SaveSettings();
-      this.SaveModel();
       base.OnClosing(e);
+      if (Application.Current.MainWindow == this) {
+        this.Finish();
+      }
     }
     #endregion
 
@@ -159,6 +155,15 @@ namespace MaterialCalculator {
         }
         this.Model.Value.SelectedIsland.Value = this.Model.Value.Islands.FirstOrDefault();
       }
+    }
+    internal void Finish() {
+      this.Settings.Value.Language = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper();
+      this.Settings.Value.WindowTop = this.Top;
+      this.Settings.Value.WindowLeft = this.Left;
+      this.Settings.Value.WindowHeight = this.Height;
+      this.Settings.Value.WindowWidth = this.Width;
+      this.SaveSettings();
+      this.SaveModel();
     }
     #endregion
 

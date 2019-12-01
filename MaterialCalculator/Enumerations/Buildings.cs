@@ -31,6 +31,8 @@ namespace MaterialCalculator.Enumerations {
     CharcoalKiln,
     [Production(Materials.Caoutchouc, 60), LocalizedDescription(typeof(Buildings), "CaoutchoucPlantation")]
     CaoutchoucPlantation,
+    [Production(Materials.Chassis, 120, Materials.Wood, Materials.Caoutchouc), LocalizedDescription(typeof(Buildings), "Coachmakers")]
+    Coachmakers,
     [Production(Materials.Zinc, 30), LocalizedDescription(typeof(Buildings), "ZincMine")]
     ZincMine,
     [Production(Materials.Copper, 30), LocalizedDescription(typeof(Buildings), "CopperMine")]
