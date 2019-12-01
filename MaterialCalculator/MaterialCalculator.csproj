@@ -16,6 +16,7 @@
     <None Remove="Resources\Images\Arrow-Up-Blue-3_16x16.scale-150.png" />
     <None Remove="Resources\Images\Delete-Red_16x16.scale-150.png" />
     <None Remove="Resources\Images\Edit_16x16.scale-150.png" />
+    <None Remove="Resources\Images\Gridlines-b_16x16.scale-150.png" />
     <None Remove="Resources\Images\Minus_16x16.scale-150.png" />
     <None Remove="Resources\Images\Open_16x16.scale-150.png" />
     <None Remove="Resources\Images\Plus-b_16x16.scale-150.png" />
@@ -123,6 +124,7 @@
     <Resource Include="Resources\Images\bgr_playercreation_0.png" />
     <Resource Include="Resources\Images\Delete-Red_16x16.scale-150.png" />
     <Resource Include="Resources\Images\Edit_16x16.scale-150.png" />
+    <Resource Include="Resources\Images\Gridlines-b_16x16.scale-150.png" />
     <Resource Include="Resources\Images\Minus_16x16.scale-150.png" />
     <Resource Include="Resources\Images\Open_16x16.scale-150.png" />
     <Resource Include="Resources\Images\Plus-b_16x16.scale-150.png" />

@@ -37,6 +37,7 @@ namespace MaterialCalculator.Models {
     }
     public void Calculate() {
       foreach (var building in this.Buildings) {
+        if (building is SeparatorBuildingModel) continue;
         building.OutputTargetString.Value = Math.Abs(building.OutputTarget) < 0.1 ? String.Empty : building.OutputTarget.ToString("F3");
         building.OutputActualString.Value = building.OutputActual.ToString("F3");
         building.StatusBackground.Value = new SolidColorBrush(Colors.White);
@@ -45,7 +46,7 @@ namespace MaterialCalculator.Models {
           // check for inputs
           var errors = new List<String>();
           foreach (var input in building.Production.Inputs) {
-            var suppliers = this.Buildings.Where(w => w.Production.Output == input).ToArray();
+            var suppliers = this.Buildings.Where(w => w.Production != null && w.Production.Output == input).ToArray();
             if (suppliers.Sum(s => s.OutputActual) < building.OutputActual) {
               building.StatusBackground.Value = new SolidColorBrush(Colors.LightPink);
               if (suppliers.Length == 0) {
@@ -64,7 +65,7 @@ namespace MaterialCalculator.Models {
           }
         }
         // check for consumers
-        var output = this.Buildings.Where(w => w.Production.Output == building.Production.Output).Sum(s => s.OutputActual);
+        var output = this.Buildings.Where(w => w.Production != null && w.Production.Output == building.Production.Output).Sum(s => s.OutputActual);
         var consumers = this.Buildings.OfType<ProductionBuildingModel>().Where(w => w.Production.Inputs.Contains(building.Production.Output)).ToArray();
         if (consumers.Sum(s => s.OutputActual) > output) {
           building.StatusBackground.Value = new SolidColorBrush(Colors.LightPink);

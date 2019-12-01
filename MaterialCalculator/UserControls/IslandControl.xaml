@@ -7,7 +7,7 @@
              xmlns:resources="clr-namespace:MaterialCalculator.Resources"
              xmlns:models="clr-namespace:MaterialCalculator.Models"
              xmlns:library="clr-namespace:MaterialCalculator.Library"
-             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" Focusable="False"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" Focusable="False" SnapsToDevicePixels="True"
              d:DataContext="{Binding Source={d:DesignInstance Type=designTime:IslandDesignTimeModel, IsDesignTimeCreatable=True}}">
 
   <UserControl.Resources>
@@ -21,12 +21,6 @@
           <ColumnDefinition Width="75" />
           <ColumnDefinition Width="75" />
           <ColumnDefinition Width="75" />
-          <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="22" />
-          <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="22" />
-          <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="22" />
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Path=BuildingDescription}" />
         <Image Grid.Column="1" HorizontalAlignment="Left" Source="{Binding Path=MaterialImage}" />
@@ -44,15 +38,6 @@
                  Text="{Binding Path=OutputActualString.Value, Mode=OneWay}"
                  ToolTip="{Binding Path=ConsumerError.Value}"
                  Background="{Binding Path=StatusBackground.Value}" />
-        <Button Grid.Column="7" Background="LightGray" BorderBrush="DimGray" Click="ButtonUp_OnClick">
-          <Image Source="../Resources/Images/Arrow-Up-Blue-3_16x16.scale-150.png" />
-        </Button>
-        <Button Grid.Column="9" Background="LightGray" BorderBrush="DimGray" Click="ButtonDown_OnClick">
-          <Image Source="../Resources/Images/Arrow-Down-Blue-3_16x16.scale-150.png" />
-        </Button>
-        <Button Grid.Column="11" Background="LightGray" BorderBrush="DimGray" Click="ButtonDelete_OnClick">
-          <Image Source="../Resources/Images/Delete-Red_16x16.scale-150.png" />
-        </Button>
       </Grid>
     </DataTemplate>
     <DataTemplate x:Key="ReferenceTemplate" DataType="models:ReferenceBuildingModel">
@@ -64,12 +49,6 @@
           <ColumnDefinition Width="75" />
           <ColumnDefinition Width="75" />
           <ColumnDefinition Width="75" />
-          <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="22" />
-          <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="22" />
-          <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="22" />
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Path=ReferenceName}" />
         <Image Grid.Column="1" HorizontalAlignment="Left" Source="{Binding Path=MaterialImage}" />
@@ -83,15 +62,11 @@
                  Text="{Binding Path=OutputActualString.Value, Mode=OneWay}"
                  ToolTip="{Binding Path=ConsumerError.Value}"
                  Background="{Binding Path=StatusBackground.Value}" />
-        <Button Grid.Column="7" Background="LightGray" BorderBrush="DimGray" Click="ButtonUp_OnClick">
-          <Image Source="../Resources/Images/Arrow-Up-Blue-3_16x16.scale-150.png" />
-        </Button>
-        <Button Grid.Column="9" Background="LightGray" BorderBrush="DimGray" Click="ButtonDown_OnClick">
-          <Image Source="../Resources/Images/Arrow-Down-Blue-3_16x16.scale-150.png" />
-        </Button>
-        <Button Grid.Column="11" Background="LightGray" BorderBrush="DimGray" Click="ButtonDelete_OnClick">
-          <Image Source="../Resources/Images/Delete-Red_16x16.scale-150.png" />
-        </Button>
+      </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="SeparatorTemplate" DataType="models:SeparatorBuildingModel">
+      <Grid Height="5" Margin="0,2,0,0">
+        <Border BorderThickness="0,1,0,0" BorderBrush="DimGray" VerticalAlignment="Center" />
       </Grid>
     </DataTemplate>
   </UserControl.Resources>
@@ -107,6 +82,10 @@
         <ColumnDefinition Width="200" />
         <ColumnDefinition Width="10" />
         <ColumnDefinition Width="22" />
+        <ColumnDefinition Width="10" />
+        <ColumnDefinition Width="22" />
+        <ColumnDefinition Width="10" />
+        <ColumnDefinition Width="22" />
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
       <ComboBox Grid.Column="0" DisplayMemberPath="Item2" Focusable="False"
@@ -114,6 +93,12 @@
                 SelectedItem="{Binding Path=SelectedBuilding, RelativeSource={RelativeSource AncestorType=UserControl}}" />
       <Button Grid.Column="2" Background="Transparent" Focusable="False" Click="ButtonAddBuilding_OnClick">
         <Image Source="../Resources/Images/Plus-b_16x16.scale-150.png" />
+      </Button>
+      <Button Grid.Column="4" Background="Transparent" Focusable="False" Click="ButtonDelete_OnClick">
+        <Image Source="../Resources/Images/Minus_16x16.scale-150.png" />
+      </Button>
+      <Button Grid.Column="6" Background="Transparent" Focusable="False" Click="ButtonAddSeparator_OnClick">
+        <Image Source="../Resources/Images/Gridlines-b_16x16.scale-150.png" />
       </Button>
     </Grid>
     <Grid Row="2">
@@ -130,12 +115,6 @@
           <ColumnDefinition Width="75" />
           <ColumnDefinition Width="75" />
           <ColumnDefinition Width="75" />
-          <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="22" />
-          <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="22" />
-          <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="22" />
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" VerticalAlignment="Center"
                    Text="{x:Static resources:Localization.IslandControl_LabelBuilding}" />
@@ -151,8 +130,13 @@
                    Text="{x:Static resources:Localization.IslandControl_LabelActual}" />
       </Grid>
       <Border Grid.Row="1" BorderBrush="DimGray" BorderThickness=".5" />
-      <ItemsControl Grid.Row="2" ItemsSource="{Binding Path=Buildings}"
-                    ItemTemplateSelector="{StaticResource BuildingTemplateSelector}" Focusable="False" />
+      <ListView x:Name="ListViewBuildings" Grid.Row="2" ItemsSource="{Binding Path=Buildings}" Focusable="False"
+                HorizontalContentAlignment="Stretch" Background="Transparent" AllowDrop="True"
+                ItemTemplateSelector="{StaticResource BuildingTemplateSelector}" BorderThickness="0"
+                PreviewMouseLeftButtonDown="Buildings_PreviewMouseLeftButtonDown"
+                PreviewMouseMove="Buildings_MouseMove"               
+                Drop="Buildings_OnDrop" DragEnter="Buildings_OnDragEnter">
+      </ListView>
     </Grid>
   </Grid>
 

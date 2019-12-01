@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using MaterialCalculator.Attributes;
 using MaterialCalculator.Enumerations;
 using MaterialCalculator.Library;
@@ -22,6 +24,10 @@ namespace MaterialCalculator.UserControls {
       get { return Enum.GetNames(typeof(Buildings)).Select(s => new Tuple<Buildings, String>(Enum.Parse<Buildings>(s), typeof(Buildings).GetField(s).GetCustomAttribute<LocalizedDescriptionAttribute>(false).Value)).OrderBy(o => o.Item2); }
     }
     public Tuple<Buildings, String> SelectedBuilding { get; set; }
+    #endregion
+
+    #region Fields
+    private Point StartPoint;
     #endregion
 
     #region Constructor
@@ -64,29 +70,57 @@ namespace MaterialCalculator.UserControls {
         }
       }
     }
+    private void ButtonAddSeparator_OnClick(Object sender, RoutedEventArgs e) {
+      if (this.DataContext is IslandModel island) {
+        var modelSeparator = new SeparatorBuildingModel {
+          Island = island
+        };
+        island.Buildings.Add(modelSeparator);
+      }
+    }
     private void ButtonDelete_OnClick(Object sender, RoutedEventArgs e) {
+      if (this.ListViewBuildings.SelectedItem == null) return;
       var result = MessageBox.Show(Application.Current.MainWindow, Localization.MessageBox_RemoveBuilding, Localization.MessageBox_Title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
       if (result == MessageBoxResult.Yes) {
-        var model = (BuildingModel)((Button)e.Source).DataContext;
+        var model = (BuildingModel)this.ListViewBuildings.SelectedItem;
         model.Island.Buildings.Remove(model);
       }
     }
-    private void ButtonUp_OnClick(Object sender, RoutedEventArgs e) {
-      var model = (BuildingModel)((Button)e.Source).DataContext;
-      var sorting = model.Island.Buildings.ToArray();
-      var index = Array.IndexOf(sorting, model);
-      if (index > 0) {
-        model.Island.Buildings.Remove(model);
-        model.Island.Buildings.Insert(index - 1, model);
+    private void Buildings_PreviewMouseLeftButtonDown(Object sender, MouseButtonEventArgs e) {
+      this.StartPoint = e.GetPosition(null);
+    }
+    private void Buildings_MouseMove(Object sender, MouseEventArgs e) {
+      if (sender is ListView listView) {
+        var mousePosition = e.GetPosition(null);
+        var diff = this.StartPoint - mousePosition;
+        if (e.LeftButton == MouseButtonState.Pressed && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)) {
+          var source = (DependencyObject)e.OriginalSource;
+          var listViewItem = source.FindAnchestor<ListViewItem>();
+          if (listViewItem != null) {
+            var building = (BuildingModel)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
+            var dragData = new DataObject("BuildingObject", building);
+            DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
+          }
+        }
       }
     }
-    private void ButtonDown_OnClick(Object sender, RoutedEventArgs e) {
-      var model = (BuildingModel)((Button)e.Source).DataContext;
-      var sorting = model.Island.Buildings.ToArray();
-      var index = Array.IndexOf(sorting, model);
-      if (index < model.Island.Buildings.Count - 1) {
-        model.Island.Buildings.Remove(model);
-        model.Island.Buildings.Insert(index + 1, model);
+    private void Buildings_OnDrop(Object sender, DragEventArgs e) {
+      if (sender is ListView listView && e.Data.GetDataPresent("BuildingObject")) {
+        if (e.Data.GetData("BuildingObject") is BuildingModel building) {
+          var source = (DependencyObject)e.OriginalSource;
+          var listViewItem = source.FindAnchestor<ListViewItem>();
+          if (listViewItem != null) {
+            var newIndex = listView.Items.IndexOf(listViewItem.Content);
+            var list = listView.ItemsSource as ObservableCollection<BuildingModel>;
+            list.RemoveAt(list.IndexOf(building));
+            list.Insert(newIndex, building);
+          }
+        }
+      }
+    }
+    private void Buildings_OnDragEnter(Object sender, DragEventArgs e) {
+      if (!e.Data.GetDataPresent("BuildingObject") || sender == e.Source) {
+        e.Effects = DragDropEffects.None;
       }
     }
     #endregion
