@@ -30,7 +30,21 @@ namespace MaterialCalculator.Enumerations {
     [LocalizedDescription(typeof(Materials), "Caoutchouc"), Image("icon_caoutchouc.png")]
     Caoutchouc,
     [LocalizedDescription(typeof(Materials), "Chassis"), Image("icon_chassis.png")]
-    Chassis
+    Chassis,
+    [LocalizedDescription(typeof(Materials), "Zinc"), Image("icon_tin_ore.png")]
+    Zinc,
+    [LocalizedDescription(typeof(Materials), "Copper"), Image("icon_copper.png")]
+    Copper,
+    [LocalizedDescription(typeof(Materials), "Brass"), Image("icon_brass.png")]
+    Brass,
+    [LocalizedDescription(typeof(Materials), "SteamMotors"), Image("icon_steam_machine.png")]
+    SteamMotors,
+    [LocalizedDescription(typeof(Materials), "SteamCarriages"), Image("icon_steam_carriage.png")]
+    SteamCarriages,
+    [LocalizedDescription(typeof(Materials), "WoodVeneers"), Image("icon_inlay.png")]
+    WoodVeneers,
+    [LocalizedDescription(typeof(Materials), "Gramophones"), Image("icon_phonographs - Copy.png")]
+    Gramophones
   }
 
 }

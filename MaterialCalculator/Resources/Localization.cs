@@ -24,6 +24,12 @@ namespace MaterialCalculator.Resources {
     public static String MessageBox_RemoveBuilding {
       get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("MessageBox")?.Element("RemoveBuilding")?.Value; }
     }
+    public static String MessageBox_FileNotLoaded {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("MessageBox")?.Element("FileNotLoaded")?.Value; }
+    }
+    public static String MessageBox_FileNotSaved {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("MessageBox")?.Element("FileNotSaved")?.Value; }
+    }
     //
     public static String Button_OK {
       get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Button")?.Element("OK")?.Value; }
@@ -151,6 +157,27 @@ namespace MaterialCalculator.Resources {
     public static String Buildings_Coachmakers {
       get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("Coachmakers")?.Value; }
     }
+    public static String Buildings_ZincMine {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("ZincMine")?.Value; }
+    }
+    public static String Buildings_CopperMine {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("CopperMine")?.Value; }
+    }
+    public static String Buildings_BrassSmeltery {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("BrassSmeltery")?.Value; }
+    }
+    public static String Buildings_MotorAssemblyLine {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("MotorAssemblyLine")?.Value; }
+    }
+    public static String Buildings_CabAssemblyLine {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("CabAssemblyLine")?.Value; }
+    }
+    public static String Buildings_MarquetryWorkshop {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("MarquetryWorkshop")?.Value; }
+    }
+    public static String Buildings_GramophoneFactory {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("GramophoneFactory")?.Value; }
+    }
     //
     public static String Materials_Wood {
       get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("Wood")?.Value; }
@@ -193,6 +220,27 @@ namespace MaterialCalculator.Resources {
     }
     public static String Materials_Chassis {
       get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("Chassis")?.Value; }
+    }
+    public static String Materials_Zinc {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("Zinc")?.Value; }
+    }
+    public static String Materials_Copper {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("Copper")?.Value; }
+    }
+    public static String Materials_Brass {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("Brass")?.Value; }
+    }
+    public static String Materials_SteamMotors {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("SteamMotors")?.Value; }
+    }
+    public static String Materials_SteamCarriages {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("SteamCarriages")?.Value; }
+    }
+    public static String Materials_WoodVeneers {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("WoodVeneers")?.Value; }
+    }
+    public static String Materials_Gramophones {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("Gramophones")?.Value; }
     }
     //
     #endregion

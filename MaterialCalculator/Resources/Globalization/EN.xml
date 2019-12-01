@@ -5,6 +5,8 @@
     <Title>Material Calculator</Title>
     <RemoveIsland>Do you really want to delete this island?</RemoveIsland>
     <RemoveBuilding>Do you really want to delete this building?</RemoveBuilding>
+    <FileNotLoaded>File could not be loaded.</FileNotLoaded>
+    <FileNotSaved>File could not be saved.</FileNotSaved>
   </MessageBox>
   <Button>
     <OK>OK</OK>
@@ -59,6 +61,13 @@
     <CharcoalKiln>Charcoal Kiln</CharcoalKiln>
     <CaoutchoucPlantation>Caoutchouc Plantation</CaoutchoucPlantation>
     <Coachmakers>Coachmakers</Coachmakers>
+    <ZincMine>Zinc Mine</ZincMine>
+    <CopperMine>Copper Mine</CopperMine>
+    <BrassSmeltery>Brass Smeltery</BrassSmeltery>
+    <MotorAssemblyLine>Motor Assembly Line</MotorAssemblyLine>
+    <CabAssemblyLine>Cab Assembly Line</CabAssemblyLine>
+    <MarquetryWorkshop>Marquetry Workshop</MarquetryWorkshop>
+    <GramophoneFactory>Gramophone Factory</GramophoneFactory>
   </Buildings>
   <Materials>
     <Wood>Wood</Wood>
@@ -75,5 +84,12 @@
     <LightBulbs>LightBulbs</LightBulbs>
     <Caoutchouc>Caoutchouc</Caoutchouc>
     <Chassis>Chassis</Chassis>
+    <Zinc>Zinc</Zinc>
+    <Copper>Copper</Copper>
+    <Brass>Brass</Brass>
+    <SteamMotors>SteamMotors</SteamMotors>
+    <SteamCarriages>SteamCarriages</SteamCarriages>
+    <WoodVeneers>Wood Veneers</WoodVeneers>
+    <Gramophones>Gramophones</Gramophones>
   </Materials>
 </Globalization>

@@ -31,8 +31,20 @@ namespace MaterialCalculator.Enumerations {
     CharcoalKiln,
     [Production(Materials.Caoutchouc, 60), LocalizedDescription(typeof(Buildings), "CaoutchoucPlantation")]
     CaoutchoucPlantation,
-    [Production(Materials.Chassis, 120, Materials.Wood, Materials.Caoutchouc), LocalizedDescription(typeof(Buildings), "Coachmakers")]
-    Coachmakers
+    [Production(Materials.Zinc, 30), LocalizedDescription(typeof(Buildings), "ZincMine")]
+    ZincMine,
+    [Production(Materials.Copper, 30), LocalizedDescription(typeof(Buildings), "CopperMine")]
+    CopperMine,
+    [Production(Materials.Brass, 60, Materials.Zinc, Materials.Copper), LocalizedDescription(typeof(Buildings), "BrassSmeltery")]
+    BrassSmeltery,
+    [Production(Materials.SteamMotors, 45, Materials.Steel, Materials.Brass), LocalizedDescription(typeof(Buildings), "MotorAssemblyLine")]
+    MotorAssemblyLine,
+    [Production(Materials.SteamCarriages, 30, Materials.Chassis, Materials.SteamMotors), LocalizedDescription(typeof(Buildings), "CabAssemblyLine")]
+    CabAssemblyLine,
+    [Production(Materials.WoodVeneers, 60, Materials.Wood), LocalizedDescription(typeof(Buildings), "MarquetryWorkshop")]
+    MarquetryWorkshop,
+    [Production(Materials.Gramophones, 60, Materials.WoodVeneers, Materials.Brass), LocalizedDescription(typeof(Buildings), "GramophoneFactory")]
+    GramophoneFactory
   }
 
 }
