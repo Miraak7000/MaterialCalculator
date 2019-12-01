@@ -68,6 +68,11 @@
     <CabAssemblyLine>Cab Assembly Line</CabAssemblyLine>
     <MarquetryWorkshop>Marquetry Workshop</MarquetryWorkshop>
     <GramophoneFactory>Gramophone Factory</GramophoneFactory>
+    <Vineyard>Vineyard</Vineyard>
+    <ChampagneCellar>Champagne Cellar</ChampagneCellar>
+    <CoffeePlantation>Coffee Plantation</CoffeePlantation>
+    <CoffeeRoaster>Coffee Roaster</CoffeeRoaster>
+    <GoldMine>Gold Mine</GoldMine>
   </Buildings>
   <Materials>
     <Wood>Wood</Wood>
@@ -91,5 +96,10 @@
     <SteamCarriages>SteamCarriages</SteamCarriages>
     <WoodVeneers>Wood Veneers</WoodVeneers>
     <Gramophones>Gramophones</Gramophones>
+    <Grapes>Grapes</Grapes>
+    <Champagne>Champagne</Champagne>
+    <CoffeeBeans>Coffee Beans</CoffeeBeans>
+    <Coffee>Coffee</Coffee>
+    <GoldOre>Gold Ore</GoldOre>
   </Materials>
 </Globalization>

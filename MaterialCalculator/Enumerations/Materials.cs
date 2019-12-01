@@ -44,7 +44,17 @@ namespace MaterialCalculator.Enumerations {
     [LocalizedDescription(typeof(Materials), "WoodVeneers"), Image("icon_inlay.png")]
     WoodVeneers,
     [LocalizedDescription(typeof(Materials), "Gramophones"), Image("icon_phonographs - Copy.png")]
-    Gramophones
+    Gramophones,
+    [LocalizedDescription(typeof(Materials), "Grapes"), Image("icon_grapes.png")]
+    Grapes,
+    [LocalizedDescription(typeof(Materials), "Champagne"), Image("icon_champagne.png")]
+    Champagne,
+    [LocalizedDescription(typeof(Materials), "CoffeeBeans"), Image("icon_coffee_beans.png")]
+    CoffeeBeans,
+    [LocalizedDescription(typeof(Materials), "Coffee"), Image("icon_coffe_cup.png")]
+    Coffee,
+    [LocalizedDescription(typeof(Materials), "GoldOre"), Image("icon_gold_ore.png")]
+    GoldOre
   }
 
 }

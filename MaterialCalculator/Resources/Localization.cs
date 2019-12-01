@@ -178,6 +178,21 @@ namespace MaterialCalculator.Resources {
     public static String Buildings_GramophoneFactory {
       get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("GramophoneFactory")?.Value; }
     }
+    public static String Buildings_Vineyard {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("Vineyard")?.Value; }
+    }
+    public static String Buildings_ChampagneCellar {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("ChampagneCellar")?.Value; }
+    }
+    public static String Buildings_CoffeePlantation {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("CoffeePlantation")?.Value; }
+    }
+    public static String Buildings_CoffeeRoaster {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("CoffeeRoaster")?.Value; }
+    }
+    public static String Buildings_GoldMine {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("GoldMine")?.Value; }
+    }
     //
     public static String Materials_Wood {
       get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("Wood")?.Value; }
@@ -241,6 +256,21 @@ namespace MaterialCalculator.Resources {
     }
     public static String Materials_Gramophones {
       get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("Gramophones")?.Value; }
+    }
+    public static String Materials_Grapes {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("Grapes")?.Value; }
+    }
+    public static String Materials_Champagne {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("Champagne")?.Value; }
+    }
+    public static String Materials_CoffeeBeans {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("CoffeeBeans")?.Value; }
+    }
+    public static String Materials_Coffee {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("Coffee")?.Value; }
+    }
+    public static String Materials_GoldOre {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Materials")?.Element("GoldOre")?.Value; }
     }
     //
     #endregion

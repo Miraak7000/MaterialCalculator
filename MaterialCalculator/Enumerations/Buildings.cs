@@ -46,7 +46,17 @@ namespace MaterialCalculator.Enumerations {
     [Production(Materials.WoodVeneers, 60, Materials.Wood), LocalizedDescription(typeof(Buildings), "MarquetryWorkshop")]
     MarquetryWorkshop,
     [Production(Materials.Gramophones, 60, Materials.WoodVeneers, Materials.Brass), LocalizedDescription(typeof(Buildings), "GramophoneFactory")]
-    GramophoneFactory
+    GramophoneFactory,
+    [Production(Materials.Grapes, 120), LocalizedDescription(typeof(Buildings), "Vineyard")]
+    Vineyard,
+    [Production(Materials.Champagne, 30, Materials.Grapes, Materials.Glass), LocalizedDescription(typeof(Buildings), "ChampagneCellar")]
+    ChampagneCellar,
+    [Production(Materials.CoffeeBeans, 60), LocalizedDescription(typeof(Buildings), "CoffeePlantation")]
+    CoffeePlantation,
+    [Production(Materials.Coffee, 30, Materials.CoffeeBeans), LocalizedDescription(typeof(Buildings), "CoffeeRoaster")]
+    CoffeeRoaster,
+    [Production(Materials.GoldOre, 150), LocalizedDescription(typeof(Buildings), "GoldMine")]
+    GoldMine
   }
 
 }
