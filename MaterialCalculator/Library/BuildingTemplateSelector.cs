@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using MaterialCalculator.Models;
+using MaterialCalculator.Models.Work;
 
 namespace MaterialCalculator.Library {
 
@@ -9,7 +9,7 @@ namespace MaterialCalculator.Library {
 
     #region Public Methods
     public override DataTemplate SelectTemplate(Object item, DependencyObject container) {
-      if (container is FrameworkElement element && item is BuildingModel) {
+      if (container is FrameworkElement element && item is BaseModel) {
         switch (item) {
           case ProductionBuildingModel _:
             return element.FindResource("ProductionTemplate") as DataTemplate;

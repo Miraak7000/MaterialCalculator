@@ -1,11 +1,11 @@
 ﻿using MaterialCalculator.Enumerations;
 
-namespace MaterialCalculator.Models {
+namespace MaterialCalculator.Models.Create {
 
   public abstract class CreateBuildingModel {
 
     #region Properties
-    public Buildings Building { get; }
+    protected Buildings Building { get; }
     #endregion
 
     #region Constructor

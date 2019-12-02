@@ -9,7 +9,9 @@ using System.Windows.Input;
 using MaterialCalculator.Attributes;
 using MaterialCalculator.Enumerations;
 using MaterialCalculator.Library;
-using MaterialCalculator.Models;
+using MaterialCalculator.Models.Create;
+using MaterialCalculator.Models.Island;
+using MaterialCalculator.Models.Work;
 using MaterialCalculator.Windows;
 using Localization = MaterialCalculator.Resources.Localization;
 
@@ -17,7 +19,7 @@ using Localization = MaterialCalculator.Resources.Localization;
 // ReSharper disable once MemberCanBeMadeStatic.Global
 namespace MaterialCalculator.UserControls {
 
-  public partial class IslandControl : UserControl {
+  public partial class IslandControl {
 
     #region Properties
     public IEnumerable<Tuple<Buildings, String>> Buildings {
@@ -82,7 +84,7 @@ namespace MaterialCalculator.UserControls {
       if (this.ListViewBuildings.SelectedItem == null) return;
       var result = MessageBox.Show(Application.Current.MainWindow, Localization.MessageBox_RemoveBuilding, Localization.MessageBox_Title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
       if (result == MessageBoxResult.Yes) {
-        var model = (BuildingModel)this.ListViewBuildings.SelectedItem;
+        var model = (BaseModel)this.ListViewBuildings.SelectedItem;
         model.Island.Buildings.Remove(model);
       }
     }
@@ -97,7 +99,7 @@ namespace MaterialCalculator.UserControls {
           var source = (DependencyObject)e.OriginalSource;
           var listViewItem = source.FindAnchestor<ListViewItem>();
           if (listViewItem != null) {
-            var building = (BuildingModel)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
+            var building = (BaseModel)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
             var dragData = new DataObject("BuildingObject", building);
             DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
           }
@@ -106,14 +108,15 @@ namespace MaterialCalculator.UserControls {
     }
     private void Buildings_OnDrop(Object sender, DragEventArgs e) {
       if (sender is ListView listView && e.Data.GetDataPresent("BuildingObject")) {
-        if (e.Data.GetData("BuildingObject") is BuildingModel building) {
+        if (e.Data.GetData("BuildingObject") is BaseModel building) {
           var source = (DependencyObject)e.OriginalSource;
           var listViewItem = source.FindAnchestor<ListViewItem>();
           if (listViewItem != null) {
             var newIndex = listView.Items.IndexOf(listViewItem.Content);
-            var list = listView.ItemsSource as ObservableCollection<BuildingModel>;
-            list.RemoveAt(list.IndexOf(building));
-            list.Insert(newIndex, building);
+            if (listView.ItemsSource is ObservableCollection<BaseModel> list) {
+              list.RemoveAt(list.IndexOf(building));
+              list.Insert(newIndex, building);
+            }
           }
         }
       }

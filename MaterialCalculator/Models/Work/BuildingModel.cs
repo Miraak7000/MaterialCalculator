@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Media;
 using System.Xml.Serialization;
@@ -10,15 +9,13 @@ using MaterialCalculator.Library;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable ReturnTypeCanBeEnumerable.Global
-namespace MaterialCalculator.Models {
+namespace MaterialCalculator.Models.Work {
 
-  [XmlInclude(typeof(ProductionBuildingModel)), XmlInclude(typeof(ReferenceBuildingModel)), XmlInclude(typeof(SeparatorBuildingModel))]
-  public abstract class BuildingModel {
+  [XmlInclude(typeof(ProductionBuildingModel)), XmlInclude(typeof(ReferenceBuildingModel))]
+  public abstract class BuildingModel : BaseModel {
 
     #region Properties
-    [XmlIgnore]
-    public IslandModel Island { get; set; }
-    public Buildings? Building { get; set; }
+    public Buildings Building { get; set; }
     public abstract Double OutputTarget { get; }
     public abstract Double OutputActual { get; }
     [XmlIgnore]
@@ -30,7 +27,7 @@ namespace MaterialCalculator.Models {
     [XmlIgnore]
     public NotifyProperty<String> ConsumerError { get; protected set; }
     public ProductionAttribute Production {
-      get { return this.Building == null ? null : typeof(Buildings).GetField(Enum.GetName(typeof(Buildings), this.Building)).GetCustomAttribute<ProductionAttribute>(false); }
+      get { return typeof(Buildings).GetField(Enum.GetName(typeof(Buildings), this.Building)).GetCustomAttribute<ProductionAttribute>(false); }
     }
     public String BuildingDescription {
       get { return typeof(Buildings).GetField(this.Building.ToString()).GetCustomAttribute<LocalizedDescriptionAttribute>(false).Value; }

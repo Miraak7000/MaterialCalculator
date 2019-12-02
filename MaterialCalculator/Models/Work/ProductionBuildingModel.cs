@@ -6,7 +6,7 @@ using MaterialCalculator.Enumerations;
 using MaterialCalculator.Library;
 
 // ReSharper disable MemberCanBePrivate.Global
-namespace MaterialCalculator.Models {
+namespace MaterialCalculator.Models.Work {
 
   public class ProductionBuildingModel : BuildingModel {
 

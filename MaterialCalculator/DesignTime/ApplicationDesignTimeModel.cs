@@ -1,6 +1,7 @@
 ﻿using System;
 using MaterialCalculator.Library;
-using MaterialCalculator.Models;
+using MaterialCalculator.Models.Island;
+using MaterialCalculator.Models.Main;
 
 // ReSharper disable ClassNeverInstantiated.Global
 namespace MaterialCalculator.DesignTime {

@@ -2,9 +2,10 @@
 using System.Windows;
 
 // ReSharper disable once MemberCanBePrivate.Global
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
 namespace MaterialCalculator.Windows {
 
-  public partial class AddIslandWindow : Window {
+  public partial class AddIslandWindow {
 
     #region Properties
     public String IslandName { get; set; }

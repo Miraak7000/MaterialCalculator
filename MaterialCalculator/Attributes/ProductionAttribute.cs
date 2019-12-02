@@ -6,9 +6,9 @@ namespace MaterialCalculator.Attributes {
   public class ProductionAttribute : Attribute {
 
     #region Properties
-    public Int32 Duration { get; set; }
-    public Materials[] Inputs { get; set; }
-    public Materials Output { get; set; }
+    public Int32 Duration { get; }
+    public Materials[] Inputs { get; }
+    public Materials Output { get; }
     #endregion
 
     #region Constructor

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using MaterialCalculator.Resources;
 
+// ReSharper disable SuggestBaseTypeForParameter
 namespace MaterialCalculator.Attributes {
 
   public class LocalizedDescriptionAttribute : DescriptionAttribute {

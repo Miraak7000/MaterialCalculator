@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:designTime="clr-namespace:MaterialCalculator.DesignTime"
              xmlns:resources="clr-namespace:MaterialCalculator.Resources"
-             xmlns:models="clr-namespace:MaterialCalculator.Models"
              xmlns:library="clr-namespace:MaterialCalculator.Library"
+             xmlns:work="clr-namespace:MaterialCalculator.Models.Work"
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" Focusable="False" SnapsToDevicePixels="True"
              d:DataContext="{Binding Source={d:DesignInstance Type=designTime:IslandDesignTimeModel, IsDesignTimeCreatable=True}}">
 
   <UserControl.Resources>
     <library:BuildingTemplateSelector x:Key="BuildingTemplateSelector" />
-    <DataTemplate x:Key="ProductionTemplate" DataType="models:ProductionBuildingModel">
+    <DataTemplate x:Key="ProductionTemplate" DataType="work:ProductionBuildingModel">
       <Grid Height="20" Margin="2">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
@@ -40,7 +40,7 @@
                  Background="{Binding Path=StatusBackground.Value}" />
       </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="ReferenceTemplate" DataType="models:ReferenceBuildingModel">
+    <DataTemplate x:Key="ReferenceTemplate" DataType="work:ReferenceBuildingModel">
       <Grid Height="20" Margin="0,2,0,0">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
@@ -64,20 +64,22 @@
                  Background="{Binding Path=StatusBackground.Value}" />
       </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="SeparatorTemplate" DataType="models:SeparatorBuildingModel">
+    <DataTemplate x:Key="SeparatorTemplate" DataType="work:SeparatorBuildingModel">
       <Grid Height="5" Margin="0,2,0,0">
         <Border BorderThickness="0,1,0,0" BorderBrush="DimGray" VerticalAlignment="Center" />
       </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="GroupTemplate" DataType="models:GroupBuildingModel">
+    <DataTemplate x:Key="GroupTemplate" DataType="work:GroupBuildingModel">
       <Border BorderThickness="1" BorderBrush="DimGray" CornerRadius="2">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="22" />
             <RowDefinition Height="Auto" />
           </Grid.RowDefinitions>
-          <ListView Grid.Row="0" BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch" Margin="0"  Padding="0"
-                    ItemTemplateSelector="{StaticResource BuildingTemplateSelector}" ItemsSource="{Binding Path=InputBuildings}"/>
+          <ListView Grid.Row="0" BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch"
+                    Margin="0" Padding="0"
+                    ItemTemplateSelector="{StaticResource BuildingTemplateSelector}"
+                    ItemsSource="{Binding Path=InputBuildings}" />
           <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="DimGray">
             <ContentPresenter ContentTemplate="{StaticResource ProductionTemplate}" />
           </Border>
@@ -149,9 +151,8 @@
                 HorizontalContentAlignment="Stretch" Background="Transparent" AllowDrop="True"
                 ItemTemplateSelector="{StaticResource BuildingTemplateSelector}" BorderThickness="0"
                 PreviewMouseLeftButtonDown="Buildings_PreviewMouseLeftButtonDown"
-                PreviewMouseMove="Buildings_MouseMove"               
-                Drop="Buildings_OnDrop" DragEnter="Buildings_OnDragEnter">
-      </ListView>
+                PreviewMouseMove="Buildings_MouseMove"
+                Drop="Buildings_OnDrop" DragEnter="Buildings_OnDragEnter" />
     </Grid>
   </Grid>
 

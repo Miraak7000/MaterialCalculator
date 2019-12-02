@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:design="clr-namespace:MaterialCalculator.DesignTime"
-        xmlns:models="clr-namespace:MaterialCalculator.Models"
         xmlns:userControls="clr-namespace:MaterialCalculator.UserControls"
         xmlns:resources="clr-namespace:MaterialCalculator.Resources"
-        mc:Ignorable="d" 
+        xmlns:island="clr-namespace:MaterialCalculator.Models.Island"
+        mc:Ignorable="d"
         d:DataContext="{Binding Source={d:DesignInstance Type=design:ApplicationDesignTimeModel, IsDesignTimeCreatable=True}}"
         Title="{x:Static resources:Localization.ApplicationWindow_Title}"
         Height="500" Width="800" MinHeight="500" MinWidth="800">
@@ -17,15 +17,15 @@
   </Window.Background>
 
   <Window.Resources>
-    <DataTemplate x:Key="TabControlItemTemplate" DataType="models:IslandModel">
+    <DataTemplate x:Key="TabControlItemTemplate" DataType="island:IslandModel">
       <Grid MinWidth="100" Height="22">
         <TextBlock Margin="0,0,10,0" VerticalAlignment="Center" Text="{Binding Path=Name.Value}" />
       </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="TabControlContentTemplate" DataType="models:IslandModel">
+    <DataTemplate x:Key="TabControlContentTemplate" DataType="island:IslandModel">
       <userControls:IslandControl Margin="5" />
     </DataTemplate>
-    <Style x:Key="myStyle" TargetType="TabItem">
+    <Style x:Key="ItemContainerStyle" TargetType="TabItem">
       <Setter Property="Background" Value="Transparent" />
       <Setter Property="Margin" Value="1,0,0,0" />
       <Setter Property="BorderBrush" Value="DimGray" />
@@ -76,7 +76,7 @@
     <TabControl Grid.Row="1" Margin="-3,5,0,0" TabStripPlacement="Left" HorizontalContentAlignment="Stretch"
                 Background="Transparent" BorderThickness="1,1,0,0" Focusable="False"
                 BorderBrush="DimGray" ItemsSource="{Binding Path=Model.Value.Islands}"
-                ItemContainerStyle="{StaticResource myStyle}"
+                ItemContainerStyle="{StaticResource ItemContainerStyle}"
                 SelectedItem="{Binding Path=Model.Value.SelectedIsland.Value}"
                 ItemTemplate="{StaticResource TabControlItemTemplate}"
                 ContentTemplate="{StaticResource TabControlContentTemplate}"

@@ -1,7 +1,7 @@
 ﻿using System;
 using MaterialCalculator.Enumerations;
 
-namespace MaterialCalculator.Models {
+namespace MaterialCalculator.Models.Create {
 
   public class CreateProductionBuildingModel : CreateBuildingModel {
 

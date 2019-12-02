@@ -1,8 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Xml.Serialization;
 using MaterialCalculator.Library;
+using MaterialCalculator.Models.Island;
 
-namespace MaterialCalculator.Models {
+namespace MaterialCalculator.Models.Main {
 
   public class ApplicationModel {
 

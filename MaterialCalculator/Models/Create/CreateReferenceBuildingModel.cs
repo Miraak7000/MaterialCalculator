@@ -2,8 +2,10 @@
 using System.Linq;
 using System.Windows;
 using MaterialCalculator.Enumerations;
+using MaterialCalculator.Models.Island;
+using MaterialCalculator.Models.Work;
 
-namespace MaterialCalculator.Models {
+namespace MaterialCalculator.Models.Create {
 
   public class CreateReferenceBuildingModel : CreateBuildingModel {
 

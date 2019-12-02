@@ -7,7 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Serialization;
 using MaterialCalculator.Library;
-using MaterialCalculator.Models;
+using MaterialCalculator.Models.Island;
+using MaterialCalculator.Models.Main;
 using MaterialCalculator.Windows;
 using Microsoft.Win32;
 using Localization = MaterialCalculator.Resources.Localization;
@@ -40,6 +41,18 @@ namespace MaterialCalculator {
       this.LoadSettings();
       this.LoadModel();
       this.DataContext = this;
+    }
+    #endregion
+
+    #region Internal Methods
+    internal void Finish() {
+      this.Settings.Value.Language = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper();
+      this.Settings.Value.WindowTop = this.Top;
+      this.Settings.Value.WindowLeft = this.Left;
+      this.Settings.Value.WindowHeight = this.Height;
+      this.Settings.Value.WindowWidth = this.Width;
+      this.SaveSettings();
+      this.SaveModel();
     }
     #endregion
 
@@ -156,15 +169,6 @@ namespace MaterialCalculator {
         this.Model.Value.SelectedIsland.Value = this.Model.Value.Islands.FirstOrDefault();
       }
     }
-    internal void Finish() {
-      this.Settings.Value.Language = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper();
-      this.Settings.Value.WindowTop = this.Top;
-      this.Settings.Value.WindowLeft = this.Left;
-      this.Settings.Value.WindowHeight = this.Height;
-      this.Settings.Value.WindowWidth = this.Width;
-      this.SaveSettings();
-      this.SaveModel();
-    }
     #endregion
 
     #region Events
@@ -231,7 +235,7 @@ namespace MaterialCalculator {
           CultureInfo.CurrentUICulture = new CultureInfo("de");
           break;
       }
-      ((App)Application.Current).ChangeLanguage();
+      App.ChangeLanguage();
     }
     #endregion
 

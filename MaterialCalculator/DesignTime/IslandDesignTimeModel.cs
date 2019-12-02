@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using MaterialCalculator.Models;
+using MaterialCalculator.Models.Work;
 
 // ReSharper disable ClassNeverInstantiated.Global
 namespace MaterialCalculator.DesignTime {
@@ -15,8 +15,8 @@ namespace MaterialCalculator.DesignTime {
       this.Buildings = new ObservableCollection<BuildingModel> {
         new ProductionBuildingModel(Enumerations.Buildings.Lumberjack),
         new ProductionBuildingModel(Enumerations.Buildings.Sawmill),
-        new GroupBuildingModel() {
-          InputBuildings = new ObservableCollection<BuildingModel>() {
+        new GroupBuildingModel {
+          InputBuildings = new ObservableCollection<BuildingModel> {
             new ProductionBuildingModel(Enumerations.Buildings.Coachmakers),
             new ProductionBuildingModel(Enumerations.Buildings.MotorAssemblyLine)
           },

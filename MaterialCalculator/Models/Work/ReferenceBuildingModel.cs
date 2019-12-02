@@ -7,7 +7,7 @@ using MaterialCalculator.Library;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
-namespace MaterialCalculator.Models {
+namespace MaterialCalculator.Models.Work {
 
   public class ReferenceBuildingModel : BuildingModel {
 

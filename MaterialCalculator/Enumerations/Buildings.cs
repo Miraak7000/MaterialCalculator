@@ -1,5 +1,6 @@
 ﻿using MaterialCalculator.Attributes;
 
+// ReSharper disable UnusedMember.Global
 namespace MaterialCalculator.Enumerations {
 
   public enum Buildings {

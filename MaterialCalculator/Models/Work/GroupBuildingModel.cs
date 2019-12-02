@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using MaterialCalculator.Enumerations;
 
-namespace MaterialCalculator.Models {
+namespace MaterialCalculator.Models.Work {
 
   public class GroupBuildingModel : BuildingModel {
 

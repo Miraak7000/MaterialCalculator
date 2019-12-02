@@ -5,11 +5,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MaterialCalculator.Enumerations;
 using MaterialCalculator.Library;
-using MaterialCalculator.Models;
+using MaterialCalculator.Models.Create;
 
 namespace MaterialCalculator.Windows {
 
-  public partial class AddBuildingWindow : Window {
+  public partial class AddBuildingWindow {
 
     #region Properties
     public NotifyProperty<CreateBuildingModel> Model { get; set; }
