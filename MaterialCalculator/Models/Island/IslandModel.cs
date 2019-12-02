@@ -33,8 +33,10 @@ namespace MaterialCalculator.Models.Island {
 
     #region Public Methods
     public void Init() {
-      foreach (var building in this.Buildings.OfType<BuildingModel>()) {
+      foreach (var building in this.Buildings) {
         building.Island = this;
+      }
+      foreach (var building in this.Buildings.OfType<BuildingModel>()) {
         building.Init();
       }
     }

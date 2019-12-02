@@ -9,11 +9,11 @@ namespace MaterialCalculator.Library {
 
     #region Public Methods
     public override DataTemplate SelectTemplate(Object item, DependencyObject container) {
-      if (container is FrameworkElement element && item is CreateBuildingModel) {
+      if (container is FrameworkElement element && item is CreateModel) {
         switch (item) {
-          case CreateProductionBuildingModel _:
+          case CreateProductionModel _:
             return element.FindResource("ProductionTemplate") as DataTemplate;
-          case CreateReferenceBuildingModel _:
+          case CreateReferenceModel _:
             return element.FindResource("ReferenceTemplate") as DataTemplate;
         }
       }

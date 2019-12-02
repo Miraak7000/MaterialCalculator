@@ -2,14 +2,14 @@
 
 namespace MaterialCalculator.Models.Create {
 
-  public abstract class CreateBuildingModel {
+  public abstract class CreateModel {
 
     #region Properties
     protected Buildings Building { get; }
     #endregion
 
     #region Constructor
-    protected CreateBuildingModel(Buildings building) {
+    protected CreateModel(Buildings building) {
       this.Building = building;
     }
     #endregion

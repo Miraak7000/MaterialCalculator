@@ -15,7 +15,7 @@
 
   <Window.Resources>
     <library:CreateBuildingTemplateSelector x:Key="BuildingTemplateSelector" />
-    <DataTemplate x:Key="ProductionTemplate" DataType="create:CreateProductionBuildingModel">
+    <DataTemplate x:Key="ProductionTemplate" DataType="create:CreateProductionModel">
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="24" />
@@ -39,7 +39,7 @@
                  Text="{Binding Path=Productivity, UpdateSourceTrigger=PropertyChanged}" Padding="0,1,0,0" />
       </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="ReferenceTemplate" DataType="create:CreateReferenceBuildingModel">
+    <DataTemplate x:Key="ReferenceTemplate" DataType="create:CreateReferenceModel">
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="24" />

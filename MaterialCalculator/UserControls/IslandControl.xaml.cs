@@ -46,7 +46,7 @@ namespace MaterialCalculator.UserControls {
         if (result.HasValue && result.Value) {
           if (this.DataContext is IslandModel island) {
             switch (window.Model.Value) {
-              case CreateProductionBuildingModel model:
+              case CreateProductionModel model:
                 var modelProduction = new ProductionBuildingModel(this.SelectedBuilding.Item1) {
                   Island = island,
                   NumberOfBuildings = new NotifyProperty<Int32>(model.NumberOfBuildings),
@@ -56,7 +56,7 @@ namespace MaterialCalculator.UserControls {
                 island.Buildings.Add(modelProduction);
                 island.Calculate();
                 break;
-              case CreateReferenceBuildingModel model:
+              case CreateReferenceModel model:
                 var modelReference = new ReferenceBuildingModel(this.SelectedBuilding.Item1) {
                   Island = island,
                   ReferenceID = model.SelectedIsland.ID

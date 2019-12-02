@@ -12,7 +12,7 @@ namespace MaterialCalculator.Windows {
   public partial class AddBuildingWindow {
 
     #region Properties
-    public NotifyProperty<CreateBuildingModel> Model { get; set; }
+    public NotifyProperty<CreateModel> Model { get; set; }
     #endregion
 
     #region Fields
@@ -25,7 +25,7 @@ namespace MaterialCalculator.Windows {
       this.InitializeComponent();
       this.Building = building;
       this.Owner = Application.Current.MainWindow;
-      this.Model = new NotifyProperty<CreateBuildingModel>(null);
+      this.Model = new NotifyProperty<CreateModel>(null);
       this.DataContext = this;
     }
     #endregion
@@ -34,11 +34,11 @@ namespace MaterialCalculator.Windows {
     private void ButtonOK_OnClick(Object sender, RoutedEventArgs e) {
       if (this.Model.Value == null) return;
       switch (this.Model.Value) {
-        case CreateProductionBuildingModel model:
+        case CreateProductionModel model:
           if (model.NumberOfBuildings < 1) return;
           if (model.Productivity < 0) return;
           break;
-        case CreateReferenceBuildingModel model:
+        case CreateReferenceModel model:
           if (model.SelectedIsland == null) return;
           break;
         default:
@@ -55,10 +55,10 @@ namespace MaterialCalculator.Windows {
       var index = ((ComboBox)e.Source).SelectedIndex;
       switch (index) {
         case 0:
-          this.Model.Value = new CreateProductionBuildingModel(this.Building);
+          this.Model.Value = new CreateProductionModel(this.Building);
           break;
         case 1:
-          this.Model.Value = new CreateReferenceBuildingModel(this.Building);
+          this.Model.Value = new CreateReferenceModel(this.Building);
           break;
         default:
           throw new ArgumentOutOfRangeException($"this index is not supported: {index}");

@@ -7,7 +7,7 @@ using MaterialCalculator.Models.Work;
 
 namespace MaterialCalculator.Models.Create {
 
-  public class CreateReferenceBuildingModel : CreateBuildingModel {
+  public class CreateReferenceModel : CreateModel {
 
     #region Properties
     public IEnumerable<IslandModel> Islands {
@@ -21,7 +21,7 @@ namespace MaterialCalculator.Models.Create {
     #endregion
 
     #region Constructor
-    public CreateReferenceBuildingModel(Buildings building) : base(building) {
+    public CreateReferenceModel(Buildings building) : base(building) {
     }
     #endregion
 
