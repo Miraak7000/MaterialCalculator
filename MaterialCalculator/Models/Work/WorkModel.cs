@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows.Media;
+using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 using MaterialCalculator.Attributes;
 using MaterialCalculator.Enumerations;
@@ -11,11 +13,11 @@ using MaterialCalculator.Library;
 // ReSharper disable ReturnTypeCanBeEnumerable.Global
 namespace MaterialCalculator.Models.Work {
 
-  [XmlInclude(typeof(ProductionBuildingModel)), XmlInclude(typeof(ReferenceBuildingModel))]
-  public abstract class BuildingModel : BaseModel {
+  [XmlInclude(typeof(WorkProductionModel)), XmlInclude(typeof(WorkReferenceModel))]
+  public abstract class WorkModel : BaseModel, IXmlSerializable {
 
     #region Properties
-    public Buildings Building { get; set; }
+    public Building Building { get; set; }
     public abstract Double OutputTarget { get; }
     public abstract Double OutputActual { get; }
     [XmlIgnore]
@@ -27,10 +29,10 @@ namespace MaterialCalculator.Models.Work {
     [XmlIgnore]
     public NotifyProperty<String> ConsumerError { get; protected set; }
     public ProductionAttribute Production {
-      get { return typeof(Buildings).GetField(Enum.GetName(typeof(Buildings), this.Building)).GetCustomAttribute<ProductionAttribute>(false); }
+      get { return typeof(Buildings).GetField(Enum.GetName(typeof(Buildings), this.Building.Type)).GetCustomAttribute<ProductionAttribute>(false); }
     }
     public String BuildingDescription {
-      get { return typeof(Buildings).GetField(this.Building.ToString()).GetCustomAttribute<LocalizedDescriptionAttribute>(false).Value; }
+      get { return typeof(Buildings).GetField(this.Building.Type.ToString()).GetCustomAttribute<LocalizedDescriptionAttribute>(false).Value; }
     }
     public String MaterialDescription {
       get { return typeof(Materials).GetField(this.Production.Output.ToString()).GetCustomAttribute<LocalizedDescriptionAttribute>(false).Value; }
@@ -52,9 +54,31 @@ namespace MaterialCalculator.Models.Work {
     }
     #endregion
 
+    #region Constructor
+    protected WorkModel() {
+    }
+    protected WorkModel(Buildings building) {
+      this.Building=new Building {
+        Type = building
+      };
+    }
+    #endregion
+
     #region Public Methods
     public abstract void Init();
     #endregion
+
+    public XmlSchema GetSchema() {
+      throw new NotImplementedException();
+    }
+    public void ReadXml(XmlReader reader) {
+      reader.MoveToContent();
+      var type = Enum.Parse<Buildings>(reader.GetAttribute(nameof(this.Building.Type)));
+      this.Building = new Building();
+    }
+    public void WriteXml(XmlWriter writer) {
+      writer.WriteAttributeString(nameof(this.Building.Type), this.Building.Type.ToString());
+    }
 
   }
 

@@ -1,9 +1,9 @@
 ﻿namespace MaterialCalculator.Models.Work {
 
-  public class SeparatorBuildingModel : BaseModel {
+  public class SeparatorModel : BaseModel {
 
     #region Constructor
-    public SeparatorBuildingModel() {
+    public SeparatorModel() {
     }
     #endregion
 

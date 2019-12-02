@@ -9,7 +9,7 @@ using MaterialCalculator.Library;
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 namespace MaterialCalculator.Models.Work {
 
-  public class ReferenceBuildingModel : BuildingModel {
+  public class WorkReferenceModel : WorkModel {
 
     #region Properties
     public Guid ReferenceID { get; set; }
@@ -22,7 +22,7 @@ namespace MaterialCalculator.Models.Work {
     }
     public override Double OutputTarget {
       get {
-        var consumers = this.Island.Buildings.OfType<ProductionBuildingModel>().Where(w => w.Production.Inputs.Contains(this.Production.Output)).ToArray();
+        var consumers = this.Island.Buildings.OfType<WorkProductionModel>().Where(w => w.Production.Inputs.Contains(this.Production.Output)).ToArray();
         return consumers.Sum(s => s.OutputActual);
       }
     }
@@ -30,7 +30,7 @@ namespace MaterialCalculator.Models.Work {
       get {
         var applicationModel = ((MainWindow)Application.Current.MainWindow)?.Model.Value;
         if (applicationModel == null) return 0;
-        var buildings = applicationModel.Islands.Where(w => w.ID == this.ReferenceID).SelectMany(s => s.Buildings).OfType<ProductionBuildingModel>().Where(w => w.Production.Output == this.Production.Output).ToArray();
+        var buildings = applicationModel.Islands.Where(w => w.ID == this.ReferenceID).SelectMany(s => s.Buildings).OfType<WorkProductionModel>().Where(w => w.Production.Output == this.Production.Output).ToArray();
         var output = buildings.Sum(s => s.OutputActual);
         return output;
       }
@@ -40,10 +40,9 @@ namespace MaterialCalculator.Models.Work {
     #region Constructor
     // ReSharper disable once UnusedMember.Local
     // needs to stay for deserializing
-    private ReferenceBuildingModel() {
+    private WorkReferenceModel() {
     }
-    public ReferenceBuildingModel(Buildings building) {
-      this.Building = building;
+    public WorkReferenceModel(Buildings building) : base(building) {
     }
     #endregion
 

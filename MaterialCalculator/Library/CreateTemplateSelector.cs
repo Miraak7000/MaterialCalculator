@@ -5,7 +5,7 @@ using MaterialCalculator.Models.Create;
 
 namespace MaterialCalculator.Library {
 
-  public class CreateBuildingTemplateSelector : DataTemplateSelector {
+  public class CreateTemplateSelector : DataTemplateSelector {
 
     #region Public Methods
     public override DataTemplate SelectTemplate(Object item, DependencyObject container) {

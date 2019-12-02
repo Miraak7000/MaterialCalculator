@@ -8,14 +8,14 @@ using MaterialCalculator.Library;
 // ReSharper disable MemberCanBePrivate.Global
 namespace MaterialCalculator.Models.Work {
 
-  public class ProductionBuildingModel : BuildingModel {
+  public class WorkProductionModel : WorkModel {
 
     #region Properties
     public NotifyProperty<Int32> NumberOfBuildings { get; set; }
     public NotifyProperty<Int32> Productivity { get; set; }
     public override Double OutputTarget {
       get {
-        var consumers = this.Island.Buildings.OfType<ProductionBuildingModel>().Where(w => w.Production.Inputs.Contains(this.Production.Output)).ToArray();
+        var consumers = this.Island.Buildings.OfType<WorkProductionModel>().Where(w => w.Production.Inputs.Contains(this.Production.Output)).ToArray();
         return consumers.Sum(s => s.OutputActual);
       }
     }
@@ -27,10 +27,9 @@ namespace MaterialCalculator.Models.Work {
     #region Constructor
     // ReSharper disable once UnusedMember.Local
     // needs to stay for deserializing
-    private ProductionBuildingModel() {
+    private WorkProductionModel() {
     }
-    public ProductionBuildingModel(Buildings building) {
-      this.Building = building;
+    public WorkProductionModel(Buildings building) : base(building) {
       this.NumberOfBuildings = new NotifyProperty<Int32>(1);
       this.Productivity = new NotifyProperty<Int32>(100);
     }

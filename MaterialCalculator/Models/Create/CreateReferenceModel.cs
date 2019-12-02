@@ -13,7 +13,7 @@ namespace MaterialCalculator.Models.Create {
     public IEnumerable<IslandModel> Islands {
       get {
         var applicationModel = ((MainWindow)Application.Current.MainWindow)?.Model.Value;
-        var islands = applicationModel?.Islands.Where(w => w != applicationModel.SelectedIsland.Value && w.Buildings.OfType<ProductionBuildingModel>().Any(a => a.Building == this.Building));
+        var islands = applicationModel?.Islands.Where(w => w != applicationModel.SelectedIsland.Value && w.Buildings.OfType<WorkProductionModel>().Any(a => a.Building.Type == this.Building));
         return islands;
       }
     }

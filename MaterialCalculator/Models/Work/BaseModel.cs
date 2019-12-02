@@ -3,7 +3,7 @@ using MaterialCalculator.Models.Island;
 
 namespace MaterialCalculator.Models.Work {
 
-  [XmlInclude(typeof(BuildingModel)), XmlInclude(typeof(SeparatorBuildingModel))]
+  [XmlInclude(typeof(WorkModel)), XmlInclude(typeof(GroupModel)), XmlInclude(typeof(SeparatorModel))]
   public abstract class BaseModel {
 
     #region Properties

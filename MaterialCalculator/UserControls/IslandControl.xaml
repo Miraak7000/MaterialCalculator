@@ -11,8 +11,8 @@
              d:DataContext="{Binding Source={d:DesignInstance Type=designTime:IslandDesignTimeModel, IsDesignTimeCreatable=True}}">
 
   <UserControl.Resources>
-    <library:BuildingTemplateSelector x:Key="BuildingTemplateSelector" />
-    <DataTemplate x:Key="ProductionTemplate" DataType="work:ProductionBuildingModel">
+    <library:WorkTemplateSelector x:Key="BuildingTemplateSelector" />
+    <DataTemplate x:Key="ProductionTemplate" DataType="work:WorkProductionModel">
       <Grid Height="20" Margin="2">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
@@ -40,7 +40,7 @@
                  Background="{Binding Path=StatusBackground.Value}" />
       </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="ReferenceTemplate" DataType="work:ReferenceBuildingModel">
+    <DataTemplate x:Key="ReferenceTemplate" DataType="work:WorkReferenceModel">
       <Grid Height="20" Margin="0,2,0,0">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
@@ -64,12 +64,12 @@
                  Background="{Binding Path=StatusBackground.Value}" />
       </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="SeparatorTemplate" DataType="work:SeparatorBuildingModel">
+    <DataTemplate x:Key="SeparatorTemplate" DataType="work:SeparatorModel">
       <Grid Height="5" Margin="0,2,0,0">
         <Border BorderThickness="0,1,0,0" BorderBrush="DimGray" VerticalAlignment="Center" />
       </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="GroupTemplate" DataType="work:GroupBuildingModel">
+    <DataTemplate x:Key="GroupTemplate" DataType="work:GroupModel">
       <Border BorderThickness="1" BorderBrush="DimGray" CornerRadius="2">
         <Grid>
           <Grid.RowDefinitions>

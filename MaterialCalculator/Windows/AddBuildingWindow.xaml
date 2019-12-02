@@ -14,7 +14,7 @@
         ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
 
   <Window.Resources>
-    <library:CreateBuildingTemplateSelector x:Key="BuildingTemplateSelector" />
+    <library:CreateTemplateSelector x:Key="BuildingTemplateSelector" />
     <DataTemplate x:Key="ProductionTemplate" DataType="create:CreateProductionModel">
       <Grid>
         <Grid.RowDefinitions>

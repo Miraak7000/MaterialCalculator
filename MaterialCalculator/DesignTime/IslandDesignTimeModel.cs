@@ -7,18 +7,18 @@ namespace MaterialCalculator.DesignTime {
   public class IslandDesignTimeModel {
 
     #region Properties
-    public ObservableCollection<BuildingModel> Buildings { get; set; }
+    public ObservableCollection<BaseModel> Buildings { get; set; }
     #endregion
 
     #region Constructor
     public IslandDesignTimeModel() {
-      this.Buildings = new ObservableCollection<BuildingModel> {
-        new ProductionBuildingModel(Enumerations.Buildings.Lumberjack),
-        new ProductionBuildingModel(Enumerations.Buildings.Sawmill),
-        new GroupBuildingModel {
-          InputBuildings = new ObservableCollection<BuildingModel> {
-            new ProductionBuildingModel(Enumerations.Buildings.Coachmakers),
-            new ProductionBuildingModel(Enumerations.Buildings.MotorAssemblyLine)
+      this.Buildings = new ObservableCollection<BaseModel> {
+        new WorkProductionModel(Enumerations.Buildings.Lumberjack),
+        new WorkProductionModel(Enumerations.Buildings.Sawmill),
+        new GroupModel {
+          InputBuildings = new ObservableCollection<WorkModel> {
+            new WorkProductionModel(Enumerations.Buildings.Coachmakers),
+            new WorkProductionModel(Enumerations.Buildings.MotorAssemblyLine)
           },
           FinalBuilding = Enumerations.Buildings.CabAssemblyLine
         }

@@ -47,7 +47,7 @@ namespace MaterialCalculator.UserControls {
           if (this.DataContext is IslandModel island) {
             switch (window.Model.Value) {
               case CreateProductionModel model:
-                var modelProduction = new ProductionBuildingModel(this.SelectedBuilding.Item1) {
+                var modelProduction = new WorkProductionModel(this.SelectedBuilding.Item1) {
                   Island = island,
                   NumberOfBuildings = new NotifyProperty<Int32>(model.NumberOfBuildings),
                   Productivity = new NotifyProperty<Int32>(model.Productivity)
@@ -57,7 +57,7 @@ namespace MaterialCalculator.UserControls {
                 island.Calculate();
                 break;
               case CreateReferenceModel model:
-                var modelReference = new ReferenceBuildingModel(this.SelectedBuilding.Item1) {
+                var modelReference = new WorkReferenceModel(this.SelectedBuilding.Item1) {
                   Island = island,
                   ReferenceID = model.SelectedIsland.ID
                 };
@@ -74,7 +74,7 @@ namespace MaterialCalculator.UserControls {
     }
     private void ButtonAddSeparator_OnClick(Object sender, RoutedEventArgs e) {
       if (this.DataContext is IslandModel island) {
-        var modelSeparator = new SeparatorBuildingModel {
+        var modelSeparator = new SeparatorModel {
           Island = island
         };
         island.Buildings.Add(modelSeparator);
