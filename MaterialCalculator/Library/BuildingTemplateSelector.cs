@@ -17,6 +17,8 @@ namespace MaterialCalculator.Library {
             return element.FindResource("ReferenceTemplate") as DataTemplate;
           case SeparatorBuildingModel _:
             return element.FindResource("SeparatorTemplate") as DataTemplate;
+          case GroupBuildingModel _:
+            return element.FindResource("GroupTemplate") as DataTemplate;
         }
       }
       return null;

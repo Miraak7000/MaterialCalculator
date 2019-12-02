@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using MaterialCalculator.Enumerations;
 
 namespace MaterialCalculator.Models {
 
-  public class SeparatorBuildingModel : BuildingModel {
+  public class GroupBuildingModel : BuildingModel {
 
     #region Properties
+    public ObservableCollection<BuildingModel> InputBuildings { get; set; }
+    public Buildings FinalBuilding { get; set; }
     public override Double OutputTarget {
       get { return 0; }
     }
@@ -14,7 +18,8 @@ namespace MaterialCalculator.Models {
     #endregion
 
     #region Constructor
-    public SeparatorBuildingModel() {
+    public GroupBuildingModel() {
+      this.InputBuildings = new ObservableCollection<BuildingModel>();
     }
     #endregion
 
