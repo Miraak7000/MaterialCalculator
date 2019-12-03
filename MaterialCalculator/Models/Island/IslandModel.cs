@@ -1,5 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Windows.Data;
 using MaterialCalculator.Library;
+using MaterialCalculator.Models.Work;
+using Newtonsoft.Json;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
@@ -9,7 +13,15 @@ namespace MaterialCalculator.Models.Island {
 
     #region Properties
     public Guid ID { get; set; }
+    [JsonConverter(typeof(NotifyPropertyConverter<String>))]
     public NotifyProperty<String> Name { get; set; }
+    public ICollectionView IslandItems {
+      get {
+        var source = CollectionViewSource.GetDefaultView(MainWindow.ApplicationModel.IslandItems);
+        source.Filter = p => ((BaseModel)p).IslandID == this.ID;
+        return source;
+      }
+    }
     #endregion
 
     #region Constructor
@@ -64,7 +76,6 @@ namespace MaterialCalculator.Models.Island {
     }
     #endregion
 
-    //public ObservableCollection<BaseModel> Buildings { get; }
   }
 
 }

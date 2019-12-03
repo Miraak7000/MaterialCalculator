@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -6,27 +7,28 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Serialization;
+using MaterialCalculator.DesignTime;
+using MaterialCalculator.Enumerations;
 using MaterialCalculator.Library;
 using MaterialCalculator.Models.Island;
 using MaterialCalculator.Models.Main;
+using MaterialCalculator.Models.Work;
 using MaterialCalculator.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Localization = MaterialCalculator.Resources.Localization;
 
+// ReSharper disable UnusedMember.Global
 // ReSharper disable once MemberCanBePrivate.Global
 namespace MaterialCalculator {
 
   public partial class MainWindow {
 
     #region Properties
-    public static ApplicationModel ApplicationModel {
-      get {
-        var applicationModel = ((MainWindow)Application.Current.MainWindow)?.Model.Value;
-        return applicationModel;
-      }
+    public static ApplicationModel ApplicationModel { get; set; }
+    public ApplicationModel BindingModel {
+      get { return MainWindow.ApplicationModel; }
     }
-    public NotifyProperty<ApplicationModel> Model { get; }
     public NotifyProperty<Settings> Settings { get; }
     #endregion
 
@@ -42,7 +44,6 @@ namespace MaterialCalculator {
       this.RoamingPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MaterialCalculator");
       this.SettingsFile = Path.Combine(this.RoamingPath, "Settings.xml");
       this.ModelFile = Path.Combine(this.RoamingPath, "Model.json");
-      this.Model = new NotifyProperty<ApplicationModel>(null);
       this.Settings = new NotifyProperty<Settings>(null);
       this.InitLanguage();
       this.LoadSettings();
@@ -64,6 +65,32 @@ namespace MaterialCalculator {
     #endregion
 
     #region Protected Methods
+    //protected override void OnInitialized(EventArgs e) {
+    //  base.OnInitialized(e);
+    //  this.Model = new NotifyProperty<ApplicationModel>(new ApplicationModel());
+    //  this.Model.Value.IslandItems = new ObservableCollection<BaseModel> {
+    //    new WorkModelProduction(Guid.Empty, Enumerations.Buildings.Lumberjack),
+    //    new WorkModelProduction(Guid.Empty, Enumerations.Buildings.Sawmill),
+    //    new WorkModelGroup(Guid.Empty, Enumerations.Buildings.CabAssemblyLine) {
+    //      InputBuildings = new ObservableCollection<WorkModel> {
+    //        new WorkModelGroup(Guid.Empty, Enumerations.Buildings.Coachmakers) {
+    //          InputBuildings = new ObservableCollection<WorkModel> {
+    //            new WorkModelProduction(Guid.Empty, Buildings.Lumberjack),
+    //            new WorkModelProduction(Guid.Empty, Buildings.CaoutchoucPlantation)
+    //          }
+    //        },
+    //        new WorkModelGroup(Guid.Empty, Enumerations.Buildings.MotorAssemblyLine) {
+    //          InputBuildings = new ObservableCollection<WorkModel> {
+    //            new WorkModelProduction(Guid.Empty, Buildings.Furnace),
+    //            new WorkModelProduction(Guid.Empty, Buildings.BrassSmeltery)
+    //          }
+    //        }
+    //      }
+    //    }
+    //  };
+    //  var depth = this.Model.Value.IslandItems.OfType<WorkModelGroup>().Single().InputBuildings.OfType<WorkModelGroup>().Skip(1).First().InputBuildings.OfType<WorkModelProduction>().Skip(1).First().Depth;
+    //  //var depth = this.Model.Value.IslandItems.OfType<WorkModelProduction>().Skip(1).First().Depth;
+    //}
     protected override void OnClosing(CancelEventArgs e) {
       base.OnClosing(e);
       if (Application.Current.MainWindow == this) {
@@ -127,28 +154,32 @@ namespace MaterialCalculator {
         var settings = new JsonSerializerSettings {
           TypeNameHandling = TypeNameHandling.Auto,
           Formatting = Formatting.Indented,
-          Converters = { new BaseModelConverter() }
+          Converters = {
+            new BaseModelConverter(),
+            new NotifyPropertyConverter<Int32>(),
+            new NotifyPropertyConverter<String>()
+          }
         };
         if (this.Settings?.Value?.FullFileName != null) {
           if (File.Exists(this.Settings.Value.FullFileName)) {
             var data = File.ReadAllText(this.Settings.Value.FullFileName);
             var result = JsonConvert.DeserializeObject<ApplicationModel>(data, settings);
-            this.Model.Value = result;
+            MainWindow.ApplicationModel = result;
             this.InitModel();
           }
         } else {
           if (File.Exists(this.ModelFile)) {
             var data = File.ReadAllText(this.ModelFile);
             var result = JsonConvert.DeserializeObject<ApplicationModel>(data, settings);
-            this.Model.Value = result;
+            MainWindow.ApplicationModel = result;
             this.InitModel();
           }
         }
       } catch (Exception) {
         MessageBox.Show(this, Localization.MessageBox_FileNotLoaded, Localization.MessageBox_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
       } finally {
-        if (this.Model.Value == null) {
-          this.Model.Value = new ApplicationModel();
+        if (MainWindow.ApplicationModel == null) {
+          MainWindow.ApplicationModel = new ApplicationModel();
         }
       }
     }
@@ -158,9 +189,13 @@ namespace MaterialCalculator {
           TypeNameHandling = TypeNameHandling.Auto,
           Formatting = Formatting.Indented,
           ContractResolver = new WritablePropertiesOnlyResolver(),
-          Converters = { new BaseModelConverter() }
+          Converters = {
+            new BaseModelConverter(),
+            new NotifyPropertyConverter<Int32>(),
+            new NotifyPropertyConverter<String>()
+          }
         };
-        var result = JsonConvert.SerializeObject(this.Model.Value, settings);
+        var result = JsonConvert.SerializeObject(MainWindow.ApplicationModel, settings);
         if (this.Settings?.Value?.FullFileName != null) {
           File.WriteAllText(this.Settings.Value.FullFileName, result);
         }
@@ -172,12 +207,12 @@ namespace MaterialCalculator {
       }
     }
     private void InitModel() {
-      if (this.Model.Value != null) {
-        foreach (var island in this.Model.Value.Islands) {
+      if (MainWindow.ApplicationModel != null) {
+        foreach (var island in MainWindow.ApplicationModel.Islands) {
           island.Init();
           island.Calculate();
         }
-        this.Model.Value.SelectedIsland.Value = this.Model.Value.Islands.FirstOrDefault();
+        MainWindow.ApplicationModel.SelectedIsland.Value = MainWindow.ApplicationModel.Islands.FirstOrDefault();
       }
     }
     #endregion
@@ -188,24 +223,24 @@ namespace MaterialCalculator {
       var result = window.ShowDialog();
       if (result.HasValue && result.Value) {
         var island = new IslandModel { Name = new NotifyProperty<String>(window.IslandName) };
-        this.Model.Value.Islands.Add(island);
-        this.Model.Value.SelectedIsland.Value = island;
+        MainWindow.ApplicationModel.Islands.Add(island);
+        MainWindow.ApplicationModel.SelectedIsland.Value = island;
       }
     }
     private void ButtonRemoveIsland_OnClick(Object sender, RoutedEventArgs e) {
-      if (this.Model.Value.SelectedIsland != null) {
+      if (MainWindow.ApplicationModel.SelectedIsland != null) {
         var result = MessageBox.Show(this, Localization.MessageBox_RemoveIsland, Localization.MessageBox_Title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
         if (result == MessageBoxResult.Yes) {
-          this.Model.Value.Islands.Remove(this.Model.Value.SelectedIsland.Value);
+          MainWindow.ApplicationModel.Islands.Remove(MainWindow.ApplicationModel.SelectedIsland.Value);
         }
       }
     }
     private void ButtonEditIsland_OnClick(Object sender, RoutedEventArgs e) {
-      if (this.Model.Value.SelectedIsland != null) {
-        var window = new EditIslandWindow { IslandName = this.Model.Value.SelectedIsland.Value.Name.Value };
+      if (MainWindow.ApplicationModel.SelectedIsland != null) {
+        var window = new EditIslandWindow { IslandName = MainWindow.ApplicationModel.SelectedIsland.Value.Name.Value };
         var result = window.ShowDialog();
         if (result.HasValue && result.Value) {
-          this.Model.Value.SelectedIsland.Value.Name.Value = window.IslandName;
+          MainWindow.ApplicationModel.SelectedIsland.Value.Name.Value = window.IslandName;
         }
       }
     }

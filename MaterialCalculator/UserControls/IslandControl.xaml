@@ -13,8 +13,9 @@
   <UserControl.Resources>
     <library:WorkTemplateSelector x:Key="BuildingTemplateSelector" />
     <DataTemplate x:Key="ProductionTemplate" DataType="work:WorkModelProduction">
-      <Grid Height="20" Margin="2">
+      <Grid x:Name="Grid" Height="20" Margin="2">
         <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="25" />
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="75" />
@@ -22,23 +23,36 @@
           <ColumnDefinition Width="75" />
           <ColumnDefinition Width="75" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Path=BuildingDescription}" />
-        <Image Grid.Column="1" HorizontalAlignment="Left" Source="{Binding Path=MaterialImage}" />
-        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="25,0,0,0"
-                   Text="{Binding Path=MaterialDescription}" />
-        <TextBox Grid.Column="2" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
-                 Text="{Binding Path=NumberOfBuildings.Value, UpdateSourceTrigger=PropertyChanged}" />
+        <Image Grid.Column="0" HorizontalAlignment="Left" Source="{Binding Path=Building.Output.Image}" />
+        <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=Building.Description}" />
+        <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Building.Output.Description}" />
         <TextBox Grid.Column="3" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
-                 Text="{Binding Path=Productivity.Value, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding Path=NumberOfBuildings.Value, UpdateSourceTrigger=PropertyChanged}" />
         <TextBox Grid.Column="4" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
+                 Text="{Binding Path=Productivity.Value, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="5" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
                  IsReadOnly="True" Focusable="False"
                  Text="{Binding Path=OutputTargetString.Value, Mode=OneWay}" />
-        <TextBox Grid.Column="5" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
+        <TextBox Grid.Column="6" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
                  IsReadOnly="True"
                  Text="{Binding Path=OutputActualString.Value, Mode=OneWay}"
                  ToolTip="{Binding Path=ConsumerError.Value}"
                  Background="{Binding Path=StatusBackground.Value}" />
       </Grid>
+      <DataTemplate.Triggers>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="0">
+          <Setter TargetName="Grid" Property="Margin" Value="2,2,6,2" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="1">
+          <Setter TargetName="Grid" Property="Margin" Value="2,2,4,2" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="2">
+          <Setter TargetName="Grid" Property="Margin" Value="2,2,2,2" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="3">
+          <Setter TargetName="Grid" Property="Margin" Value="2,2,0,2" />
+        </DataTrigger>
+      </DataTemplate.Triggers>
     </DataTemplate>
     <DataTemplate x:Key="ReferenceTemplate" DataType="work:WorkModelReference">
       <Grid Height="20" Margin="0,2,0,0">
@@ -70,21 +84,30 @@
       </Grid>
     </DataTemplate>
     <DataTemplate x:Key="GroupTemplate" DataType="work:WorkModelGroup">
-      <Border BorderThickness="1" BorderBrush="DimGray" CornerRadius="2">
+      <Border x:Name="Root" BorderThickness="1" BorderBrush="DimGray" CornerRadius="0" Padding="0" Margin="2">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="22" />
             <RowDefinition Height="Auto" />
           </Grid.RowDefinitions>
-          <ListView Grid.Row="0" BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch"
-                    Margin="0" Padding="0"
-                    ItemTemplateSelector="{StaticResource BuildingTemplateSelector}"
-                    ItemsSource="{Binding Path=InputBuildings}" />
-          <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="DimGray">
-            <ContentPresenter ContentTemplate="{StaticResource ProductionTemplate}" />
+          <ItemsControl Grid.Row="0" BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch" Margin="0" Padding="0"
+                    ItemTemplateSelector="{StaticResource BuildingTemplateSelector}" ItemsSource="{Binding Path=InputBuildings}" />
+          <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="DimGray" Background="BurlyWood">
+            <ContentPresenter x:Name="Output" Margin="0,0,0,0" ContentTemplate="{StaticResource ProductionTemplate}" />
           </Border>
         </Grid>
       </Border>
+      <DataTemplate.Triggers>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="0">
+          <Setter TargetName="Output" Property="Margin" Value="0,0,-4,0" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="1">
+          <Setter TargetName="Output" Property="Margin" Value="0,0,-2,0" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="2">
+          <Setter TargetName="Output" Property="Margin" Value="0,0,0,0" />
+        </DataTrigger>
+      </DataTemplate.Triggers>
     </DataTemplate>
     <DataTemplate x:Key="BuildingTemplate" DataType="library:Building">
       <Grid>
@@ -102,7 +125,7 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="22" />
-      <RowDefinition Height="25" />
+      <RowDefinition Height="10" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <Grid Row="0">
@@ -135,7 +158,7 @@
         <RowDefinition Height="Auto" />
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
-      <Grid>
+      <Grid Margin="2,0,2,0">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
@@ -158,12 +181,19 @@
                    Text="{x:Static resources:Localization.IslandControl_LabelActual}" />
       </Grid>
       <Border Grid.Row="1" BorderBrush="DimGray" BorderThickness=".5" />
-      <ListView x:Name="ListViewBuildings" Grid.Row="2" ItemsSource="{Binding Path=Buildings}" Focusable="False"
-                HorizontalContentAlignment="Stretch" Background="Transparent" AllowDrop="True"
+      <ListView x:Name="ListViewBuildings" Grid.Row="2" ItemsSource="{Binding Path=IslandItems}" Focusable="False"
+                HorizontalContentAlignment="Stretch" Background="Transparent" AllowDrop="True" Margin="0" Padding="0"
                 ItemTemplateSelector="{StaticResource BuildingTemplateSelector}" BorderThickness="0"
                 PreviewMouseLeftButtonDown="Buildings_PreviewMouseLeftButtonDown"
                 PreviewMouseMove="Buildings_MouseMove"
-                Drop="Buildings_OnDrop" DragEnter="Buildings_OnDragEnter" />
+                Drop="Buildings_OnDrop" DragEnter="Buildings_OnDragEnter">
+        <ListView.ItemContainerStyle>
+          <Style TargetType="ListViewItem">
+            <Setter Property="Padding" Value="0 "/>
+            <Setter Property="Margin" Value="0 "/>
+          </Style>
+        </ListView.ItemContainerStyle>
+      </ListView>
     </Grid>
   </Grid>
 

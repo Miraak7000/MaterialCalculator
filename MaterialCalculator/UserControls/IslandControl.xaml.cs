@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,12 +46,17 @@ namespace MaterialCalculator.UserControls {
           if (this.DataContext is IslandModel island) {
             switch (window.Model.Value) {
               case CreateProductionModel model:
-                var modelProduction = new WorkModelProduction(island.ID, this.SelectedBuilding.Type) {
-                  NumberOfBuildings = new NotifyProperty<Int32>(model.NumberOfBuildings),
-                  Productivity = new NotifyProperty<Int32>(model.Productivity)
-                };
-                modelProduction.Init();
-                MainWindow.ApplicationModel.IslandItems.Add(modelProduction);
+                if (this.SelectedBuilding.Inputs.Length > 0) {
+                  var modelGroup = new WorkModelGroup(island.ID, this.SelectedBuilding.Type);
+                  MainWindow.ApplicationModel.IslandItems.Add(modelGroup);
+                } else {
+                  var modelProduction = new WorkModelProduction(island.ID, this.SelectedBuilding.Type) {
+                    NumberOfBuildings = new NotifyProperty<Int32>(model.NumberOfBuildings),
+                    Productivity = new NotifyProperty<Int32>(model.Productivity)
+                  };
+                  modelProduction.Init();
+                  MainWindow.ApplicationModel.IslandItems.Add(modelProduction);
+                }
                 island.Calculate();
                 break;
               case CreateReferenceModel model:
@@ -76,10 +82,13 @@ namespace MaterialCalculator.UserControls {
     }
     private void ButtonDelete_OnClick(Object sender, RoutedEventArgs e) {
       if (this.ListViewBuildings.SelectedItem == null) return;
-      var result = MessageBox.Show(Application.Current.MainWindow, Localization.MessageBox_RemoveBuilding, Localization.MessageBox_Title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-      if (result == MessageBoxResult.Yes) {
-        var model = (BaseModel)this.ListViewBuildings.SelectedItem;
-        MainWindow.ApplicationModel.IslandItems.Remove(model);
+      if (this.DataContext is IslandModel island) {
+        var result = MessageBox.Show(Application.Current.MainWindow, Localization.MessageBox_RemoveBuilding, Localization.MessageBox_Title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+        if (result == MessageBoxResult.Yes) {
+          var model = (BaseModel)this.ListViewBuildings.SelectedItem;
+          MainWindow.ApplicationModel.IslandItems.Remove(model);
+          island.IslandItems.Refresh();
+        }
       }
     }
     private void Buildings_PreviewMouseLeftButtonDown(Object sender, MouseButtonEventArgs e) {
@@ -107,9 +116,11 @@ namespace MaterialCalculator.UserControls {
           var listViewItem = source.FindAnchestor<ListViewItem>();
           if (listViewItem != null) {
             var newIndex = listView.Items.IndexOf(listViewItem.Content);
-            if (listView.ItemsSource is ObservableCollection<BaseModel> list) {
-              list.RemoveAt(list.IndexOf(building));
-              list.Insert(newIndex, building);
+            if (listView.ItemsSource is ICollectionView list) {
+              var sourceCollection = ((ObservableCollection<BaseModel>)list.SourceCollection);
+              sourceCollection.RemoveAt(sourceCollection.IndexOf(building));
+              sourceCollection.Insert(newIndex, building);
+              list.Refresh();
             }
           }
         }

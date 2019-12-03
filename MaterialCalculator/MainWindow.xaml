@@ -75,9 +75,9 @@
     </ToolBarPanel>
     <TabControl Grid.Row="1" Margin="-3,5,0,0" TabStripPlacement="Left" HorizontalContentAlignment="Stretch"
                 Background="Transparent" BorderThickness="1,1,0,0" Focusable="False"
-                BorderBrush="DimGray" ItemsSource="{Binding Path=Model.Value.Islands}"
+                BorderBrush="DimGray" ItemsSource="{Binding Path=BindingModel.Islands}"
                 ItemContainerStyle="{StaticResource ItemContainerStyle}"
-                SelectedItem="{Binding Path=Model.Value.SelectedIsland.Value}"
+                SelectedItem="{Binding Path=BindingModel.SelectedIsland.Value}"
                 ItemTemplate="{StaticResource TabControlItemTemplate}"
                 ContentTemplate="{StaticResource TabControlContentTemplate}"
                 SelectionChanged="Island_OnSelectionChanged" />

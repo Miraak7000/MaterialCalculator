@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows.Media;
 using MaterialCalculator.Enumerations;
 using MaterialCalculator.Library;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 // ReSharper disable MemberCanBePrivate.Global
 namespace MaterialCalculator.Models.Work {
@@ -11,7 +13,9 @@ namespace MaterialCalculator.Models.Work {
   public class WorkModelProduction : WorkModel {
 
     #region Properties
+    [JsonConverter(typeof(NotifyPropertyConverter<Int32>))]
     public NotifyProperty<Int32> NumberOfBuildings { get; set; }
+    [JsonConverter(typeof(NotifyPropertyConverter<Int32>))]
     public NotifyProperty<Int32> Productivity { get; set; }
     public override Double OutputTarget {
       get {
