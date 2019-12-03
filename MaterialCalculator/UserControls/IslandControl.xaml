@@ -12,7 +12,7 @@
 
   <UserControl.Resources>
     <library:WorkTemplateSelector x:Key="BuildingTemplateSelector" />
-    <DataTemplate x:Key="ProductionTemplate" DataType="work:WorkProductionModel">
+    <DataTemplate x:Key="ProductionTemplate" DataType="work:WorkModelProduction">
       <Grid Height="20" Margin="2">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
@@ -40,7 +40,7 @@
                  Background="{Binding Path=StatusBackground.Value}" />
       </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="ReferenceTemplate" DataType="work:WorkReferenceModel">
+    <DataTemplate x:Key="ReferenceTemplate" DataType="work:WorkModelReference">
       <Grid Height="20" Margin="0,2,0,0">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
@@ -69,7 +69,7 @@
         <Border BorderThickness="0,1,0,0" BorderBrush="DimGray" VerticalAlignment="Center" />
       </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="GroupTemplate" DataType="work:GroupModel">
+    <DataTemplate x:Key="GroupTemplate" DataType="work:WorkModelGroup">
       <Border BorderThickness="1" BorderBrush="DimGray" CornerRadius="2">
         <Grid>
           <Grid.RowDefinitions>
@@ -85,6 +85,17 @@
           </Border>
         </Grid>
       </Border>
+    </DataTemplate>
+    <DataTemplate x:Key="BuildingTemplate" DataType="library:Building">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="18" />
+          <ColumnDefinition Width="5" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Source="{Binding Path=Output.Image}"/>
+        <TextBlock Grid.Column="2" Text="{Binding Path=Description}" />
+      </Grid>
     </DataTemplate>
   </UserControl.Resources>
 
@@ -105,7 +116,7 @@
         <ColumnDefinition Width="22" />
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
-      <ComboBox Grid.Column="0" DisplayMemberPath="Item2" Focusable="False"
+      <ComboBox Grid.Column="0" Focusable="False" ItemTemplate="{StaticResource BuildingTemplate}"
                 ItemsSource="{Binding Path=Buildings, RelativeSource={RelativeSource AncestorType=UserControl}}"
                 SelectedItem="{Binding Path=SelectedBuilding, RelativeSource={RelativeSource AncestorType=UserControl}}" />
       <Button Grid.Column="2" Background="Transparent" Focusable="False" Click="ButtonAddBuilding_OnClick">

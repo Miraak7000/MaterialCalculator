@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using MaterialCalculator.Enumerations;
 using MaterialCalculator.Models.Island;
 using MaterialCalculator.Models.Work;
@@ -12,9 +11,8 @@ namespace MaterialCalculator.Models.Create {
     #region Properties
     public IEnumerable<IslandModel> Islands {
       get {
-        var applicationModel = ((MainWindow)Application.Current.MainWindow)?.Model.Value;
-        var islands = applicationModel?.Islands.Where(w => w != applicationModel.SelectedIsland.Value && w.Buildings.OfType<WorkProductionModel>().Any(a => a.Building.Type == this.Building));
-        return islands;
+        var islandIDs = MainWindow.ApplicationModel.IslandItems.OfType<WorkModelProduction>().Where(w => w.IslandID != MainWindow.ApplicationModel.SelectedIsland.Value.ID && w.Building.Type == this.Building).Select(s => s.IslandID).Distinct();
+        return MainWindow.ApplicationModel.Islands.Where(w => islandIDs.Contains(w.ID));
       }
     }
     public IslandModel SelectedIsland { get; set; }

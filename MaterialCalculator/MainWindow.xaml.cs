@@ -11,6 +11,7 @@ using MaterialCalculator.Models.Island;
 using MaterialCalculator.Models.Main;
 using MaterialCalculator.Windows;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using Localization = MaterialCalculator.Resources.Localization;
 
 // ReSharper disable once MemberCanBePrivate.Global
@@ -19,6 +20,12 @@ namespace MaterialCalculator {
   public partial class MainWindow {
 
     #region Properties
+    public static ApplicationModel ApplicationModel {
+      get {
+        var applicationModel = ((MainWindow)Application.Current.MainWindow)?.Model.Value;
+        return applicationModel;
+      }
+    }
     public NotifyProperty<ApplicationModel> Model { get; }
     public NotifyProperty<Settings> Settings { get; }
     #endregion
@@ -34,7 +41,7 @@ namespace MaterialCalculator {
       this.InitializeComponent();
       this.RoamingPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MaterialCalculator");
       this.SettingsFile = Path.Combine(this.RoamingPath, "Settings.xml");
-      this.ModelFile = Path.Combine(this.RoamingPath, "Model.xml");
+      this.ModelFile = Path.Combine(this.RoamingPath, "Model.json");
       this.Model = new NotifyProperty<ApplicationModel>(null);
       this.Settings = new NotifyProperty<Settings>(null);
       this.InitLanguage();
@@ -92,7 +99,6 @@ namespace MaterialCalculator {
           using var stream = new MemoryStream(data);
           var result = xmlSerializer.Deserialize(stream) as Settings;
           this.Settings.Value = result;
-          //
         }
         if (this.Settings.Value == null) {
           this.Settings.Value = new Settings();
@@ -118,43 +124,48 @@ namespace MaterialCalculator {
     }
     private void LoadModel() {
       try {
+        var settings = new JsonSerializerSettings {
+          TypeNameHandling = TypeNameHandling.Auto,
+          Formatting = Formatting.Indented,
+          Converters = { new BaseModelConverter() }
+        };
         if (this.Settings?.Value?.FullFileName != null) {
           if (File.Exists(this.Settings.Value.FullFileName)) {
-            var data = File.ReadAllBytes(this.Settings.Value.FullFileName);
-            var xmlSerializer = new XmlSerializer(typeof(ApplicationModel));
-            using var stream = new MemoryStream(data);
-            var result = xmlSerializer.Deserialize(stream) as ApplicationModel;
+            var data = File.ReadAllText(this.Settings.Value.FullFileName);
+            var result = JsonConvert.DeserializeObject<ApplicationModel>(data, settings);
             this.Model.Value = result;
             this.InitModel();
           }
         } else {
           if (File.Exists(this.ModelFile)) {
-            var data = File.ReadAllBytes(this.ModelFile);
-            var xmlSerializer = new XmlSerializer(typeof(ApplicationModel));
-            using var stream = new MemoryStream(data);
-            var result = xmlSerializer.Deserialize(stream) as ApplicationModel;
+            var data = File.ReadAllText(this.ModelFile);
+            var result = JsonConvert.DeserializeObject<ApplicationModel>(data, settings);
             this.Model.Value = result;
             this.InitModel();
           }
         }
+      } catch (Exception) {
+        MessageBox.Show(this, Localization.MessageBox_FileNotLoaded, Localization.MessageBox_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
+      } finally {
         if (this.Model.Value == null) {
           this.Model.Value = new ApplicationModel();
         }
-      } catch (Exception) {
-        MessageBox.Show(this, Localization.MessageBox_FileNotLoaded, Localization.MessageBox_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
       }
     }
     private void SaveModel() {
       try {
+        var settings = new JsonSerializerSettings {
+          TypeNameHandling = TypeNameHandling.Auto,
+          Formatting = Formatting.Indented,
+          ContractResolver = new WritablePropertiesOnlyResolver(),
+          Converters = { new BaseModelConverter() }
+        };
+        var result = JsonConvert.SerializeObject(this.Model.Value, settings);
         if (this.Settings?.Value?.FullFileName != null) {
-          var xmlSerializer = new XmlSerializer(typeof(ApplicationModel));
-          using var stream = new StreamWriter(this.Settings.Value.FullFileName);
-          xmlSerializer.Serialize(stream, this.Model.Value);
+          File.WriteAllText(this.Settings.Value.FullFileName, result);
         }
         if (Directory.Exists(this.RoamingPath)) {
-          var xmlSerializer = new XmlSerializer(typeof(ApplicationModel));
-          using var stream = new StreamWriter(this.ModelFile);
-          xmlSerializer.Serialize(stream, this.Model.Value);
+          File.WriteAllText(this.ModelFile, result);
         }
       } catch (Exception) {
         MessageBox.Show(this, Localization.MessageBox_FileNotSaved, Localization.MessageBox_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -200,8 +211,8 @@ namespace MaterialCalculator {
     }
     private void ButtonLoad_OnClick(Object sender, RoutedEventArgs e) {
       var ofd = new OpenFileDialog {
-        DefaultExt = ".xml",
-        Filter = "XML (*.xml)|*.xml"
+        DefaultExt = ".json",
+        Filter = "JSON (*.json)|*.json"
       };
       var result = ofd.ShowDialog();
       if (result.HasValue && result.Value) {
@@ -211,8 +222,8 @@ namespace MaterialCalculator {
     }
     private void ButtonSave_OnClick(Object sender, RoutedEventArgs e) {
       var sfd = new SaveFileDialog {
-        DefaultExt = ".xml",
-        Filter = "XML (*.xml)|*.xml"
+        DefaultExt = ".json",
+        Filter = "JSON (*.json)|*.json"
       };
       var result = sfd.ShowDialog();
       if (result.HasValue && result.Value) {
@@ -234,6 +245,8 @@ namespace MaterialCalculator {
         case 1:
           CultureInfo.CurrentUICulture = new CultureInfo("de");
           break;
+        default:
+          throw new ArgumentOutOfRangeException($"language with index '{index}' is not supported yet");
       }
       App.ChangeLanguage();
     }

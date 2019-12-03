@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -16,6 +17,17 @@ namespace MaterialCalculator.Library {
         sb.Append(predicate.Invoke(item));
       }
       return sb.ToString();
+    }
+    public static Byte[] GetImage(this Assembly assembly, String image) {
+      if (assembly != null) {
+        var stream = assembly.GetManifestResourceStream($"MaterialCalculator.Resources.Materials.{image}");
+        if (stream != null) {
+          var result = new Byte[stream.Length];
+          stream.Read(result, 0, result.Length);
+          return result;
+        }
+      }
+      return null;
     }
     public static T FindAnchestor<T>(this DependencyObject current) where T : DependencyObject {
       do {

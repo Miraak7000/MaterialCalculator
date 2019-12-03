@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using MaterialCalculator.Models.Work;
 
 // ReSharper disable ClassNeverInstantiated.Global
@@ -13,14 +14,13 @@ namespace MaterialCalculator.DesignTime {
     #region Constructor
     public IslandDesignTimeModel() {
       this.Buildings = new ObservableCollection<BaseModel> {
-        new WorkProductionModel(Enumerations.Buildings.Lumberjack),
-        new WorkProductionModel(Enumerations.Buildings.Sawmill),
-        new GroupModel {
+        new WorkModelProduction(Guid.Empty, Enumerations.Buildings.Lumberjack),
+        new WorkModelProduction(Guid.Empty, Enumerations.Buildings.Sawmill),
+        new WorkModelGroup(Guid.Empty, Enumerations.Buildings.CabAssemblyLine) {
           InputBuildings = new ObservableCollection<WorkModel> {
-            new WorkProductionModel(Enumerations.Buildings.Coachmakers),
-            new WorkProductionModel(Enumerations.Buildings.MotorAssemblyLine)
-          },
-          FinalBuilding = Enumerations.Buildings.CabAssemblyLine
+            new WorkModelProduction(Guid.Empty, Enumerations.Buildings.Coachmakers),
+            new WorkModelProduction(Guid.Empty, Enumerations.Buildings.MotorAssemblyLine)
+          }
         }
       };
     }

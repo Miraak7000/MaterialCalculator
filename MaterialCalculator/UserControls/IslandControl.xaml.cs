@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using MaterialCalculator.Attributes;
 using MaterialCalculator.Enumerations;
 using MaterialCalculator.Library;
 using MaterialCalculator.Models.Create;
@@ -22,10 +20,10 @@ namespace MaterialCalculator.UserControls {
   public partial class IslandControl {
 
     #region Properties
-    public IEnumerable<Tuple<Buildings, String>> Buildings {
-      get { return Enum.GetNames(typeof(Buildings)).Select(s => new Tuple<Buildings, String>(Enum.Parse<Buildings>(s), typeof(Buildings).GetField(s).GetCustomAttribute<LocalizedDescriptionAttribute>(false).Value)).OrderBy(o => o.Item2); }
+    public IEnumerable<Building> Buildings {
+      get { return Enum.GetNames(typeof(Buildings)).Select(s => new Building(Enum.Parse<Buildings>(s))).OrderBy(o => o.Description); }
     }
-    public Tuple<Buildings, String> SelectedBuilding { get; set; }
+    public Building SelectedBuilding { get; set; }
     #endregion
 
     #region Fields
@@ -41,28 +39,26 @@ namespace MaterialCalculator.UserControls {
     #region Events
     private void ButtonAddBuilding_OnClick(Object sender, RoutedEventArgs e) {
       if (this.SelectedBuilding != null) {
-        var window = new AddBuildingWindow(this.SelectedBuilding.Item1);
+        var window = new AddBuildingWindow(this.SelectedBuilding.Type);
         var result = window.ShowDialog();
         if (result.HasValue && result.Value) {
           if (this.DataContext is IslandModel island) {
             switch (window.Model.Value) {
               case CreateProductionModel model:
-                var modelProduction = new WorkProductionModel(this.SelectedBuilding.Item1) {
-                  Island = island,
+                var modelProduction = new WorkModelProduction(island.ID, this.SelectedBuilding.Type) {
                   NumberOfBuildings = new NotifyProperty<Int32>(model.NumberOfBuildings),
                   Productivity = new NotifyProperty<Int32>(model.Productivity)
                 };
                 modelProduction.Init();
-                island.Buildings.Add(modelProduction);
+                MainWindow.ApplicationModel.IslandItems.Add(modelProduction);
                 island.Calculate();
                 break;
               case CreateReferenceModel model:
-                var modelReference = new WorkReferenceModel(this.SelectedBuilding.Item1) {
-                  Island = island,
+                var modelReference = new WorkModelReference(island.ID, this.SelectedBuilding.Type) {
                   ReferenceID = model.SelectedIsland.ID
                 };
                 modelReference.Init();
-                island.Buildings.Add(modelReference);
+                MainWindow.ApplicationModel.IslandItems.Add(modelReference);
                 island.Calculate();
                 break;
               default:
@@ -74,10 +70,8 @@ namespace MaterialCalculator.UserControls {
     }
     private void ButtonAddSeparator_OnClick(Object sender, RoutedEventArgs e) {
       if (this.DataContext is IslandModel island) {
-        var modelSeparator = new SeparatorModel {
-          Island = island
-        };
-        island.Buildings.Add(modelSeparator);
+        var modelSeparator = new SeparatorModel(island.ID);
+        MainWindow.ApplicationModel.IslandItems.Add(modelSeparator);
       }
     }
     private void ButtonDelete_OnClick(Object sender, RoutedEventArgs e) {
@@ -85,7 +79,7 @@ namespace MaterialCalculator.UserControls {
       var result = MessageBox.Show(Application.Current.MainWindow, Localization.MessageBox_RemoveBuilding, Localization.MessageBox_Title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
       if (result == MessageBoxResult.Yes) {
         var model = (BaseModel)this.ListViewBuildings.SelectedItem;
-        model.Island.Buildings.Remove(model);
+        MainWindow.ApplicationModel.IslandItems.Remove(model);
       }
     }
     private void Buildings_PreviewMouseLeftButtonDown(Object sender, MouseButtonEventArgs e) {

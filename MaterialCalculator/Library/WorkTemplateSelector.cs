@@ -11,13 +11,13 @@ namespace MaterialCalculator.Library {
     public override DataTemplate SelectTemplate(Object item, DependencyObject container) {
       if (container is FrameworkElement element && item is BaseModel) {
         switch (item) {
-          case WorkProductionModel _:
+          case WorkModelProduction _:
             return element.FindResource("ProductionTemplate") as DataTemplate;
-          case WorkReferenceModel _:
+          case WorkModelReference _:
             return element.FindResource("ReferenceTemplate") as DataTemplate;
           case SeparatorModel _:
             return element.FindResource("SeparatorTemplate") as DataTemplate;
-          case GroupModel _:
+          case WorkModelGroup _:
             return element.FindResource("GroupTemplate") as DataTemplate;
         }
       }

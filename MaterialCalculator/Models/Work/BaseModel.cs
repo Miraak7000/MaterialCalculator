@@ -1,14 +1,22 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Linq;
 using MaterialCalculator.Models.Island;
 
 namespace MaterialCalculator.Models.Work {
 
-  [XmlInclude(typeof(WorkModel)), XmlInclude(typeof(GroupModel)), XmlInclude(typeof(SeparatorModel))]
   public abstract class BaseModel {
 
     #region Properties
-    [XmlIgnore]
-    public IslandModel Island { get; set; }
+    public Guid IslandID { get; }
+    protected IslandModel Island {
+      get { return MainWindow.ApplicationModel.Islands.SingleOrDefault(w => w.ID == this.IslandID); }
+    }
+    #endregion
+
+    #region Constructor
+    protected BaseModel(Guid islandID) {
+      this.IslandID = islandID;
+    }
     #endregion
 
   }
