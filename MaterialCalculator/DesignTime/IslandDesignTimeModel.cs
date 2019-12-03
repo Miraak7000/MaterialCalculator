@@ -27,15 +27,15 @@ namespace MaterialCalculator.DesignTime {
       MainWindow.ApplicationModel.IslandItems.Add(new WorkModelProduction(island.ID, Enumerations.Buildings.Sawmill));
       MainWindow.ApplicationModel.IslandItems.Add(
         new WorkModelGroup(island.ID, Enumerations.Buildings.CabAssemblyLine) {
-          InputBuildings = new ObservableCollection<WorkModel> {
+          InputBuildings = new ObservableCollection<BaseModel> {
             new WorkModelGroup(island.ID, Enumerations.Buildings.Coachmakers) {
-              InputBuildings = new ObservableCollection<WorkModel> {
+              InputBuildings = new ObservableCollection<BaseModel> {
                 new WorkModelProduction(island.ID, Buildings.Lumberjack),
                 new WorkModelProduction(island.ID, Buildings.CaoutchoucPlantation)
               }
             },
             new WorkModelGroup(island.ID, Enumerations.Buildings.MotorAssemblyLine) {
-              InputBuildings = new ObservableCollection<WorkModel> {
+              InputBuildings = new ObservableCollection<BaseModel> {
                 new WorkModelProduction(island.ID, Buildings.Furnace),
                 new WorkModelProduction(island.ID, Buildings.BrassSmeltery)
               }

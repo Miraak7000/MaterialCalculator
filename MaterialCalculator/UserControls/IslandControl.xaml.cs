@@ -22,7 +22,7 @@ namespace MaterialCalculator.UserControls {
 
     #region Properties
     public IEnumerable<Building> Buildings {
-      get { return Enum.GetNames(typeof(Buildings)).Select(s => new Building(Enum.Parse<Buildings>(s))).OrderBy(o => o.Description); }
+      get { return BuildingCollection.Items; }
     }
     public Building SelectedBuilding { get; set; }
     #endregion
@@ -47,7 +47,11 @@ namespace MaterialCalculator.UserControls {
             switch (window.Model.Value) {
               case CreateProductionModel model:
                 if (this.SelectedBuilding.Inputs.Length > 0) {
-                  var modelGroup = new WorkModelGroup(island.ID, this.SelectedBuilding.Type);
+                  var modelGroup = new WorkModelGroup(island.ID, this.SelectedBuilding.Type) {
+                    NumberOfBuildings = new NotifyProperty<Int32>(model.NumberOfBuildings),
+                    Productivity = new NotifyProperty<Int32>(model.Productivity)
+                  };
+                  modelGroup.Init();
                   MainWindow.ApplicationModel.IslandItems.Add(modelGroup);
                 } else {
                   var modelProduction = new WorkModelProduction(island.ID, this.SelectedBuilding.Type) {
