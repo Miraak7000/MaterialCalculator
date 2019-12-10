@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using MaterialCalculator.Enumerations;
 using MaterialCalculator.Library;
 using Newtonsoft.Json;
@@ -15,6 +17,15 @@ namespace MaterialCalculator.Models.Work {
     public NotifyProperty<Int32> NumberOfBuildings { get; set; }
     [JsonConverter(typeof(NotifyPropertyConverter<Int32>))]
     public NotifyProperty<Int32> Productivity { get; set; }
+    public Visibility ContextMenuVisibility {
+      get { return this.InputBuildings.OfType<WorkModelGroup>().Any() ? Visibility.Collapsed : Visibility.Visible; }
+    }
+    public IEnumerable<Building> PossibleProductionBuildings {
+      get {
+        var buildings = BuildingCollection.Items.Where(w => this.Building.Inputs.Contains(w.Output));
+        return buildings;
+      }
+    }
     public override Double OutputTarget { get; }
     public override Double OutputActual { get; }
     #endregion
@@ -25,7 +36,14 @@ namespace MaterialCalculator.Models.Work {
       this.NumberOfBuildings = new NotifyProperty<Int32>(1);
       this.Productivity = new NotifyProperty<Int32>(100);
       foreach (var input in this.Building.Inputs) {
-        this.InputBuildings.Add(new WorkModelProduction(islandID, BuildingCollection.Items.Where(w => w.Output.Type == input.Type).Select(s => s.Type).First()));
+        var buildings = BuildingCollection.Items.Where(w => w.Output.Type == input.Type);
+        foreach (var item in buildings) {
+          if (item.Inputs.Length == 0) {
+            this.InputBuildings.Add(new WorkModelProduction(islandID, item.Type));
+          } else {
+            this.InputBuildings.Add(new WorkModelGroup(islandID, item.Type));
+          }
+        }
       }
     }
     #endregion

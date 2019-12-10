@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using MaterialCalculator.Enumerations;
 using MaterialCalculator.Library;
 using MaterialCalculator.Models.Create;
 using MaterialCalculator.Models.Island;
@@ -121,7 +119,7 @@ namespace MaterialCalculator.UserControls {
           if (listViewItem != null) {
             var newIndex = listView.Items.IndexOf(listViewItem.Content);
             if (listView.ItemsSource is ICollectionView list) {
-              var sourceCollection = ((ObservableCollection<BaseModel>)list.SourceCollection);
+              var sourceCollection = (ObservableCollection<BaseModel>)list.SourceCollection;
               sourceCollection.RemoveAt(sourceCollection.IndexOf(building));
               sourceCollection.Insert(newIndex, building);
               list.Refresh();
@@ -133,6 +131,37 @@ namespace MaterialCalculator.UserControls {
     private void Buildings_OnDragEnter(Object sender, DragEventArgs e) {
       if (!e.Data.GetDataPresent("BuildingObject") || sender == e.Source) {
         e.Effects = DragDropEffects.None;
+      }
+    }
+    private void ContextMenuAdd_OnClick(Object sender, RoutedEventArgs e) {
+      if (((MenuItem)e.OriginalSource).DataContext is Building building && ((MenuItem)sender).DataContext is WorkModelGroup workModel) {
+        var window = new AddBuildingWindow(building.Type);
+        var result = window.ShowDialog();
+        if (result.HasValue && result.Value) {
+          if (this.DataContext is IslandModel island) {
+            switch (window.Model.Value) {
+              case CreateProductionModel model:
+                var modelProduction = new WorkModelProduction(island.ID, building.Type) {
+                  NumberOfBuildings = new NotifyProperty<Int32>(model.NumberOfBuildings),
+                  Productivity = new NotifyProperty<Int32>(model.Productivity)
+                };
+                modelProduction.Init();
+                workModel.InputBuildings.Add(modelProduction);
+                island.Calculate();
+                break;
+              case CreateReferenceModel model:
+                var modelReference = new WorkModelReference(island.ID, building.Type) {
+                  ReferenceID = model.SelectedIsland.ID
+                };
+                modelReference.Init();
+                workModel.InputBuildings.Add(modelReference);
+                island.Calculate();
+                break;
+              default:
+                throw new ArgumentOutOfRangeException($"this model is not supported: {window.Model.Value.GetType()}");
+            }
+          }
+        }
       }
     }
     #endregion

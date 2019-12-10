@@ -19,7 +19,8 @@ using System.Globalization;
 using System.Xml.Linq;
 using System.IO;
 
-<# var folder = @"C:\Users\Andreas\source\repos\MaterialCalculator\MaterialCalculator\Resources\Globalization"; #>
+<# //var folder = @"C:\Users\Andreas\source\repos\MaterialCalculator\MaterialCalculator\Resources\Globalization"; #>
+<# var folder = @"C:\Users\alang\source\repos\MaterialCalculator\MaterialCalculator\Resources\Globalization"; #>
 <# var xmlPath = Path.Combine(folder, "EN.xml"); #>
 <# var xmlRoot = XDocument.Load(xmlPath).Root; #>
 namespace MaterialCalculator.Resources {

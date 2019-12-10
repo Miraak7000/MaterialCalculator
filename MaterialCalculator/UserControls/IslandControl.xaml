@@ -12,8 +12,20 @@
 
   <UserControl.Resources>
     <library:WorkTemplateSelector x:Key="BuildingTemplateSelector" />
+    <Image x:Key="ImageAdd" Source="../Resources/Images/Plus-b_16x16.scale-150.png"/>
+    <DataTemplate x:Key="BuildingTemplate" DataType="library:Building">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="18" />
+          <ColumnDefinition Width="5" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Source="{Binding Path=Output.Image}" />
+        <TextBlock Grid.Column="2" Text="{Binding Path=Description}" />
+      </Grid>
+    </DataTemplate>
     <DataTemplate x:Key="ProductionTemplate" DataType="work:WorkModelProduction">
-      <Grid x:Name="Grid" Height="20" Margin="2">
+      <Grid x:Name="Grid" Height="20" Margin="0">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="25" />
           <ColumnDefinition Width="*" />
@@ -35,22 +47,25 @@
                  Text="{Binding Path=OutputTargetString.Value, Mode=OneWay}" />
         <TextBox Grid.Column="6" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
                  IsReadOnly="True"
-                 Text="{Binding Path=OutputActualString.Value, Mode=OneWay}"
+                 Text="{Binding Path=Depth, Mode=OneWay}"
                  ToolTip="{Binding Path=ConsumerError.Value}"
                  Background="{Binding Path=StatusBackground.Value}" />
       </Grid>
       <DataTemplate.Triggers>
+        <Trigger Property="Border.IsMouseOver" Value="True">
+          <Setter Property="Border.BorderBrush" Value="DodgerBlue" />
+        </Trigger>
         <DataTrigger Binding="{Binding Path=Depth}" Value="0">
-          <Setter TargetName="Grid" Property="Margin" Value="8,2,8,2" />
+          <Setter TargetName="Grid" Property="Margin" Value="11,2,11,2" />
         </DataTrigger>
         <DataTrigger Binding="{Binding Path=Depth}" Value="1">
-          <Setter TargetName="Grid" Property="Margin" Value="2,2,4,2" />
+          <Setter TargetName="Grid" Property="Margin" Value="7,2,7,2" />
         </DataTrigger>
         <DataTrigger Binding="{Binding Path=Depth}" Value="2">
-          <Setter TargetName="Grid" Property="Margin" Value="2,2,2,2" />
+          <Setter TargetName="Grid" Property="Margin" Value="5,2,5,2" />
         </DataTrigger>
         <DataTrigger Binding="{Binding Path=Depth}" Value="3">
-          <Setter TargetName="Grid" Property="Margin" Value="2,2,0,2" />
+          <Setter TargetName="Grid" Property="Margin" Value="2,2,2,2" />
         </DataTrigger>
       </DataTemplate.Triggers>
     </DataTemplate>
@@ -90,38 +105,57 @@
             <RowDefinition Height="Auto" MinHeight="22" />
             <RowDefinition Height="Auto" />
           </Grid.RowDefinitions>
-          <ItemsControl Grid.Row="0" BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch" Margin="0" Padding="0"
-                    ItemTemplateSelector="{StaticResource BuildingTemplateSelector}" ItemsSource="{Binding Path=InputBuildings}" />
+          <ItemsControl Grid.Row="0" BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch"
+                        Margin="0" Padding="0"
+                        ItemTemplateSelector="{StaticResource BuildingTemplateSelector}"
+                        ItemsSource="{Binding Path=InputBuildings}" />
           <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="DimGray" Background="BurlyWood">
-            <ContentPresenter x:Name="Output" Margin="0,0,0,0" ContentTemplate="{StaticResource ProductionTemplate}" />
+            <ContentPresenter x:Name="Output" Margin="0,0,0,0" ContentTemplate="{StaticResource ProductionTemplate}">
+              <ContentPresenter.ContextMenu>
+                <ContextMenu Visibility="{Binding Path=ContextMenuVisibility}">
+                  <MenuItem Header="{x:Static resources:Localization.IslandControl_LabelAdd}" 
+                            ItemsSource="{Binding Path=PossibleProductionBuildings}" 
+                            Icon="{StaticResource ImageAdd}"
+                            Click="ContextMenuAdd_OnClick">
+                    <MenuItem.ItemsPanel>
+                      <ItemsPanelTemplate>
+                        <StackPanel ></StackPanel>
+                      </ItemsPanelTemplate>
+                    </MenuItem.ItemsPanel>
+                    <MenuItem.ItemTemplate>
+                      <DataTemplate>
+                        <Grid Margin="-30,0,-20,0">
+                          <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="1*"/>
+                          </Grid.ColumnDefinitions>
+                          <Image Grid.Column="0" Source="{Binding Path=Output.Image}" />
+                          <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Description}" />
+                        </Grid>
+                      </DataTemplate>
+                    </MenuItem.ItemTemplate>
+                  </MenuItem>
+                </ContextMenu>
+              </ContentPresenter.ContextMenu>
+            </ContentPresenter>
           </Border>
         </Grid>
       </Border>
       <DataTemplate.Triggers>
+        <!--<Trigger Property="Border.IsMouseOver" Value="True">
+          <Setter TargetName="Root" Property="BorderBrush" Value="DodgerBlue" />
+        </Trigger>-->
         <DataTrigger Binding="{Binding Path=Depth}" Value="0">
           <Setter TargetName="Output" Property="Margin" Value="-3,0,-3,0" />
         </DataTrigger>
         <DataTrigger Binding="{Binding Path=Depth}" Value="1">
-          <Setter TargetName="Output" Property="Margin" Value="0,0,-2,0" />
+          <Setter TargetName="Output" Property="Margin" Value="-2,0,-2,0" />
         </DataTrigger>
-        <!--<DataTrigger Binding="{Binding Path=Depth}" Value="2">
-          <Setter TargetName="Output" Property="Margin" Value="0,0,0,0" />
+        <DataTrigger Binding="{Binding Path=Depth}" Value="2">
+          <Setter TargetName="Output" Property="Margin" Value="-3,0,-3,0" />
         </DataTrigger>
-        <DataTrigger Binding="{Binding Path=Depth}" Value="3">
-          <Setter TargetName="Output" Property="Margin" Value="0,0,2,0" />
-        </DataTrigger>-->
       </DataTemplate.Triggers>
-    </DataTemplate>
-    <DataTemplate x:Key="BuildingTemplate" DataType="library:Building">
-      <Grid>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="18" />
-          <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Image Grid.Column="0" Source="{Binding Path=Output.Image}"/>
-        <TextBlock Grid.Column="2" Text="{Binding Path=Description}" />
-      </Grid>
     </DataTemplate>
   </UserControl.Resources>
 
@@ -161,7 +195,7 @@
         <RowDefinition Height="Auto" />
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
-      <Grid Margin="2,0,2,0">
+      <Grid Margin="2,0,12,0">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
@@ -192,8 +226,15 @@
                 Drop="Buildings_OnDrop" DragEnter="Buildings_OnDragEnter">
         <ListView.ItemContainerStyle>
           <Style TargetType="ListViewItem">
-            <Setter Property="Padding" Value="0 "/>
-            <Setter Property="Margin" Value="0 "/>
+            <Setter Property="Padding" Value="0 " />
+            <Setter Property="Margin" Value="0 " />
+            <Setter Property="Template">
+              <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                  <ContentPresenter />
+                </ControlTemplate>
+              </Setter.Value>
+            </Setter>
           </Style>
         </ListView.ItemContainerStyle>
       </ListView>

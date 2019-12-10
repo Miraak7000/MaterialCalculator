@@ -44,6 +44,7 @@
     <LabelProductivity>Productivity</LabelProductivity>
     <LabelTarget>Target/min</LabelTarget>
     <LabelActual>Actual/min</LabelActual>
+    <LabelAdd>Add</LabelAdd>
   </IslandControl>
   <Buildings>
     <Lumberjack>Lumberjack</Lumberjack>
