@@ -114,6 +114,9 @@ namespace MaterialCalculator.Resources {
     public static String IslandControl_LabelAdd {
       get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("IslandControl")?.Element("LabelAdd")?.Value; }
     }
+    public static String IslandControl_LabelRemove {
+      get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("IslandControl")?.Element("LabelRemove")?.Value; }
+    }
     //
     public static String Buildings_Lumberjack {
       get { return Localization.Documents[CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()].Element("Buildings")?.Element("Lumberjack")?.Value; }

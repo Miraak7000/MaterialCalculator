@@ -13,6 +13,7 @@
   <UserControl.Resources>
     <library:WorkTemplateSelector x:Key="BuildingTemplateSelector" />
     <Image x:Key="ImageAdd" Source="../Resources/Images/Plus-b_16x16.scale-150.png"/>
+    <Image x:Key="ImageRemove" Source="../Resources/Images/Minus_16x16.scale-150.png"/>
     <DataTemplate x:Key="BuildingTemplate" DataType="library:Building">
       <Grid>
         <Grid.ColumnDefinitions>
@@ -50,6 +51,41 @@
                  Text="{Binding Path=Depth, Mode=OneWay}"
                  ToolTip="{Binding Path=ConsumerError.Value}"
                  Background="{Binding Path=StatusBackground.Value}" />
+        <Grid.ContextMenu>
+          <ContextMenu>
+            <MenuItem Header="{x:Static resources:Localization.IslandControl_LabelAdd}" 
+                      ItemsSource="{Binding Path=PossibleProductionBuildings}" 
+                      Visibility="{Binding Path=ContextMenuVisibility}"
+                      Click="ContextMenuAdd_OnClick">
+              <MenuItem.Icon>
+                <Image Source="../Resources/Images/Plus-b_16x16.scale-150.png"/>
+              </MenuItem.Icon>
+              <MenuItem.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel ></StackPanel>
+                </ItemsPanelTemplate>
+              </MenuItem.ItemsPanel>
+              <MenuItem.ItemTemplate>
+                <DataTemplate>
+                  <Grid Margin="-30,0,-20,0">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="20"/>
+                      <ColumnDefinition Width="10"/>
+                      <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="{Binding Path=Output.Image}" />
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Description}" />
+                  </Grid>
+                </DataTemplate>
+              </MenuItem.ItemTemplate>
+            </MenuItem>
+            <MenuItem Header="{x:Static resources:Localization.IslandControl_LabelRemove}" Click="ContextMenuRemove_OnClick">
+              <MenuItem.Icon>
+                <Image Source="../Resources/Images/Minus_16x16.scale-150.png"/>
+              </MenuItem.Icon>
+            </MenuItem>
+          </ContextMenu>
+        </Grid.ContextMenu>
       </Grid>
       <DataTemplate.Triggers>
         <Trigger Property="Border.IsMouseOver" Value="True">
@@ -111,12 +147,15 @@
                         ItemsSource="{Binding Path=InputBuildings}" />
           <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="DimGray" Background="BurlyWood">
             <ContentPresenter x:Name="Output" Margin="0,0,0,0" ContentTemplate="{StaticResource ProductionTemplate}">
-              <ContentPresenter.ContextMenu>
-                <ContextMenu Visibility="{Binding Path=ContextMenuVisibility}">
+              <!--<ContentPresenter.ContextMenu>
+                <ContextMenu>
                   <MenuItem Header="{x:Static resources:Localization.IslandControl_LabelAdd}" 
                             ItemsSource="{Binding Path=PossibleProductionBuildings}" 
-                            Icon="{StaticResource ImageAdd}"
+                            Visibility="{Binding Path=ContextMenuVisibility}"
                             Click="ContextMenuAdd_OnClick">
+                    <MenuItem.Icon>
+                      <Image Source="../Resources/Images/Plus-b_16x16.scale-150.png"/>
+                    </MenuItem.Icon>
                     <MenuItem.ItemsPanel>
                       <ItemsPanelTemplate>
                         <StackPanel ></StackPanel>
@@ -136,8 +175,13 @@
                       </DataTemplate>
                     </MenuItem.ItemTemplate>
                   </MenuItem>
+                  <MenuItem Header="{x:Static resources:Localization.IslandControl_LabelRemove}" Click="ContextMenuRemove_OnClick">
+                    <MenuItem.Icon>
+                      <Image Source="../Resources/Images/Minus_16x16.scale-150.png"/>
+                    </MenuItem.Icon>
+                  </MenuItem>
                 </ContextMenu>
-              </ContentPresenter.ContextMenu>
+              </ContentPresenter.ContextMenu>-->
             </ContentPresenter>
           </Border>
         </Grid>
@@ -179,12 +223,8 @@
       <ComboBox Grid.Column="0" Focusable="False" ItemTemplate="{StaticResource BuildingTemplate}"
                 ItemsSource="{Binding Path=Buildings, RelativeSource={RelativeSource AncestorType=UserControl}}"
                 SelectedItem="{Binding Path=SelectedBuilding, RelativeSource={RelativeSource AncestorType=UserControl}}" />
-      <Button Grid.Column="2" Background="Transparent" Focusable="False" Click="ButtonAddBuilding_OnClick">
-        <Image Source="../Resources/Images/Plus-b_16x16.scale-150.png" />
-      </Button>
-      <Button Grid.Column="4" Background="Transparent" Focusable="False" Click="ButtonDelete_OnClick">
-        <Image Source="../Resources/Images/Minus_16x16.scale-150.png" />
-      </Button>
+      <Button Grid.Column="2" Background="Transparent" Focusable="False" Click="ButtonAddBuilding_OnClick" Content="{StaticResource ImageAdd}" />
+      <Button Grid.Column="4" Background="Transparent" Focusable="False" Click="ButtonDelete_OnClick" Content="{StaticResource ImageRemove}" />
       <Button Grid.Column="6" Background="Transparent" Focusable="False" Click="ButtonAddSeparator_OnClick">
         <Image Source="../Resources/Images/Gridlines-b_16x16.scale-150.png" />
       </Button>

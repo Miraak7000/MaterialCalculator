@@ -45,6 +45,7 @@
     <LabelTarget>Soll/min</LabelTarget>
     <LabelActual>Ist/min</LabelActual>
     <LabelAdd>Hinzufügen</LabelAdd>
+    <LabelRemove>Löschen</LabelRemove>
   </IslandControl>
   <Buildings>
     <Lumberjack>Holzfäller</Lumberjack>

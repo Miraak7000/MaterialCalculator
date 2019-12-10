@@ -45,6 +45,7 @@
     <LabelTarget>Target/min</LabelTarget>
     <LabelActual>Actual/min</LabelActual>
     <LabelAdd>Add</LabelAdd>
+    <LabelRemove>Remove</LabelRemove>
   </IslandControl>
   <Buildings>
     <Lumberjack>Lumberjack</Lumberjack>

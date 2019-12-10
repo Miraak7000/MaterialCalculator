@@ -164,6 +164,9 @@ namespace MaterialCalculator.UserControls {
         }
       }
     }
+    private void ContextMenuRemove_OnClick(Object sender, RoutedEventArgs e) {
+
+    }
     #endregion
 
   }
