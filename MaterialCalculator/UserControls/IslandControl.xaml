@@ -53,32 +53,6 @@
                  Background="{Binding Path=StatusBackground.Value}" />
         <Grid.ContextMenu>
           <ContextMenu>
-            <MenuItem Header="{x:Static resources:Localization.IslandControl_LabelAdd}" 
-                      ItemsSource="{Binding Path=PossibleProductionBuildings}" 
-                      Visibility="{Binding Path=ContextMenuVisibility}"
-                      Click="ContextMenuAdd_OnClick">
-              <MenuItem.Icon>
-                <Image Source="../Resources/Images/Plus-b_16x16.scale-150.png"/>
-              </MenuItem.Icon>
-              <MenuItem.ItemsPanel>
-                <ItemsPanelTemplate>
-                  <StackPanel ></StackPanel>
-                </ItemsPanelTemplate>
-              </MenuItem.ItemsPanel>
-              <MenuItem.ItemTemplate>
-                <DataTemplate>
-                  <Grid Margin="-30,0,-20,0">
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="20"/>
-                      <ColumnDefinition Width="10"/>
-                      <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Source="{Binding Path=Output.Image}" />
-                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Description}" />
-                  </Grid>
-                </DataTemplate>
-              </MenuItem.ItemTemplate>
-            </MenuItem>
             <MenuItem Header="{x:Static resources:Localization.IslandControl_LabelRemove}" Click="ContextMenuRemove_OnClick">
               <MenuItem.Icon>
                 <Image Source="../Resources/Images/Minus_16x16.scale-150.png"/>
@@ -88,9 +62,6 @@
         </Grid.ContextMenu>
       </Grid>
       <DataTemplate.Triggers>
-        <Trigger Property="Border.IsMouseOver" Value="True">
-          <Setter Property="Border.BorderBrush" Value="DodgerBlue" />
-        </Trigger>
         <DataTrigger Binding="{Binding Path=Depth}" Value="0">
           <Setter TargetName="Grid" Property="Margin" Value="11,2,11,2" />
         </DataTrigger>
@@ -106,8 +77,9 @@
       </DataTemplate.Triggers>
     </DataTemplate>
     <DataTemplate x:Key="ReferenceTemplate" DataType="work:WorkModelReference">
-      <Grid Height="20" Margin="0,2,0,0">
+      <Grid x:Name="Grid" Height="20" Margin="0">
         <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="25" />
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="75" />
@@ -115,24 +87,88 @@
           <ColumnDefinition Width="75" />
           <ColumnDefinition Width="75" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Path=ReferenceName}" />
-        <Image Grid.Column="1" HorizontalAlignment="Left" Source="{Binding Path=MaterialImage}" />
-        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="25,0,0,0"
-                   Text="{Binding Path=MaterialDescription}" />
-        <TextBox Grid.Column="4" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
+        <Image Grid.Column="0" HorizontalAlignment="Left" Source="{Binding Path=Building.Output.Image}" />
+        <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=IslandReference.Name.Value}" />
+        <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Building.Output.Description}" />
+        <TextBox Grid.Column="5" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
                  IsReadOnly="True"
                  Text="{Binding Path=OutputTargetString.Value, Mode=OneWay}" />
-        <TextBox Grid.Column="5" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
+        <TextBox Grid.Column="6" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
                  IsReadOnly="True"
                  Text="{Binding Path=OutputActualString.Value, Mode=OneWay}"
                  ToolTip="{Binding Path=ConsumerError.Value}"
                  Background="{Binding Path=StatusBackground.Value}" />
+        <Grid.ContextMenu>
+          <ContextMenu>
+            <MenuItem Header="{x:Static resources:Localization.IslandControl_LabelRemove}" Click="ContextMenuRemove_OnClick">
+              <MenuItem.Icon>
+                <Image Source="../Resources/Images/Minus_16x16.scale-150.png"/>
+              </MenuItem.Icon>
+            </MenuItem>
+          </ContextMenu>
+        </Grid.ContextMenu>
       </Grid>
+      <DataTemplate.Triggers>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="0">
+          <Setter TargetName="Grid" Property="Margin" Value="11,2,11,2" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="1">
+          <Setter TargetName="Grid" Property="Margin" Value="7,2,7,2" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="2">
+          <Setter TargetName="Grid" Property="Margin" Value="5,2,5,2" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="3">
+          <Setter TargetName="Grid" Property="Margin" Value="2,2,2,2" />
+        </DataTrigger>
+      </DataTemplate.Triggers>
     </DataTemplate>
     <DataTemplate x:Key="SeparatorTemplate" DataType="work:SeparatorModel">
       <Grid Height="5" Margin="0,2,0,0">
         <Border BorderThickness="0,1,0,0" BorderBrush="DimGray" VerticalAlignment="Center" />
       </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="SummaryTemplate" DataType="work:WorkModelProduction">
+      <Grid x:Name="Grid" Height="20" Margin="0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="25" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="75" />
+          <ColumnDefinition Width="75" />
+          <ColumnDefinition Width="75" />
+          <ColumnDefinition Width="75" />
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" HorizontalAlignment="Left" Source="{Binding Path=Building.Output.Image}" />
+        <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=Building.Description}" />
+        <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=Building.Output.Description}" />
+        <TextBox Grid.Column="3" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
+                 Text="{Binding Path=NumberOfBuildings.Value, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="4" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
+                 Text="{Binding Path=Productivity.Value, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="5" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
+                 IsReadOnly="True" Focusable="False"
+                 Text="{Binding Path=OutputTargetString.Value, Mode=OneWay}" />
+        <TextBox Grid.Column="6" Margin="5,0,0,0" HorizontalContentAlignment="Center" BorderBrush="DimGray"
+                 IsReadOnly="True"
+                 Text="{Binding Path=Depth, Mode=OneWay}"
+                 ToolTip="{Binding Path=ConsumerError.Value}"
+                 Background="{Binding Path=StatusBackground.Value}" />
+      </Grid>
+      <DataTemplate.Triggers>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="0">
+          <Setter TargetName="Grid" Property="Margin" Value="11,2,11,2" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="1">
+          <Setter TargetName="Grid" Property="Margin" Value="7,2,7,2" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="2">
+          <Setter TargetName="Grid" Property="Margin" Value="5,2,5,2" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=Depth}" Value="3">
+          <Setter TargetName="Grid" Property="Margin" Value="2,2,2,2" />
+        </DataTrigger>
+      </DataTemplate.Triggers>
     </DataTemplate>
     <DataTemplate x:Key="GroupTemplate" DataType="work:WorkModelGroup">
       <Border x:Name="Root" BorderThickness="1" BorderBrush="DimGray" CornerRadius="0" Padding="0" Margin="2">
@@ -146,12 +182,11 @@
                         ItemTemplateSelector="{StaticResource BuildingTemplateSelector}"
                         ItemsSource="{Binding Path=InputBuildings}" />
           <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="DimGray" Background="BurlyWood">
-            <ContentPresenter x:Name="Output" Margin="0,0,0,0" ContentTemplate="{StaticResource ProductionTemplate}">
-              <!--<ContentPresenter.ContextMenu>
-                <ContextMenu>
+            <ContentPresenter x:Name="Output" Margin="0,0,0,0" ContentTemplate="{StaticResource SummaryTemplate}">
+              <ContentPresenter.ContextMenu>
+                <ContextMenu Visibility="{Binding Path=ContextMenuVisibility}">
                   <MenuItem Header="{x:Static resources:Localization.IslandControl_LabelAdd}" 
                             ItemsSource="{Binding Path=PossibleProductionBuildings}" 
-                            Visibility="{Binding Path=ContextMenuVisibility}"
                             Click="ContextMenuAdd_OnClick">
                     <MenuItem.Icon>
                       <Image Source="../Resources/Images/Plus-b_16x16.scale-150.png"/>
@@ -175,21 +210,16 @@
                       </DataTemplate>
                     </MenuItem.ItemTemplate>
                   </MenuItem>
-                  <MenuItem Header="{x:Static resources:Localization.IslandControl_LabelRemove}" Click="ContextMenuRemove_OnClick">
-                    <MenuItem.Icon>
-                      <Image Source="../Resources/Images/Minus_16x16.scale-150.png"/>
-                    </MenuItem.Icon>
-                  </MenuItem>
                 </ContextMenu>
-              </ContentPresenter.ContextMenu>-->
+              </ContentPresenter.ContextMenu>
             </ContentPresenter>
           </Border>
         </Grid>
       </Border>
       <DataTemplate.Triggers>
-        <!--<Trigger Property="Border.IsMouseOver" Value="True">
+        <Trigger Property="Border.IsMouseOver" Value="True">
           <Setter TargetName="Root" Property="BorderBrush" Value="DodgerBlue" />
-        </Trigger>-->
+        </Trigger>
         <DataTrigger Binding="{Binding Path=Depth}" Value="0">
           <Setter TargetName="Output" Property="Margin" Value="-3,0,-3,0" />
         </DataTrigger>
@@ -235,8 +265,9 @@
         <RowDefinition Height="Auto" />
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
-      <Grid Margin="2,0,12,0">
+      <Grid Margin="12,0,12,0">
         <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="25" />
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="75" />
@@ -244,17 +275,16 @@
           <ColumnDefinition Width="75" />
           <ColumnDefinition Width="75" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" VerticalAlignment="Center"
+        <TextBlock Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="2"
                    Text="{x:Static resources:Localization.IslandControl_LabelBuilding}" />
-        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0"
-                   Text="{x:Static resources:Localization.IslandControl_LabelProduct}" />
-        <TextBlock Grid.Column="2" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Center"
-                   Text="{x:Static resources:Localization.IslandControl_LabelCount}" />
+        <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Static resources:Localization.IslandControl_LabelProduct}" />
         <TextBlock Grid.Column="3" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Center"
-                   Text="{x:Static resources:Localization.IslandControl_LabelProductivity}" />
+                   Text="{x:Static resources:Localization.IslandControl_LabelCount}" />
         <TextBlock Grid.Column="4" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Center"
-                   Text="{x:Static resources:Localization.IslandControl_LabelTarget}" />
+                   Text="{x:Static resources:Localization.IslandControl_LabelProductivity}" />
         <TextBlock Grid.Column="5" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Center"
+                   Text="{x:Static resources:Localization.IslandControl_LabelTarget}" />
+        <TextBlock Grid.Column="6" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Center"
                    Text="{x:Static resources:Localization.IslandControl_LabelActual}" />
       </Grid>
       <Border Grid.Row="1" BorderBrush="DimGray" BorderThickness=".5" />

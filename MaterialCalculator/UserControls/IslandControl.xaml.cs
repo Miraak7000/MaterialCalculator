@@ -49,14 +49,14 @@ namespace MaterialCalculator.UserControls {
                     NumberOfBuildings = new NotifyProperty<Int32>(model.NumberOfBuildings),
                     Productivity = new NotifyProperty<Int32>(model.Productivity)
                   };
-                  modelGroup.Init();
+                  modelGroup.Init(null);
                   MainWindow.ApplicationModel.IslandItems.Add(modelGroup);
                 } else {
                   var modelProduction = new WorkModelProduction(island.ID, this.SelectedBuilding.Type) {
                     NumberOfBuildings = new NotifyProperty<Int32>(model.NumberOfBuildings),
                     Productivity = new NotifyProperty<Int32>(model.Productivity)
                   };
-                  modelProduction.Init();
+                  modelProduction.Init(null);
                   MainWindow.ApplicationModel.IslandItems.Add(modelProduction);
                 }
                 island.Calculate();
@@ -65,7 +65,7 @@ namespace MaterialCalculator.UserControls {
                 var modelReference = new WorkModelReference(island.ID, this.SelectedBuilding.Type) {
                   ReferenceID = model.SelectedIsland.ID
                 };
-                modelReference.Init();
+                modelReference.Init(null);
                 MainWindow.ApplicationModel.IslandItems.Add(modelReference);
                 island.Calculate();
                 break;
@@ -145,7 +145,7 @@ namespace MaterialCalculator.UserControls {
                   NumberOfBuildings = new NotifyProperty<Int32>(model.NumberOfBuildings),
                   Productivity = new NotifyProperty<Int32>(model.Productivity)
                 };
-                modelProduction.Init();
+                modelProduction.Init(workModel);
                 workModel.InputBuildings.Add(modelProduction);
                 island.Calculate();
                 break;
@@ -153,7 +153,7 @@ namespace MaterialCalculator.UserControls {
                 var modelReference = new WorkModelReference(island.ID, building.Type) {
                   ReferenceID = model.SelectedIsland.ID
                 };
-                modelReference.Init();
+                modelReference.Init(workModel);
                 workModel.InputBuildings.Add(modelReference);
                 island.Calculate();
                 break;
@@ -165,7 +165,9 @@ namespace MaterialCalculator.UserControls {
       }
     }
     private void ContextMenuRemove_OnClick(Object sender, RoutedEventArgs e) {
-
+      if (((MenuItem)sender).DataContext is WorkModel model && model.Parent is WorkModelGroup group) {
+        group.InputBuildings.Remove(model);
+      }
     }
     #endregion
 

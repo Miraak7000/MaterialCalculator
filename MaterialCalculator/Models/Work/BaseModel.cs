@@ -8,6 +8,7 @@ namespace MaterialCalculator.Models.Work {
 
     #region Properties
     public Guid IslandID { get; }
+    public BaseModel Parent { get; private set; }
     protected IslandModel Island {
       get { return MainWindow.ApplicationModel.Islands.SingleOrDefault(w => w.ID == this.IslandID); }
     }
@@ -16,6 +17,12 @@ namespace MaterialCalculator.Models.Work {
     #region Constructor
     protected BaseModel(Guid islandID) {
       this.IslandID = islandID;
+    }
+    #endregion
+
+    #region Public Methods
+    public virtual void Init(BaseModel parent) {
+      this.Parent = parent;
     }
     #endregion
 

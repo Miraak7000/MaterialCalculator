@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Data;
 using MaterialCalculator.Library;
 using MaterialCalculator.Models.Work;
@@ -33,9 +34,9 @@ namespace MaterialCalculator.Models.Island {
 
     #region Public Methods
     public void Init() {
-      //foreach (var building in this.Buildings.OfType<WorkModel>()) {
-      //  building.Init();
-      //}
+      foreach (var building in this.IslandItems.OfType<BaseModel>()) {
+        building.Init(null);
+      }
     }
     public void Calculate() {
       //foreach (var building in this.Buildings.OfType<WorkModel>()) {

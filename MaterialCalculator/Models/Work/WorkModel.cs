@@ -12,12 +12,13 @@ namespace MaterialCalculator.Models.Work {
     public Building Building { get; }
     public Int32 Depth {
       get {
-        var groups = MainWindow.ApplicationModel.IslandItems.Where(w => w.IslandID == this.IslandID).OfType<WorkModelGroup>();
-        foreach (var group in groups) {
-          var result = this.GetDepth(group, 1);
-          if (result > 0) return result;
+        var parent = this.Parent;
+        var counter = 0;
+        while (parent != null) {
+          counter++;
+          parent = parent.Parent;
         }
-        return 0;
+        return counter;
       }
     }
     public abstract Double OutputTarget { get; }
@@ -31,23 +32,6 @@ namespace MaterialCalculator.Models.Work {
     #region Constructor
     protected WorkModel(Guid islandID, Buildings building) : base(islandID) {
       this.Building = new Building(building);
-    }
-    #endregion
-
-    #region Public Methods
-    public abstract void Init();
-    #endregion
-
-    #region Private Methods
-    private Int32 GetDepth(WorkModelGroup item, Int32 depth) {
-      foreach (var input in item.InputBuildings) {
-        if (input == this) return depth;
-      }
-      foreach (var group in item.InputBuildings.OfType<WorkModelGroup>()) {
-        var result = this.GetDepth(group, depth + 1);
-        if (result > 0) return result;
-      }
-      return 0;
     }
     #endregion
 

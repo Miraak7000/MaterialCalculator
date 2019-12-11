@@ -49,8 +49,11 @@ namespace MaterialCalculator.Models.Work {
     #endregion
 
     #region Public Methods
-    public override void Init() {
-      //throw new NotImplementedException();
+    public override void Init(BaseModel parent) {
+      base.Init(parent);
+      foreach (var building in this.InputBuildings) {
+        building.Init(this);
+      }
     }
     #endregion
 

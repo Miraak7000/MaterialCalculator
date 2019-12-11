@@ -36,7 +36,8 @@ namespace MaterialCalculator.Models.Work {
     #endregion
 
     #region Public Methods
-    public override void Init() {
+    public override void Init(BaseModel parent) {
+      base.Init(parent);
       this.OutputTargetString = new NotifyProperty<String>(this.OutputActual.ToString("F3"));
       this.OutputActualString = new NotifyProperty<String>(this.OutputActual.ToString("F3"));
       this.StatusBackground = new NotifyProperty<SolidColorBrush>(new SolidColorBrush(Colors.White));
