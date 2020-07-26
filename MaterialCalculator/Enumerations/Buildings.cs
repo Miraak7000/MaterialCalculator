@@ -1,61 +1,62 @@
 ﻿using MaterialCalculator.Attributes;
 
+// ReSharper disable UnusedMember.Global
 namespace MaterialCalculator.Enumerations {
 
   public enum Buildings {
-    [Production(Materials.Wood, 15), LocalizedDescription(typeof(Buildings), "Lumberjack")]
+    [Building(Materials.Wood, 15)]
     Lumberjack,
-    [Production(Materials.Timber, 15, Materials.Wood), LocalizedDescription(typeof(Buildings), "Sawmill")]
+    [Building(Materials.Timber, 15, Materials.Wood)]
     Sawmill,
-    [Production(Materials.Coal, 15), LocalizedDescription(typeof(Buildings), "CoalMine")]
+    [Building(Materials.Coal, 15)]
     CoalMine,
-    [Production(Materials.Iron, 15), LocalizedDescription(typeof(Buildings), "IronMine")]
+    [Building(Materials.Iron, 15)]
     IronMine,
-    [Production(Materials.Steel, 30, Materials.Coal, Materials.Iron), LocalizedDescription(typeof(Buildings), "Furnace")]
+    [Building(Materials.Steel, 30, Materials.Coal, Materials.Iron)]
     Furnace,
-    [Production(Materials.SteelBeams, 45, Materials.Steel), LocalizedDescription(typeof(Buildings), "Steelworks")]
+    [Building(Materials.SteelBeams, 45, Materials.Steel)]
     Steelworks,
-    [Production(Materials.QuartzSand, 30), LocalizedDescription(typeof(Buildings), "SandMine")]
+    [Building(Materials.QuartzSand, 30)]
     SandMine,
-    [Production(Materials.Glass, 30, Materials.QuartzSand), LocalizedDescription(typeof(Buildings), "Glassmakers")]
+    [Building(Materials.Glass, 30, Materials.QuartzSand)]
     Glassmakers,
-    [Production(Materials.Windows, 60, Materials.Wood, Materials.Glass), LocalizedDescription(typeof(Buildings), "WindowMakers")]
+    [Building(Materials.Windows, 60, Materials.Wood, Materials.Glass)]
     WindowMakers,
-    [Production(Materials.Glasses, 90, Materials.Wood, Materials.Glass), LocalizedDescription(typeof(Buildings), "SpectacleFactory")]
+    [Building(Materials.Glasses, 90, Materials.Wood, Materials.Glass)]
     SpectacleFactory,
-    [Production(Materials.Filaments, 60, Materials.Coal), LocalizedDescription(typeof(Buildings), "FilamentFactory")]
+    [Building(Materials.Filaments, 60, Materials.Coal)]
     FilamentFactory,
-    [Production(Materials.LightBulbs, 60, Materials.Glass, Materials.Filaments), LocalizedDescription(typeof(Buildings), "LightBulbFactory")]
+    [Building(Materials.LightBulbs, 60, Materials.Glass, Materials.Filaments)]
     LightBulbFactory,
-    [Production(Materials.Coal, 30), LocalizedDescription(typeof(Buildings), "CharcoalKiln")]
+    [Building(Materials.Coal, 30)]
     CharcoalKiln,
-    [Production(Materials.Caoutchouc, 60), LocalizedDescription(typeof(Buildings), "CaoutchoucPlantation")]
+    [Building(Materials.Caoutchouc, 60)]
     CaoutchoucPlantation,
-    [Production(Materials.Chassis, 120, Materials.Wood, Materials.Caoutchouc), LocalizedDescription(typeof(Buildings), "Coachmakers")]
+    [Building(Materials.Chassis, 120, Materials.Wood, Materials.Caoutchouc)]
     Coachmakers,
-    [Production(Materials.Zinc, 30), LocalizedDescription(typeof(Buildings), "ZincMine")]
+    [Building(Materials.Zinc, 30)]
     ZincMine,
-    [Production(Materials.Copper, 30), LocalizedDescription(typeof(Buildings), "CopperMine")]
+    [Building(Materials.Copper, 30)]
     CopperMine,
-    [Production(Materials.Brass, 60, Materials.Zinc, Materials.Copper), LocalizedDescription(typeof(Buildings), "BrassSmeltery")]
+    [Building(Materials.Brass, 60, Materials.Zinc, Materials.Copper)]
     BrassSmeltery,
-    [Production(Materials.SteamMotors, 45, Materials.Steel, Materials.Brass), LocalizedDescription(typeof(Buildings), "MotorAssemblyLine")]
+    [Building(Materials.SteamMotors, 45, Materials.Steel, Materials.Brass)]
     MotorAssemblyLine,
-    [Production(Materials.SteamCarriages, 30, Materials.Chassis, Materials.SteamMotors), LocalizedDescription(typeof(Buildings), "CabAssemblyLine")]
+    [Building(Materials.SteamCarriages, 30, Materials.Chassis, Materials.SteamMotors)]
     CabAssemblyLine,
-    [Production(Materials.WoodVeneers, 60, Materials.Wood), LocalizedDescription(typeof(Buildings), "MarquetryWorkshop")]
+    [Building(Materials.WoodVeneers, 60, Materials.Wood)]
     MarquetryWorkshop,
-    [Production(Materials.Gramophones, 60, Materials.WoodVeneers, Materials.Brass), LocalizedDescription(typeof(Buildings), "GramophoneFactory")]
+    [Building(Materials.Gramophones, 60, Materials.WoodVeneers, Materials.Brass)]
     GramophoneFactory,
-    [Production(Materials.Grapes, 120), LocalizedDescription(typeof(Buildings), "Vineyard")]
+    [Building(Materials.Grapes, 120)]
     Vineyard,
-    [Production(Materials.Champagne, 30, Materials.Grapes, Materials.Glass), LocalizedDescription(typeof(Buildings), "ChampagneCellar")]
+    [Building(Materials.Champagne, 30, Materials.Grapes, Materials.Glass)]
     ChampagneCellar,
-    [Production(Materials.CoffeeBeans, 60), LocalizedDescription(typeof(Buildings), "CoffeePlantation")]
+    [Building(Materials.CoffeeBeans, 60)]
     CoffeePlantation,
-    [Production(Materials.Coffee, 30, Materials.CoffeeBeans), LocalizedDescription(typeof(Buildings), "CoffeeRoaster")]
+    [Building(Materials.Coffee, 30, Materials.CoffeeBeans)]
     CoffeeRoaster,
-    [Production(Materials.GoldOre, 150), LocalizedDescription(typeof(Buildings), "GoldMine")]
+    [Building(Materials.GoldOre, 150)]
     GoldMine
   }
 

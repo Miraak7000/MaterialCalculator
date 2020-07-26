@@ -26,6 +26,7 @@ namespace MaterialCalculator.Library {
     #endregion
 
     #region Constructor
+    // ReSharper disable once UnusedMember.Local
     private NotifyProperty() {
     }
     public NotifyProperty(T value) {

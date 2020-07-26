@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace MaterialCalculator {
+﻿namespace MaterialCalculator {
 
   public partial class App {
 
@@ -10,7 +8,7 @@ namespace MaterialCalculator {
     #endregion
 
     #region Public Methods
-    public void ChangeLanguage() {
+    public static void ChangeLanguage() {
       var oldWindow = App.Current.MainWindow as MainWindow;
       oldWindow?.Finish();
       // create a new window after languages was changed

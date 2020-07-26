@@ -1,9 +1,9 @@
 ﻿using System;
 using MaterialCalculator.Enumerations;
 
-namespace MaterialCalculator.Models {
+namespace MaterialCalculator.Models.Create {
 
-  public class CreateProductionBuildingModel : CreateBuildingModel {
+  public class CreateProductionModel : CreateModel {
 
     #region Properties
     public Int32 NumberOfBuildings { get; set; }
@@ -11,7 +11,7 @@ namespace MaterialCalculator.Models {
     #endregion
 
     #region Constructor
-    public CreateProductionBuildingModel(Buildings building) : base(building) {
+    public CreateProductionModel(Buildings building) : base(building) {
       this.NumberOfBuildings = 1;
       this.Productivity = 100;
     }

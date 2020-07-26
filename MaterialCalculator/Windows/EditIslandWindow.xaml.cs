@@ -4,7 +4,7 @@ using System.Windows;
 // ReSharper disable once MemberCanBePrivate.Global
 namespace MaterialCalculator.Windows {
 
-  public partial class EditIslandWindow : Window {
+  public partial class EditIslandWindow {
 
     #region Properties
     public String IslandName { get; set; }

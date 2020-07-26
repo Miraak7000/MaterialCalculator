@@ -6,7 +6,7 @@
         xmlns:resources="clr-namespace:MaterialCalculator.Resources"
         xmlns:windows="clr-namespace:MaterialCalculator.Windows"
         xmlns:library="clr-namespace:MaterialCalculator.Library"
-        xmlns:models="clr-namespace:MaterialCalculator.Models"
+        xmlns:create="clr-namespace:MaterialCalculator.Models.Create"
         mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=windows:AddBuildingWindow}"
         SizeToContent="WidthAndHeight"
         Title="{x:Static resources:Localization.AddBuildingWindow_Title}" WindowStyle="SingleBorderWindow"
@@ -14,8 +14,8 @@
         ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
 
   <Window.Resources>
-    <library:CreateBuildingTemplateSelector x:Key="BuildingTemplateSelector" />
-    <DataTemplate x:Key="ProductionTemplate" DataType="models:CreateProductionBuildingModel">
+    <library:CreateTemplateSelector x:Key="BuildingTemplateSelector" />
+    <DataTemplate x:Key="ProductionTemplate" DataType="create:CreateProductionModel">
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="24" />
@@ -39,7 +39,7 @@
                  Text="{Binding Path=Productivity, UpdateSourceTrigger=PropertyChanged}" Padding="0,1,0,0" />
       </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="ReferenceTemplate" DataType="models:CreateReferenceBuildingModel">
+    <DataTemplate x:Key="ReferenceTemplate" DataType="create:CreateReferenceModel">
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="24" />
